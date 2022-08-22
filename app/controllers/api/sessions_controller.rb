@@ -33,5 +33,4 @@ class Api::SessionsController < ApplicationController
     render json: { success: true }, status: :ok if session and session.destroy
   end
 
-  private
 end
