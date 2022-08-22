@@ -44,6 +44,10 @@ Rails.application.routes.draw do
     post    "/product_codes"        => "product_codes#create"
     get     "/product_codes/:desc"  => "product_codes#find_product_code_by_desc"
 
+        #product code api
+    post    "/codes"                => "codes#create"
+    get     "/codes/:desc"          => "codes#find_product_code_by_desc"
+
     #address api
     post    "/addresses"            => "addresses#create"
     get     "/addresses"            => "addresses#index"
