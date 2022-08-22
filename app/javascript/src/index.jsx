@@ -1,18 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Home from './home';
+import Context from './context';
 import Layout from './layout';
+import Home from './home';
+import Login from './login';
+import Signup from './signup';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const Index = () => (
 	<>
-		<BrowserRouter>
-			<Routes>
-				<Route path='/' element={<Layout />}>
-					<Route index element={<Home />} />
-					{/* <Route path='login' element={<Login />} />
-					<Route path='signup' element={<Signup />} />
-					<Route path='bracelet' element={<Product />} />
+		<Context>
+			<BrowserRouter>
+				<Routes>
+					<Route path='/' element={<Layout />}>
+						<Route index element={<Home />} />
+						<Route path='login' element={<Login />} />
+						<Route path='signup' element={<Signup />} />
+						{/* <Route path='bracelet' element={<Product />} />
 					<Route path='earrings' element={<Product />} />
 					<Route path='product/:sku' element={<ListingProduct />} />
 					<Route path='cart' element={<Cart />} />
@@ -20,13 +24,14 @@ const Index = () => (
 						<Route index element={<AccountHome />} />
 					</Route>
 					*/}
-				</Route>
-			</Routes>
-		</BrowserRouter>
+					</Route>
+				</Routes>
+			</BrowserRouter>
+		</Context>
 	</>
 );
 
-console.log('i have no idea why it does not work');
+console.log('keep checking the loading');
 
 document.addEventListener('DOMContentLoaded', () => {
 	ReactDOM.render(

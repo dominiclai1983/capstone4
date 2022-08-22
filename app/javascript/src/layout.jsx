@@ -3,25 +3,25 @@ import _ from 'lodash';
 import { Menu, Image, Dropdown, Icon } from 'semantic-ui-react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import axios from 'axios';
-//import { CartState } from '@src/context';
+import { CartState } from '@src/context';
 
 function Layout() {
 	const { pathname } = useLocation();
-	//const { cart, setCart, currentOrder, setCurrentOrder } = CartState();
+	const { cart, setCart, currentCartID, setCurrentCartID } = CartState();
 	const path = pathname === '/' ? 'home' : pathname.substring(1);
 
 	const [activeItem, setActiveItem] = useState(path);
 	const [isLogin, setIsLogin] = useState(false);
 	const [username, setUsername] = useState('');
 
-	/*
+	//this useEffect() is checking the login status
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				const result = await axios.get('/api/authenticated');
 				setIsLogin(result.data.authenticated);
 				setUsername(result.data.username);
-				setCurrentOrder(result.data.current_order);
+				setCurrentCartID(result.data.current_order);
 			} catch (err) {
 				console.error(err);
 			}
@@ -29,21 +29,25 @@ function Layout() {
 		fetchData();
 	}, []);
 
-	console.log('some string');
-
+	//this useEffect is checking the user cart || guest cart
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const result = await axios.get(`/api/order_details/${currentOrder}`);
-				setCart(result.data.order_details);
+				if (username) {
+					const result = await axios.get(`/api/cart_details/${currentCart}`);
+					setCart(result.data.cart_details);
+				} else {
+					const result = await axios.get('api/guest_cart_details');
+					setCart(result.data.guest_cart_details);
+				}
 			} catch (err) {
 				console.error(err);
 			}
 		};
 		fetchData();
-	}, [currentOrder]);
-*/
-	console.log('anything wrong');
+	}, [cart]);
+
+	console.log('checker marker');
 
 	const handleItemClick = (e, { name }) => setActiveItem(name);
 
@@ -88,7 +92,7 @@ function Layout() {
 		let { username } = props;
 		return (
 			<>
-				<Dropdown item text={username.toString()}>
+				<Dropdown item text={username}>
 					<Dropdown.Menu>
 						<Dropdown.Item as='a' href='/account'>
 							Account
@@ -157,7 +161,7 @@ function Layout() {
 						style={{ marginRight: 20 }}
 					>
 						<Icon name='shopping cart' size='large' />
-						{/* {cart.length} */}
+						{cart.length}
 					</Menu.Item>
 				</Menu.Menu>
 			</Menu>

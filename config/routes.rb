@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root to: "static_pages#index"
 
+  get "/login"                => "static_pages#index"
+  get "/signup"               => "static_pages#index"
+
   namespace :api do
     resources :users, only: %i[create index]
     resources :order_details, only: [:create]

@@ -31,6 +31,9 @@ class Api::GuestCartDetailsController < ApplicationController
     end
   end
 
+  def get_order_details_by_global_id
+  end
+
   private
 
   def session
