@@ -1,0 +1,2 @@
+class GuestCart < ApplicationRecord
+end

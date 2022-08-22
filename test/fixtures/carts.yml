@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cart_detail: MyString
+  charge: MyString
+  guest_cart: MyString
+  guest_cart_detail: MyString
+  order: MyString
+  order_detail: MyString
+  product: MyString
+  product_code: MyString
+  session: MyString
+  user: MyString
+
+two:
+  cart_detail: MyString
+  charge: MyString
+  guest_cart: MyString
+  guest_cart_detail: MyString
+  order: MyString
+  order_detail: MyString
+  product: MyString
+  product_code: MyString
+  session: MyString
+  user: MyString
