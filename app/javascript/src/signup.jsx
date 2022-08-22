@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form, Icon, Message, Container } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Signup = () => {
 	const [username, setUsername] = useState('');
@@ -9,14 +10,24 @@ const Signup = () => {
 	const [passwordConfirmation, setPasswordConfirmation] = useState('');
 	const [disableTAndC, setDisableTAndC] = useState(true);
 
-	const user = {
-		username,
-		email,
-		password,
-		passwordConfirmation,
-	};
+	const handleSubmit = async () => {
+		const user = {
+			username,
+			email,
+			password,
+			passwordConfirmation,
+		};
 
-	const handleSubmit = async () => {};
+		try {
+			const result = await axios.post('/api/users', user);
+			console.log(result.data);
+			if (result.data.success) {
+				window.location.replace('/');
+			}
+		} catch (err) {
+			console.error(err);
+		}
+	};
 
 	return (
 		<>
@@ -26,7 +37,7 @@ const Signup = () => {
 					header='Welcome to our site!'
 					content='Fill out the form below to sign-up for a new account'
 				/>
-				<Form className='attached fluid segment'>
+				<Form className='attached fluid segment' onSubmit={handleSubmit()}>
 					<Form.Input
 						label='Email'
 						placeholder='email@email.com'
@@ -70,7 +81,7 @@ const Signup = () => {
 						label='I agree to the terms and conditions'
 						onClick={() => {
 							setDisableTAndC(!disableTAndC);
-							console.log(checkTAndC);
+							console.log(disableTAndC);
 						}}
 					/>
 					<Button color='blue' disabled={disableTAndC}>
