@@ -3,7 +3,7 @@ class Product < ApplicationRecord
     attachable.variant :thumb, resize_to_limit: [300, 300]
   end
 
-  has_one :product_code
+  has_one :code
 
   validates_uniqueness_of :sku
 

@@ -6,10 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-product_codes =
-  ProductCode.create(
-    [{ code: "A101", desc: "Bracelet" }, { code: "A102", desc: "Earrings" }]
-  )
 
 products =
   Product.create(
@@ -20,7 +16,7 @@ products =
         sku: "B101",
         price: 19.33,
         quantity: 20,
-        product_code_id: 1
+        code_id: 6
       },
       {
         title: "A Medium Bracelet",
@@ -28,7 +24,7 @@ products =
         sku: "B102",
         price: 16.55,
         quantity: 40,
-        product_code_id: 1
+        code_id: 6
       },
       {
         title: "A Small Bracelet",
@@ -36,10 +32,35 @@ products =
         sku: "B103",
         price: 13.44,
         quantity: 40,
-        product_code_id: 1
+        code_id: 6
+      },
+      {
+        title: "A Large Earrings",
+        description: "A Large Bracelet",
+        sku: "B201",
+        price: 19.33,
+        quantity: 20,
+        code_id: 7
+      },
+      {
+        title: "A Medium Earrings",
+        description: "A Medium Bracelet",
+        sku: "B202",
+        price: 16.55,
+        quantity: 40,
+        code_id: 7
+      },
+      {
+        title: "A Small Earrings",
+        description: "A Small Bracelet",
+        sku: "B203",
+        price: 13.44,
+        quantity: 40,
+        code_id: 7
       }
     ]
   )
+=begin
   users =
   User.create(
     [
@@ -66,3 +87,4 @@ products =
       }
     ]
   )
+=end

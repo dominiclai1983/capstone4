@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_22_064509) do
+ActiveRecord::Schema.define(version: 2022_08_22_153752) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "first_name"
@@ -58,6 +58,13 @@ ActiveRecord::Schema.define(version: 2022_08_22_064509) do
     t.index ["order_id"], name: "index_charges_on_order_id"
   end
 
+  create_table "codes", force: :cascade do |t|
+    t.string "code"
+    t.string "desc"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "guest_cart_details", force: :cascade do |t|
     t.decimal "price", precision: 10, scale: 2
     t.decimal "total", precision: 10, scale: 2
@@ -100,13 +107,6 @@ ActiveRecord::Schema.define(version: 2022_08_22_064509) do
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
-  create_table "product_codes", force: :cascade do |t|
-    t.string "code"
-    t.string "desc"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "products", force: :cascade do |t|
     t.string "title"
     t.string "description"
@@ -117,8 +117,8 @@ ActiveRecord::Schema.define(version: 2022_08_22_064509) do
     t.integer "reserved"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "product_code_id"
-    t.index ["product_code_id"], name: "index_products_on_product_code_id"
+    t.integer "code_id"
+    t.index ["code_id"], name: "index_products_on_code_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -149,6 +149,6 @@ ActiveRecord::Schema.define(version: 2022_08_22_064509) do
   add_foreign_key "order_details", "orders"
   add_foreign_key "order_details", "products"
   add_foreign_key "orders", "users"
-  add_foreign_key "products", "product_codes"
+  add_foreign_key "products", "codes"
   add_foreign_key "sessions", "users"
 end
