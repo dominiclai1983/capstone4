@@ -1,7 +1,6 @@
 class Api::GuestCartDetailsController < ApplicationController
 
   def create
-
     @id = cookies.signed[:guest_cart]
 
     if !@id
@@ -35,10 +34,11 @@ class Api::GuestCartDetailsController < ApplicationController
     @id = cookies.signed[:guest_cart]
 
     if @id
-    render "api/guest_cart_details/index", status: :ok
-   else
-    render json: { authenticated: false }, status: :bad_request
-   end
+      @guest_cart_details = GuestCartDetail.where(guest_cart_id: @id)
+      render "api/guest_cart_details/index", status: :ok
+    else
+      render json: { authenticated: false }, status: :bad_request
+    end
   end
 
   private
