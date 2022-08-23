@@ -1,12 +1,18 @@
 class Api::GuestCartDetailsController < ApplicationController
 
   def create
-    @id = cookies.signed[:guest_cart]
+    
+    if session 
+    #check session is login or not to ensure the user to not login 
+      render json: { authenticated: true }, status: :bad_request
+    else
+      @id = cookies.signed[:guest_cart]
 
-    if !@id
-      guest_cart = GuestCart.create
-      cookies.signed[:guest_cart] = {value: guest_cart.id, expires: 30.days}
-      @id = guest_cart.id
+      if !@id
+        guest_cart = GuestCart.create
+        cookies.signed[:guest_cart] = {value: guest_cart.id, expires: 30.days}
+        @id = guest_cart.id
+      end
     end
 
     total = params[:guest_cart_detail][:quantity] * params[:guest_cart_detail][:price]

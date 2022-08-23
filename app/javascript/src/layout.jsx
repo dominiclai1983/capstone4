@@ -44,7 +44,7 @@ function Layout() {
 					const result = await axios.get(`/api/cart_details/${currentCart}`);
 					setCart(result.data.cart_details);
 				} else {
-					const result = await axios.get('api/guest_cart_details');
+					const result = await axios.get(`/api/guest_cart_details`);
 					setCart(result.data.guest_cart_details);
 				}
 			} catch (err) {
@@ -52,7 +52,7 @@ function Layout() {
 			}
 		};
 		fetchData();
-	}, [cart]);
+	}, []);
 
 	console.log(loginStatus);
 	console.log('order number' + currentCartID);
