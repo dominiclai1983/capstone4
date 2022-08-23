@@ -7,11 +7,17 @@ import { CartState } from '@src/context';
 
 function Layout() {
 	const { pathname } = useLocation();
-	const { cart, setCart, currentCartID, setCurrentCartID } = CartState();
+	const {
+		cart,
+		setCart,
+		currentCartID,
+		setCurrentCartID,
+		setLoginStatus,
+		loginStatus,
+	} = CartState();
 	const path = pathname === '/' ? 'home' : pathname.substring(1);
 
 	const [activeItem, setActiveItem] = useState(path);
-	const [isLogin, setIsLogin] = useState(false);
 	const [username, setUsername] = useState('');
 
 	//this useEffect() is checking the login status
@@ -19,9 +25,10 @@ function Layout() {
 		const fetchData = async () => {
 			try {
 				const result = await axios.get('/api/authenticated');
-				setIsLogin(result.data.authenticated);
+				setLoginStatus(result.data.authenticated);
 				setUsername(result.data.username);
 				setCurrentCartID(result.data.current_order);
+				console.log(result);
 			} catch (err) {
 				console.error(err);
 			}
@@ -47,7 +54,8 @@ function Layout() {
 		fetchData();
 	}, [cart]);
 
-	console.log('checker marker');
+	console.log(loginStatus);
+	console.log('order number' + currentCartID);
 
 	const handleItemClick = (e, { name }) => setActiveItem(name);
 
@@ -147,7 +155,7 @@ function Layout() {
 					Earrings
 				</Menu.Item>
 				<Menu.Menu position='right'>
-					{isLogin ? (
+					{loginStatus ? (
 						<LogoutComponent username={username} />
 					) : (
 						<LoginComponent />

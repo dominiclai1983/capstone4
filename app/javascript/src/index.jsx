@@ -5,6 +5,8 @@ import Layout from './layout';
 import Home from './home';
 import Login from './login';
 import Signup from './signup';
+import Product from './product';
+import ListingProduct from './listingProduct';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const Index = () => (
@@ -16,10 +18,10 @@ const Index = () => (
 						<Route index element={<Home />} />
 						<Route path='login' element={<Login />} />
 						<Route path='signup' element={<Signup />} />
-						{/* <Route path='bracelet' element={<Product />} />
-					<Route path='earrings' element={<Product />} />
-					<Route path='product/:sku' element={<ListingProduct />} />
-					<Route path='cart' element={<Cart />} />
+						<Route path='bracelet' element={<Product />} />
+						<Route path='earrings' element={<Product />} />
+						<Route path='product/:sku' element={<ListingProduct />} />
+						{/*<Route path='cart' element={<Cart />} />
 					<Route path='account' element={<AccountLayout />}>
 						<Route index element={<AccountHome />} />
 					</Route>

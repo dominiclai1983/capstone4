@@ -7,18 +7,21 @@ const Context = ({ children }) => {
 	const [shippingAddress, setShippingAddress] = useState({});
 	const [billingAddress, setBillingAddress] = useState({});
 	const [currentCartID, setCurrentCartID] = useState('');
+	const [loginStatus, setLoginStatus] = useState(false);
 
 	return (
 		<Cart.Provider
 			value={{
 				cart,
 				setCart,
-				currentCartID,
-				setCurrentCartID,
 				shippingAddress,
 				setShippingAddress,
 				billingAddress,
 				setBillingAddress,
+				currentCartID,
+				setCurrentCartID,
+				loginStatus,
+				setLoginStatus,
 			}}
 		>
 			{children}

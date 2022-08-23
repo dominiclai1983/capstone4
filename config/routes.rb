@@ -3,6 +3,11 @@ Rails.application.routes.draw do
 
   get "/login"                => "static_pages#index"
   get "/signup"               => "static_pages#index"
+  get "/bracelet"             => "static_pages#index"
+  get "/earrings"             => "static_pages#index"
+  get "/product/:sku"         => "static_pages#index"
+  get "/account"              => "static_pages#index"
+  get "/cart"                 => "static_pages#index"
 
   namespace :api do
     resources :users, only: %i[create index]

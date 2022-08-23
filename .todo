@@ -7,6 +7,9 @@ backend
   - route
 
 frontend
+- product 
+- loyout
+  - active item on the layout bar
 
 webpack 
 -setting
