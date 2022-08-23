@@ -1,6 +1,6 @@
 //here is partly of the component for displaying product, the layout of the listing product
 import React, { useState, useEffect } from 'react';
-import { Card, Image, Container, Dropdown, Grid } from 'semantic-ui-react';
+import { Card, Image, Container } from 'semantic-ui-react';
 import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
@@ -15,9 +15,6 @@ const ItemDisplay = (props) => {
 	const [products, setProducts] = useState([]);
 	const [totalPages, setTotalPages] = useState(null);
 	const [nextPage, setNextPage] = useState(null);
-
-	console.log(path);
-	console.log(sortingType);
 
 	useEffect(() => {
 		const fetchData = async () => {

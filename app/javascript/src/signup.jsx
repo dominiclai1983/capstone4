@@ -37,7 +37,13 @@ const Signup = () => {
 					header='Welcome to our site!'
 					content='Fill out the form below to sign-up for a new account'
 				/>
-				<Form className='attached fluid segment' onSubmit={handleSubmit()}>
+				<Form
+					className='attached fluid segment'
+					onSubmit={(e) => {
+						e.preventDefault();
+						handleSubmit();
+					}}
+				>
 					<Form.Input
 						label='Email'
 						placeholder='email@email.com'
@@ -79,7 +85,7 @@ const Signup = () => {
 					<Form.Checkbox
 						inline
 						label='I agree to the terms and conditions'
-						onClick={() => {
+						onChange={() => {
 							setDisableTAndC(!disableTAndC);
 							console.log(disableTAndC);
 						}}

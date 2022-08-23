@@ -34,7 +34,7 @@ function Layout() {
 			}
 		};
 		fetchData();
-	}, []);
+	}, [cart]);
 
 	//this useEffect is checking the user cart || guest cart
 	useEffect(() => {

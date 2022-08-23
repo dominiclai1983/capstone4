@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
 	Grid,
 	Image,
@@ -6,8 +6,7 @@ import {
 	Divider,
 	Button,
 	Container,
-	Icon,
-	Label,
+	Popup,
 } from 'semantic-ui-react';
 import { CartState } from '@src/context';
 import ProductIconGroup from '@components/listingProduct/ProductIconGroup';
@@ -17,6 +16,7 @@ const ProductLayOut = (props) => {
 	let { title, price, description, product_id } = props;
 	const { cart, setCart, currentCartID, setCurrentCartID, loginStatus } =
 		CartState();
+	const [disablePopup, setDisablePopup] = useState(true);
 	console.log(`productID ${product_id}`);
 
 	const getOrderNumber = async () => {
@@ -48,6 +48,9 @@ const ProductLayOut = (props) => {
 			if (result.data) {
 				console.log(result.data.order_detail);
 				setCart([...cart, result.data.order_detail]);
+				//remember to remove result.data.order_detail with proper header
+				console.log(cart);
+				showAddItemPopUp();
 			}
 		} catch (err) {
 			console.error(err);
@@ -62,16 +65,14 @@ const ProductLayOut = (props) => {
 		};
 
 		try {
-			const result = await axios.post('../api/guest_cart_details', prod);
+			const result = await axios.post('/api/guest_cart_details', prod);
 			if (result.data) {
-				setCart([...cart, result.data.order_detail]);
+				setCart([...cart, result.data.guest_cart_detail]);
 			}
 		} catch (err) {
 			console.error(err);
 		}
 	};
-
-	console.log(`login status ` + loginStatus);
 
 	return (
 		<Grid>
