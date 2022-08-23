@@ -33,12 +33,12 @@ class Api::CartDetailsController < ApplicationController
     end
   end
 
-  def get_order_details_by_cart_id
+  def get_cart_details_by_cart_id
     if session
-      @order_details = CartDetail.where(cart_id: params[:cart])
+      @order_details = CartDetail.where(cart_id: params[:cart], remove: false)
       render "api/cart_details/index", status: :ok
     else
-      render json: { order_details: [] }
+      render json: { order_details: [] }, status: :bad_request
     end 
   end
 

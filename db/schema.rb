@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_22_153752) do
+ActiveRecord::Schema.define(version: 2022_08_23_102016) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "first_name"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 2022_08_22_153752) do
     t.decimal "price", precision: 10, scale: 2
     t.decimal "total", precision: 10, scale: 2
     t.integer "quantity"
+    t.boolean "remove", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "cart_id"
@@ -69,6 +70,7 @@ ActiveRecord::Schema.define(version: 2022_08_22_153752) do
     t.decimal "price", precision: 10, scale: 2
     t.decimal "total", precision: 10, scale: 2
     t.integer "quantity"
+    t.boolean "remove", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "guest_cart_id"
@@ -115,9 +117,9 @@ ActiveRecord::Schema.define(version: 2022_08_22_153752) do
     t.integer "quantity"
     t.integer "available"
     t.integer "reserved"
+    t.integer "code_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "code_id"
     t.index ["code_id"], name: "index_products_on_code_id"
   end
 

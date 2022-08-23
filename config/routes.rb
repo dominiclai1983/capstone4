@@ -16,27 +16,29 @@ Rails.application.routes.draw do
     #including a .prettierignore to opt out a file
 
     #charge api
-    post    "/charge/mark_complete" => "charges#mark_complete"
-    post    "/charges"              => "charges#create"
+    post    "/charge/mark_complete"        => "charges#mark_complete"
+    post    "/charges"                     => "charges#create"
 
     #order_detail api
-    post    "/order_details"        => "order_details#create"
-    get     "/order_details/:order" => "order_details#get_order_details_by_order_id"
+    post    "/order_details"               => "order_details#create"
+    get     "/order_details/:order"        => "order_details#get_order_details_by_order_id"
 
     #cart_detail api
-    post    "/cart_details"         => "cart_details#create"
-    get     "/cart_details/:cart"   => "cart_details#get_order_details_by_cart_id"
+    post    "/cart_details"                => "cart_details#create"
+    get     "/cart_details/:cart"          => "cart_details#get_cart_details_by_cart_id"
+    put     "/cart_details/:cartid"        => "guest_cart_details#inactive_item_in_guest_cart"
 
     #guest_cart_detail api
-    post    "/guest_cart_details"   => "guest_cart_details#create"
-    get     "/guest_cart_details"   => "guest_cart_details#get_order_details_by_global_id"
+    post    "/guest_cart_details"          => "guest_cart_details#create"
+    get     "/guest_cart_details"          => "guest_cart_details#get_guest_cart_details_by_cart_id"
+    put     "/guest_cart_details/:cartid"  => "guest_cart_details#inactive_item_in_guest_cart"
 
     #order api
-    get     "/orders"               => "orders#index"
-    post    "/orders"               => "orders#create"
-    get     "/orders/:id"           => "orders#get_order_by_order_id"
-    post    "/orders/:id"           => "orders#edit_order_by_order_id"
-    post    "/orders/tracking/:id"  => "orders#report_tracking_number_by_order_id"
+    get     "/orders"                      => "orders#index"
+    post    "/orders"                      => "orders#create"
+    get     "/orders/:id"                  => "orders#get_order_by_order_id"
+    post    "/orders/:id"                  => "orders#edit_order_by_order_id"
+    post    "/orders/tracking/:id"         => "orders#report_tracking_number_by_order_id"
 
     #product api 
     get     "/products"             => "products#index"

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CartState } from '@src/context';
 import { Button, Container, Table, Image, Icon } from 'semantic-ui-react';
-import axios from 'axios';
 
 const Cart = () => {
 	const { cart, setCart, loginStatus } = CartState();
@@ -19,14 +18,12 @@ const Cart = () => {
 		try {
 			const result = await axios.put(`/api/guest_cart_details/${guestCartID}`);
 			if (result.data) {
-				console.log(result);
 				setCart((cart) => cart.filter((_, i) => i !== index));
 			}
 		} catch (err) {
 			console.error(err);
 		}
 	};
-	console.log(cart);
 
 	return (
 		<Container style={{ marginTop: 20 }}>
@@ -63,26 +60,31 @@ const Cart = () => {
 							</Table.Cell>
 						</Table.Row>
 					))}
-
-					<Table.Row>
-						<Table.Cell>
-							{cart.length === 0 ? null : (
-								<Button
-									floated='right'
-									icon
-									labelPosition='left'
-									primary
-									size='small'
-									as='a'
-									href='/checkout'
-								>
-									<Icon name='check' /> Check Out
-								</Button>
-							)}
-						</Table.Cell>
-					</Table.Row>
 				</Table.Body>
 			</Table>
+
+			<Table.Footer>
+				<Table.Row>
+					<Table.Cell />
+					<Table.Cell />
+					<Table.Cell />
+					<Table.Cell>
+						{cart.length === 0 ? null : (
+							<Button
+								floated='right'
+								icon
+								labelPosition='left'
+								primary
+								size='small'
+								as='a'
+								href='/checkout'
+							>
+								<Icon name='check' /> Check Out
+							</Button>
+						)}
+					</Table.Cell>
+				</Table.Row>
+			</Table.Footer>
 		</Container>
 	);
 };

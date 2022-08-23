@@ -5,8 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
 =begin
+codes =
+  Code.create(
+    [{ code: "A101", desc: "bracelet" }, { code: "A102", desc: "earrings" }]
+  )
+
+=end
+
 products =
   Product.create(
     [
@@ -16,7 +22,7 @@ products =
         sku: "B101",
         price: 19.33,
         quantity: 20,
-        code_id: 6
+        code_id: 1
       },
       {
         title: "A Medium Bracelet",
@@ -24,7 +30,7 @@ products =
         sku: "B102",
         price: 16.55,
         quantity: 40,
-        code_id: 6
+        code_id: 1
       },
       {
         title: "A Small Bracelet",
@@ -32,7 +38,7 @@ products =
         sku: "B103",
         price: 13.44,
         quantity: 40,
-        code_id: 6
+        code_id: 1
       },
       {
         title: "A Large Earrings",
@@ -40,7 +46,7 @@ products =
         sku: "B201",
         price: 19.33,
         quantity: 20,
-        code_id: 7
+        code_id: 2
       },
       {
         title: "A Medium Earrings",
@@ -48,7 +54,7 @@ products =
         sku: "B202",
         price: 16.55,
         quantity: 40,
-        code_id: 7
+        code_id: 2
       },
       {
         title: "A Small Earrings",
@@ -56,11 +62,12 @@ products =
         sku: "B203",
         price: 13.44,
         quantity: 40,
-        code_id: 7
+        code_id: 2
       }
     ]
   )
-=end
+
+
   users =
   User.create(
     [
@@ -87,3 +94,4 @@ products =
       }
     ]
   )
+

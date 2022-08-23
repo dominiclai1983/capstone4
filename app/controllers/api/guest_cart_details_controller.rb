@@ -25,25 +25,37 @@ class Api::GuestCartDetailsController < ApplicationController
             product_id: params[:guest_cart_detail][:product_id],
             price: params[:guest_cart_detail][:price],
             quantity: params[:guest_cart_detail][:quantity],
-            total: total
+            total: total,
           }
         )
       render "api/guest_cart_details/show", status: :created
     rescue ArgumentError => e
       render json: { error: e.message }, status: :bad_request
     end
-
   end
 
-#TODO: this is not a completed method. we just extract the order id from cookies. 
-  def get_order_details_by_global_id
+  def get_guest_cart_details_by_cart_id
     @id = cookies.signed[:guest_cart]
 
     if @id
-      @guest_cart_details = GuestCartDetail.where(guest_cart_id: @id)
+      @guest_cart_details = GuestCartDetail.where(guest_cart_id: @id, remove: false)
       render "api/guest_cart_details/index", status: :ok
     else
-      render json: { authenticated: false }, status: :bad_request
+      render json: { guest_cart_details: [] }, status: :bad_request
+    end
+  end
+
+  def inactive_item_in_guest_cart
+    if session 
+      #check session is login or not to ensure the user to not login 
+        render json: { authenticated: true }, status: :bad_request
+      else
+        guest_cart_detail = GuestCartDetail.find_by(id: params[:cartid])
+        if guest_cart_detail.update(remove: true)
+          render "api/guest_cart_details/edit", status: :ok
+        else
+          render json: { success: false }
+        end
     end
   end
 
