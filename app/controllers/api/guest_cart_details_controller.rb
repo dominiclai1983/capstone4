@@ -2,18 +2,14 @@ class Api::GuestCartDetailsController < ApplicationController
 
   def create
 
-      global_id = GlobalID::Locator.locate_signed(cookies[:guest_cart])
-      #if !session[:ecommerce_cart_id]
-        guest_cart = GuestCart.create
-        global_id = guest_cart.to_signed_global_id
-        cookies[:guest_cart] = global_id.to_s
-        #session[:ecommerce_cart_id] = global_id.to_s
-        #@id = guest_cart.id
-      #else
-        #@id = global_id
-      #end
+    @id = cookies.signed[:guest_cart]
 
-=begin
+    if !@id
+      guest_cart = GuestCart.create
+      cookies.signed[:guest_cart] = {value: guest_cart.id, expires: 30.days}
+      @id = guest_cart.id
+    end
+
     total = params[:guest_cart_detail][:quantity] * params[:guest_cart_detail][:price]
 
     begin
@@ -31,11 +27,18 @@ class Api::GuestCartDetailsController < ApplicationController
     rescue ArgumentError => e
       render json: { error: e.message }, status: :bad_request
     end
-=end
+
   end
 
-
+#TODO: this is not a completed method. we just extract the order id from cookies. 
   def get_order_details_by_global_id
+    @id = cookies.signed[:guest_cart]
+
+    if @id
+    render "api/guest_cart_details/index", status: :ok
+   else
+    render json: { authenticated: false }, status: :bad_request
+   end
   end
 
   private
