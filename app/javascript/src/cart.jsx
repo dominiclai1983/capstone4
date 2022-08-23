@@ -1,3 +1,7 @@
+//TODO: rework the cart
+//TODO: complete the method to delete the item in login
+//TODO: continuous shopping button
+
 import React, { useState, useEffect } from 'react';
 import { CartState } from '@src/context';
 import { Button, Container, Table, Image, Icon } from 'semantic-ui-react';
@@ -19,14 +23,12 @@ const Cart = () => {
 		try {
 			const result = await axios.put(`/api/guest_cart_details/${guestCartID}`);
 			if (result.data) {
-				console.log(result);
 				setCart((cart) => cart.filter((_, i) => i !== index));
 			}
 		} catch (err) {
 			console.error(err);
 		}
 	};
-	console.log(cart);
 
 	return (
 		<Container style={{ marginTop: 20 }}>

@@ -1,7 +1,6 @@
 class Api::GuestCartDetailsController < ApplicationController
 
   def create
-    
     if session 
     #check session is login or not to ensure the user to not login 
       render json: { authenticated: true }, status: :bad_request
