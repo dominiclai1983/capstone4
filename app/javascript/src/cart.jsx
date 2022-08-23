@@ -3,18 +3,28 @@
 //TODO: continuous shopping button
 
 import React, { useState, useEffect } from 'react';
+import CartSummary from '@components/cart/cartSummary';
+import CartTable from '@components/cart/cartTable';
 import { CartState } from '@src/context';
-import { Button, Container, Table, Image, Icon } from 'semantic-ui-react';
+import { Button, Container, Grid } from 'semantic-ui-react';
+import { Link, useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 
 const Cart = () => {
 	const { cart, setCart, loginStatus } = CartState();
+	const [activeItem, setActiveItem] = useOutletContext();
 	const [total, setTotal] = useState(0);
+
+	const handleItemClick = (e, { name }) => {
+		setActiveItem(name);
+		console.log(name);
+	};
 
 	useEffect(() => {
 		setTotal(cart.reduce((acc, cur) => acc + Number(cur.price), 0));
 	}, [cart]);
 
+	/*
 	const deleteItemInLoginCart = (index, cartID) => {
 		setCart((cart) => cart.filter((_, i) => i !== index));
 	};
@@ -29,62 +39,44 @@ const Cart = () => {
 			console.error(err);
 		}
 	};
+	*/
 
 	return (
-		<Container style={{ marginTop: 20 }}>
-			<Table>
-				<Table.Header>
-					<Table.Row>
-						<Table.HeaderCell>Product</Table.HeaderCell>
-						<Table.HeaderCell />
-						<Table.HeaderCell>Price</Table.HeaderCell>
-						<Table.HeaderCell>Quantity</Table.HeaderCell>
-						<Table.HeaderCell />
-					</Table.Row>
-				</Table.Header>
-				<Table.Body>
-					{cart.map((product, index) => (
-						<Table.Row key={index}>
-							<Table.Cell>
-								<Image src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
-							</Table.Cell>
-							<Table.Cell>{product.title}</Table.Cell>
-							<Table.Cell>{product.price}</Table.Cell>
-							<Table.Cell>{product.quantity}</Table.Cell>
-							<Table.Cell>
-								<Button
-									color='red'
-									onClick={() => {
-										loginStatus
-											? deleteItemInLoginCart(index, product.id)
-											: deleteItemInNotLoginCart(index, product.id);
-									}}
-								>
-									<Icon name='close' /> Cancel
-								</Button>
-							</Table.Cell>
-						</Table.Row>
-					))}
+		<Container style={{ marginTop: 20, textAlign: 'center' }}>
+			<Grid divided='vertically'>
+				<Grid.Row>
+					<Grid.Column width={4}>
+						<Button
+							basic
+							color='black'
+							size='medium'
+							as={Link}
+							to='/'
+							name='home'
+							onClick={handleItemClick}
+						>
+							Continue Shopping
+						</Button>
+					</Grid.Column>
+					<Grid.Column width={8}>
+						<h3>Your Cart</h3>
+					</Grid.Column>
+					<Grid.Column width={4}>
+						<Button primary size='medium'>
+							Checkout Now
+						</Button>
+					</Grid.Column>
+				</Grid.Row>
 
-					<Table.Row>
-						<Table.Cell>
-							{cart.length === 0 ? null : (
-								<Button
-									floated='right'
-									icon
-									labelPosition='left'
-									primary
-									size='small'
-									as='a'
-									href='/checkout'
-								>
-									<Icon name='check' /> Check Out
-								</Button>
-							)}
-						</Table.Cell>
-					</Table.Row>
-				</Table.Body>
-			</Table>
+				<Grid.Row>
+					<Grid.Column width={11}>
+						<CartTable />
+					</Grid.Column>
+					<Grid.Column width={5}>
+						<CartSummary total={total} />
+					</Grid.Column>
+				</Grid.Row>
+			</Grid>
 		</Container>
 	);
 };
