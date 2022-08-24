@@ -1,36 +1,32 @@
 import React, { createContext, useContext, useState } from 'react';
 
-const Cart = createContext();
+const Checkout = createContext();
 
-const Context = ({ children }) => {
+const CheckoutContext = ({ children }) => {
 	const [cart, setCart] = useState([]);
 	const [shippingAddress, setShippingAddress] = useState({});
 	const [billingAddress, setBillingAddress] = useState({});
-	const [currentCartID, setCurrentCartID] = useState('');
-	const [loginStatus, setLoginStatus] = useState(false);
-
+	const [currentOrder, setCurrentOrder] = useState('');
 	return (
-		<Cart.Provider
+		<Checkout.Provider
 			value={{
 				cart,
 				setCart,
+				currentOrder,
+				setCurrentOrder,
 				shippingAddress,
 				setShippingAddress,
 				billingAddress,
 				setBillingAddress,
-				currentCartID,
-				setCurrentCartID,
-				loginStatus,
-				setLoginStatus,
 			}}
 		>
 			{children}
-		</Cart.Provider>
+		</Checkout.Provider>
 	);
 };
 
-export const CartState = () => {
-	return useContext(Cart);
+export const CheckoutState = () => {
+	return useContext(Checkout);
 };
 
-export default Context;
+export default CheckoutContext;

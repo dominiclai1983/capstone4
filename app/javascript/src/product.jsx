@@ -8,9 +8,7 @@ import {
 	Dropdown,
 } from 'semantic-ui-react';
 import { Link, useLocation, useOutletContext } from 'react-router-dom';
-import SortingMenu from '@components/product/SortingMenu';
 import ItemDisplay from '@components/product/ItemDisplay';
-import sortingArray from '@components/supportinglist';
 
 import '@src/css/utils.scss';
 
@@ -22,12 +20,10 @@ const Product = () => {
 	//refer layout.jsx for useOutletContext() hook
 	const handleItemClick = (e, { name }) => {
 		setActiveItem(name);
-		console.log(name);
 	};
 
 	const handleDropDownClick = (e, { name }) => {
 		setSortingType(name);
-		console.log(name);
 	};
 
 	return (

@@ -23,7 +23,6 @@ const Login = () => {
 
 		try {
 			const result = await axios.post('/api/sessions', user);
-			console.log(result.data);
 			if (result.data.success) {
 				guestCartConversion();
 				window.location.replace('/');
@@ -33,7 +32,7 @@ const Login = () => {
 		}
 	};
 
-	//TODO: Write a method to convert guest cart to cart
+	//this method convert guest cart into cart
 	const guestCartConversion = async () => {
 		try {
 			const result = await axios.get('/api/conversion');

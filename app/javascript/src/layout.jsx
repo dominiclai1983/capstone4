@@ -28,14 +28,14 @@ function Layout() {
 				setLoginStatus(result.data.authenticated);
 				setUsername(result.data.username);
 				setCurrentCartID(result.data.current_cart);
-				console.log(result);
-				console.log(loginStatus);
 			} catch (err) {
 				console.error(err);
 			}
 		};
 		fetchData();
 	}, [cart]);
+
+	console.log(currentCartID);
 
 	//this useEffect is checking the user cart || guest cart
 	useEffect(() => {
@@ -44,7 +44,6 @@ function Layout() {
 				if (currentCartID) {
 					const result = await axios.get(`/api/cart_details/${currentCartID}`);
 					setCart(result.data.cart_details);
-					console.log(cart);
 				} else {
 					const result = await axios.get(`/api/guest_cart_details`);
 					setCart(result.data.guest_cart_details);

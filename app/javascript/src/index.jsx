@@ -23,10 +23,10 @@ const Index = () => (
 						<Route path='earrings' element={<Product />} />
 						<Route path='product/:sku' element={<ListingProduct />} />
 						<Route path='cart' element={<Cart />} />
-						{/*<Route path='account' element={<AccountLayout />}>
-						<Route index element={<AccountHome />} />
-					</Route>
-					*/}
+						{/* <Route path='account' element={<AccountLayout />}>
+							<Route index element={<AccountHome />} />
+						</Route>
+						*/}
 					</Route>
 				</Routes>
 			</BrowserRouter>

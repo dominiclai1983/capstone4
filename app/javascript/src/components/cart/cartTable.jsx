@@ -28,8 +28,6 @@ const CartTable = () => {
 		}
 	};
 
-	console.log(loginStatus);
-
 	return (
 		<Table>
 			<Table.Body>
