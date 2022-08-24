@@ -6,11 +6,11 @@ class Api::CartDetailsController < ApplicationController
 
     if session
       if !session.user.current_cart
-        @cart = Cart.create({ user_id: session.user.id })
-        session.user.update_attribute(:current_cart, @cart.id)
-        @id = @cart.id
+        cart = Cart.create({ user_id: session.user.id })
+        session.user.update_attribute(:current_cart, cart.id)
+        id = cart.id
       else
-        @id = session.user.current_cart
+        id = session.user.current_cart
       end
     end
 
@@ -20,7 +20,7 @@ class Api::CartDetailsController < ApplicationController
       @cart_detail =
         CartDetail.create(
           {
-            cart_id: @id,
+            cart_id: id,
             product_id: params[:cart_detail][:product_id],
             price: params[:cart_detail][:price],
             quantity: params[:cart_detail][:quantity],
@@ -56,18 +56,18 @@ class Api::CartDetailsController < ApplicationController
   end
 
   def convert_guest_cart_to_cart
-    @guest_cart_id = cookies.signed[:guest_cart]
+    guest_cart_id = cookies.signed[:guest_cart]
 
-    if @guest_cart_id
-      @guest_cart_details = GuestCartDetail.where(guest_cart_id: @guest_cart_id, remove: false)
+    if guest_cart_id
+      guest_cart_details = GuestCartDetail.where(guest_cart_id: guest_cart_id, remove: false)
       if session 
-        @cart = Cart.create({ user_id: session.user.id })
-        session.user.update_attribute(:current_cart, @cart.id)
-        @guest_cart_details.map do |item|
-          @cart_detail =
+        cart = Cart.create({ user_id: session.user.id })
+        session.user.update_attribute(:current_cart, cart.id)
+        guest_cart_details.map do |item|
+          cart_detail =
           CartDetail.create(
             {
-              cart_id: @cart.id,
+              cart_id: cart.id,
               product_id: item.product_id,
               price: item.price,
               quantity: item.quantity,
@@ -97,7 +97,4 @@ class Api::CartDetailsController < ApplicationController
     params.require(:cart_detail).permit(:product_id, :price, :quantity)
   end
 
-  def current_cart?
-    session.user.current_cart?
-  end
 end

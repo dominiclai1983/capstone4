@@ -12,8 +12,6 @@ class Api::SessionsController < ApplicationController
     else
       render json: { success: false }, status: :bad_request
     end
-
-
   end
 
   def authenticated

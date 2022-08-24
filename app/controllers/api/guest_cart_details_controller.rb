@@ -5,12 +5,12 @@ class Api::GuestCartDetailsController < ApplicationController
     #check session is login or not to ensure the user to not login 
       render json: { authenticated: true }, status: :bad_request
     else
-      @id = cookies.signed[:guest_cart]
+      id = cookies.signed[:guest_cart]
 
-      if !@id
+      if !id
         guest_cart = GuestCart.create
         cookies.signed[:guest_cart] = {value: guest_cart.id, expires: 30.days}
-        @id = guest_cart.id
+        id = guest_cart.id
       end
     end
 
@@ -20,7 +20,7 @@ class Api::GuestCartDetailsController < ApplicationController
       @guest_cart_detail =
         GuestCartDetail.create(
           {
-            guest_cart_id: @id,
+            guest_cart_id: id,
             product_id: params[:guest_cart_detail][:product_id],
             price: params[:guest_cart_detail][:price],
             quantity: params[:guest_cart_detail][:quantity],
@@ -34,10 +34,10 @@ class Api::GuestCartDetailsController < ApplicationController
   end
 
   def get_guest_cart_details_by_cart_id
-    @id = cookies.signed[:guest_cart]
+    id = cookies.signed[:guest_cart]
 
-    if @id
-      @guest_cart_details = GuestCartDetail.where(guest_cart_id: @id, remove: false)
+    if id
+      @guest_cart_details = GuestCartDetail.where(guest_cart_id: id, remove: false)
       render "api/guest_cart_details/index", status: :ok
     else
       render json: { guest_cart_details: [] }, status: :bad_request
@@ -48,13 +48,13 @@ class Api::GuestCartDetailsController < ApplicationController
     if session 
       #check session is login or not to ensure the user to not login 
         render json: { authenticated: true }, status: :bad_request
+    else
+      guest_cart_detail = GuestCartDetail.find_by(id: params[:cartid])
+      if guest_cart_detail.update(remove: true)
+        render "api/guest_cart_details/edit", status: :ok
       else
-        guest_cart_detail = GuestCartDetail.find_by(id: params[:cartid])
-        if guest_cart_detail.update(remove: true)
-          render "api/guest_cart_details/edit", status: :ok
-        else
-          render json: { success: false }
-        end
+        render json: { success: false }
+      end
     end
   end
 

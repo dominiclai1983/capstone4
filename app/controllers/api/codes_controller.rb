@@ -13,13 +13,11 @@ class Api::CodesController < ApplicationController
   end
 
   def find_product_code_by_desc
-
     @code = Code.find_by(desc: params[:desc])
     if !@code
       return render json: { error: "not_found" }, status: :not_found
     end
     render "api/codes/show", status: :ok
-    
   end
 
   private
