@@ -41,6 +41,20 @@ class Api::CartDetailsController < ApplicationController
       render json: { order_details: [] }, status: :bad_request
     end 
   end
+  
+  def inactive_item_in_cart
+    if session
+      cart_detail = CartDetail.find_by(id: params[:cartid])
+      if cart_detail.update(remove: true)
+        render "api/cart_details/edit", status: :ok
+      else
+        render json: { success: false }
+      end
+    else
+      render json: { success: false }
+    end
+  end
+
 #TODO: complete this method
   def convert_guest_cart_to_cart
     @guest_cart_id = cookies.signed[:guest_cart]

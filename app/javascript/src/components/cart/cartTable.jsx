@@ -6,8 +6,15 @@ import axios from 'axios';
 const CartTable = () => {
 	const { cart, setCart, loginStatus } = CartState();
 
-	const deleteItemInLoginCart = (index, cartID) => {
-		setCart((cart) => cart.filter((_, i) => i !== index));
+	const deleteItemInLoginCart = async (index, cartID) => {
+		try {
+			const result = await axios.put(`/api/cart_details/${cartID}`);
+			if (result.data) {
+				setCart((cart) => cart.filter((_, i) => i !== index));
+			}
+		} catch (err) {
+			console.error(err);
+		}
 	};
 
 	const deleteItemInNotLoginCart = async (index, guestCartID) => {
@@ -20,6 +27,8 @@ const CartTable = () => {
 			console.error(err);
 		}
 	};
+
+	console.log(loginStatus);
 
 	return (
 		<Table>
@@ -36,9 +45,11 @@ const CartTable = () => {
 							<Button
 								color='red'
 								onClick={() => {
-									loginStatus
-										? deleteItemInLoginCart(index, product.id)
-										: deleteItemInNotLoginCart(index, product.id);
+									if (loginStatus) {
+										deleteItemInLoginCart(index, product.id);
+									} else {
+										deleteItemInNotLoginCart(index, product.id);
+									}
 								}}
 							>
 								<Icon name='close' /> Cancel

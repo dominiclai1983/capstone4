@@ -3,15 +3,15 @@
 //TODO: continuous shopping button
 
 import React, { useState, useEffect } from 'react';
-import CartSummary from '@components/cart/cartSummary';
-import CartTable from '@components/cart/cartTable';
+import CartSummary from '@components/cart/CartSummary';
+import CartTable from '@components/cart/CartTable';
 import { CartState } from '@src/context';
 import { Button, Container, Grid } from 'semantic-ui-react';
 import { Link, useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 
 const Cart = () => {
-	const { cart, setCart, loginStatus } = CartState();
+	const { cart } = CartState();
 	const [activeItem, setActiveItem] = useOutletContext();
 	const [total, setTotal] = useState(0);
 
@@ -39,8 +39,7 @@ const Cart = () => {
 			console.error(err);
 		}
 	};
-	*/
-
+*/
 	return (
 		<Container style={{ marginTop: 20, textAlign: 'center' }}>
 			<Grid divided='vertically'>

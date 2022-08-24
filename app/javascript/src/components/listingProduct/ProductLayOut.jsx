@@ -19,11 +19,11 @@ const ProductLayOut = (props) => {
 	const [disablePopup, setDisablePopup] = useState(true);
 	console.log(`productID ${product_id}`);
 
-	const getOrderNumber = async () => {
+	const getCartNumber = async () => {
 		try {
-			const result = await axios.post(`/api/cart_details`);
+			const result = await axios.post(`/api/carts`);
 			if (result.data) {
-				setCurrentCartID(result.data.order_id);
+				setCurrentCartID(result.data.cart_id);
 				console.log(currentCartID);
 			}
 		} catch (err) {
@@ -32,11 +32,10 @@ const ProductLayOut = (props) => {
 	};
 
 	const getItemIntoLoginCart = async (currentCartID) => {
-		/*
-			if (!currentCartID) {
-				getOrderNumber();
-			}
-		*/
+		if (!currentCartID) {
+			getCartNumber();
+		}
+
 		const prod = {
 			cart_id: parseInt(currentCartID),
 			product_id: product_id,
@@ -47,11 +46,8 @@ const ProductLayOut = (props) => {
 		try {
 			const result = await axios.post(`/api/cart_details`, prod);
 			if (result.data) {
-				console.log(result.data.order_detail);
-				setCart([...cart, result.data.order_detail]);
-				//remember to remove result.data.order_detail with proper header
-				console.log(cart);
-				showAddItemPopUp();
+				console.log(result.data.cart_detail);
+				setCart([...cart, result.data.cart_detail]);
 			}
 		} catch (err) {
 			console.error(err);

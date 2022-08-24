@@ -29,6 +29,7 @@ function Layout() {
 				setUsername(result.data.username);
 				setCurrentCartID(result.data.current_cart);
 				console.log(result);
+				console.log(loginStatus);
 			} catch (err) {
 				console.error(err);
 			}

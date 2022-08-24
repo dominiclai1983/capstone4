@@ -23,10 +23,13 @@ Rails.application.routes.draw do
     post    "/order_details"               => "order_details#create"
     get     "/order_details/:order"        => "order_details#get_order_details_by_order_id"
 
+    #cart api
+    get     "/carts"                       => "carts#create"
+
     #cart_detail api
     post    "/cart_details"                => "cart_details#create"
     get     "/cart_details/:cart"          => "cart_details#get_cart_details_by_cart_id"
-    put     "/cart_details/:cartid"        => "cart_details#inactive_item_in_guest_cart"
+    put     "/cart_details/:cartid"        => "cart_details#inactive_item_in_cart"
     get     "/cart_details/conversion"     => "cart_details#convert_guest_cart_to_cart"
 
     #guest_cart_detail api
