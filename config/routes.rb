@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     post    "/cart_details"                => "cart_details#create"
     get     "/cart_details/:cart"          => "cart_details#get_cart_details_by_cart_id"
     put     "/cart_details/:cartid"        => "cart_details#inactive_item_in_cart"
-    get     "/cart_details/conversion"     => "cart_details#convert_guest_cart_to_cart"
+    get     "/conversion"                  => "cart_details#convert_guest_cart_to_cart"
 
     #guest_cart_detail api
     post    "/guest_cart_details"          => "guest_cart_details#create"
@@ -45,19 +45,19 @@ Rails.application.routes.draw do
     post    "/orders/tracking/:id"         => "orders#report_tracking_number_by_order_id"
 
     #product api 
-    get     "/products"             => "products#index"
-    get     "/products/:sku"        => "products#show"
-    get     "/products/:code/cat"   => "products#find_product_by_product_code"
-    post    "/products"             => "products#create"
-    post    "/products/:sku"        => "products#edit_by_sku"
+    get     "/products"                    => "products#index"
+    get     "/products/:sku"               => "products#show"
+    get     "/products/:code/cat"          => "products#find_product_by_product_code"
+    post    "/products"                    => "products#create"
+    post    "/products/:sku"               => "products#edit_by_sku"
 
     #product code api
-    post    "/product_codes"        => "product_codes#create"
-    get     "/product_codes/:desc"  => "product_codes#find_product_code_by_desc"
+    post    "/product_codes"               => "product_codes#create"
+    get     "/product_codes/:desc"         => "product_codes#find_product_code_by_desc"
 
     #product code api
-    post    "/codes"                => "codes#create"
-    get     "/codes/:desc"          => "codes#find_product_code_by_desc"
+    post    "/codes"                       => "codes#create"
+    get     "/codes/:desc"                 => "codes#find_product_code_by_desc"
 
     #address api
     post    "/addresses"            => "addresses#create"

@@ -62,7 +62,7 @@ function Layout() {
 		try {
 			const result = await axios.delete('/api/sessions');
 			if (result.data) {
-				window.location.reload();
+				window.location.replace('/');
 			}
 		} catch (err) {
 			console.error(err);

@@ -59,21 +59,31 @@ class Api::CartDetailsController < ApplicationController
   def convert_guest_cart_to_cart
     @guest_cart_id = cookies.signed[:guest_cart]
 
-    puts @guest_cart_id
-
     if @guest_cart_id
-      @guest_cart_details = GuestCartDetail.where(guest_cart_id: @id)
-      @cart = Cart.create({ user_id: session.user.id })
-      session.user.update_attribute(:current_cart, @cart.id)
-      render json: { guest_cart_details: [] }, status: :ok
-      
+      @guest_cart_details = GuestCartDetail.where(guest_cart_id: @guest_cart_id, remove: false)
+      if session 
+        @cart = Cart.create({ user_id: session.user.id })
+        session.user.update_attribute(:current_cart, @cart.id)
+        @guest_cart_details.map do |item|
+          @cart_detail =
+          CartDetail.create(
+            {
+              cart_id: @cart.id,
+              product_id: item.product_id,
+              price: item.price,
+              quantity: item.quantity,
+              total: item.total
+            }
+          )
+        end
+      end
+      render json: { cart_conversion: true }, status: :ok
     else
       render json: {
         error: "could not create cart"
       },
       status: :bad_request
     end
-
   end
 
   private
