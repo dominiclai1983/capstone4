@@ -76,6 +76,8 @@ class Api::CartDetailsController < ApplicationController
             }
           )
         end
+        #TODO: remove cookies at here 
+        cookies.delete :guest_cart
       end
       render json: { cart_conversion: true }, status: :ok
     else
