@@ -1,5 +1,5 @@
 class Api::CartDetailsController < ApplicationController
-  #the following is good code for login
+
   def create
     token = cookies.signed[:ecommerce_session_token]
     session = Session.find_by(token: token)
@@ -55,7 +55,6 @@ class Api::CartDetailsController < ApplicationController
     end
   end
 
-#TODO: complete this method
   def convert_guest_cart_to_cart
     @guest_cart_id = cookies.signed[:guest_cart]
 
@@ -76,7 +75,6 @@ class Api::CartDetailsController < ApplicationController
             }
           )
         end
-        #TODO: remove cookies at here 
         cookies.delete :guest_cart
       end
       render json: { cart_conversion: true }, status: :ok

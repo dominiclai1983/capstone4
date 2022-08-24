@@ -36,41 +36,4 @@ class Api::SessionsController < ApplicationController
     render json: { success: true }, status: :ok if session and session.destroy
   end
 
-  private
-
-=begin
-  def convert_guest_cart_to_cart
-    @id = cookies.signed[:guest_cart]
-
-    if @id?
-      @guest_cart_details = GuestCartDetail.where(guest_cart_id: @id)
-      @cart = Cart.create({ user_id: session.user.id })
-      session.user.update_attribute(:current_cart, @cart.id)
-      @cart_details = @guest_cart_details.map do |item|
-        CartDetail.new(
-          {
-            cart_id: @cart.id,
-            product_id: item.product_id,
-            price: item.price,
-            quantity: item.quantity,
-            total: item.total
-          }
-        )
-      end
-      if @cart_details.save
-        render 'api/cart_details/index', status: :created
-      else
-        render json: {
-          error: "cannot change cart"
-        },
-        status: :bad_request
-      end
-    else
-      render json: {
-        error: "cannot change cart"
-      },
-      status: :bad_request
-    end
-  end
-=end
 end
