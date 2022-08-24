@@ -35,11 +35,31 @@ class Api::CartDetailsController < ApplicationController
 
   def get_cart_details_by_cart_id
     if session
-      @order_details = CartDetail.where(cart_id: params[:cart], remove: false)
+      @cart_details = CartDetail.where(cart_id: params[:cart], remove: false)
       render "api/cart_details/index", status: :ok
     else
       render json: { order_details: [] }, status: :bad_request
     end 
+  end
+#TODO: complete this method
+  def convert_guest_cart_to_cart
+    @guest_cart_id = cookies.signed[:guest_cart]
+
+    puts @guest_cart_id
+
+    if @guest_cart_id
+      @guest_cart_details = GuestCartDetail.where(guest_cart_id: @id)
+      @cart = Cart.create({ user_id: session.user.id })
+      session.user.update_attribute(:current_cart, @cart.id)
+      render json: { guest_cart_details: [] }, status: :ok
+      
+    else
+      render json: {
+        error: "could not create cart"
+      },
+      status: :bad_request
+    end
+
   end
 
   private

@@ -32,6 +32,9 @@ const Login = () => {
 		}
 	};
 
+	//TODO: Write a method to convert guest cart to cart
+	const guestCartConversion = () => {};
+
 	return (
 		<Container style={{ marginTop: 20 }}>
 			<Segment placeholder>

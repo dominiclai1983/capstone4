@@ -26,7 +26,8 @@ Rails.application.routes.draw do
     #cart_detail api
     post    "/cart_details"                => "cart_details#create"
     get     "/cart_details/:cart"          => "cart_details#get_cart_details_by_cart_id"
-    put     "/cart_details/:cartid"        => "guest_cart_details#inactive_item_in_guest_cart"
+    put     "/cart_details/:cartid"        => "cart_details#inactive_item_in_guest_cart"
+    get     "/cart_details/conversion"     => "cart_details#convert_guest_cart_to_cart"
 
     #guest_cart_detail api
     post    "/guest_cart_details"          => "guest_cart_details#create"
@@ -51,7 +52,7 @@ Rails.application.routes.draw do
     post    "/product_codes"        => "product_codes#create"
     get     "/product_codes/:desc"  => "product_codes#find_product_code_by_desc"
 
-        #product code api
+    #product code api
     post    "/codes"                => "codes#create"
     get     "/codes/:desc"          => "codes#find_product_code_by_desc"
 

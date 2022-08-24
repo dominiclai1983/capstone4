@@ -87,7 +87,6 @@ const Signup = () => {
 						label='I agree to the terms and conditions'
 						onChange={() => {
 							setDisableTAndC(!disableTAndC);
-							console.log(disableTAndC);
 						}}
 					/>
 					<Button color='blue' disabled={disableTAndC}>

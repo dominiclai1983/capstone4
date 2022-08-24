@@ -20,6 +20,7 @@ const CartTable = () => {
 			console.error(err);
 		}
 	};
+
 	return (
 		<Table>
 			<Table.Body>

@@ -21,7 +21,7 @@ const ProductLayOut = (props) => {
 
 	const getOrderNumber = async () => {
 		try {
-			const result = await axios.post(`/api/orders`);
+			const result = await axios.post(`/api/cart_details`);
 			if (result.data) {
 				setCurrentCartID(result.data.order_id);
 				console.log(currentCartID);
@@ -32,10 +32,11 @@ const ProductLayOut = (props) => {
 	};
 
 	const getItemIntoLoginCart = async (currentCartID) => {
-		if (!currentCartID) {
-			getOrderNumber();
-		}
-
+		/*
+			if (!currentCartID) {
+				getOrderNumber();
+			}
+		*/
 		const prod = {
 			cart_id: parseInt(currentCartID),
 			product_id: product_id,

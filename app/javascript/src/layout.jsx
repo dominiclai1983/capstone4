@@ -27,7 +27,7 @@ function Layout() {
 				const result = await axios.get('/api/authenticated');
 				setLoginStatus(result.data.authenticated);
 				setUsername(result.data.username);
-				setCurrentCartID(result.data.current_order);
+				setCurrentCartID(result.data.current_cart);
 				console.log(result);
 			} catch (err) {
 				console.error(err);
@@ -40,9 +40,10 @@ function Layout() {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				if (username) {
-					const result = await axios.get(`/api/cart_details/${currentCart}`);
+				if (currentCartID) {
+					const result = await axios.get(`/api/cart_details/${currentCartID}`);
 					setCart(result.data.cart_details);
+					console.log(cart);
 				} else {
 					const result = await axios.get(`/api/guest_cart_details`);
 					setCart(result.data.guest_cart_details);
@@ -52,10 +53,7 @@ function Layout() {
 			}
 		};
 		fetchData();
-	}, []);
-
-	console.log(loginStatus);
-	console.log('order number' + currentCartID);
+	}, [currentCartID]);
 
 	const handleItemClick = (e, { name }) => setActiveItem(name);
 
