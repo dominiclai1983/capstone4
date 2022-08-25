@@ -43,7 +43,7 @@ const Cart = () => {
 							primary
 							size='medium'
 							as={Link}
-							to={loginStatus ? null : '/login'}
+							to={loginStatus ? '/checkout' : '/login'}
 							name={loginStatus ? 'checkout' : 'login'}
 							onClick={handleItemClick}
 						>

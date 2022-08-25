@@ -6,7 +6,7 @@ import { CheckoutState } from './checkoutContext';
 
 const CheckoutLayout = () => {
 	const { pathname } = useLocation();
-	const { cart, setCart, currentOrder, setCurrentOrder } = CheckoutState();
+	const { cart, setCart, currentCartID, setCurrentCartID } = CheckoutState();
 	const path = pathname === '/checkout' ? 'home' : pathname.substring(10);
 	const [activeItem, setActiveItem] = useState(path);
 	const [isEmpty, setIsEmpty] = useState(false);
@@ -15,8 +15,8 @@ const CheckoutLayout = () => {
 		const fetchData = async () => {
 			try {
 				const result = await axios.get('/api/authenticated');
-				setCurrentOrder(result.data.current_order);
-				if (!result.data.current_order) {
+				setCurrentCartID(result.data.current_cart);
+				if (!result.data.current_cart) {
 					setIsEmpty(!isEmpty);
 				}
 			} catch (err) {
@@ -29,15 +29,16 @@ const CheckoutLayout = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const result = await axios.get(`/api/order_details/${currentOrder}`);
-				let cartItem = result.data.order_details;
-				setCart(cartItem);
+				if (currentCartID) {
+					const result = await axios.get(`/api/cart_details/${currentCartID}`);
+					setCart(result.data.cart_details);
+				}
 			} catch (err) {
 				console.error(err);
 			}
 		};
 		fetchData();
-	}, [currentOrder]);
+	}, [currentCartID]);
 
 	const EmptyCart = () => {
 		return (

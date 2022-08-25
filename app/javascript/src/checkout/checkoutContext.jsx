@@ -6,14 +6,14 @@ const CheckoutContext = ({ children }) => {
 	const [cart, setCart] = useState([]);
 	const [shippingAddress, setShippingAddress] = useState({});
 	const [billingAddress, setBillingAddress] = useState({});
-	const [currentOrder, setCurrentOrder] = useState('');
+	const [currentCartID, setCurrentCartID] = useState('');
 	return (
 		<Checkout.Provider
 			value={{
 				cart,
 				setCart,
-				currentOrder,
-				setCurrentOrder,
+				currentCartID,
+				setCurrentCartID,
 				shippingAddress,
 				setShippingAddress,
 				billingAddress,

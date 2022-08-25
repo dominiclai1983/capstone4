@@ -60,7 +60,7 @@ const ProductLayOut = (props) => {
 			price: parseFloat(price),
 			quantity: 1,
 		};
-
+		//TODO:fixed the cart issue.
 		try {
 			const result = await axios.post('/api/guest_cart_details', prod);
 			if (result.data) {

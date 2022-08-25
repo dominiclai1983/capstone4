@@ -28,6 +28,8 @@ const CartTable = () => {
 		}
 	};
 
+	console.log(cart);
+
 	return (
 		<Table>
 			<Table.Body>
