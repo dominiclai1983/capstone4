@@ -7,11 +7,17 @@ import {
 	Segment,
 	Container,
 } from 'semantic-ui-react';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = () => {
 	const [email, setEmail] = useState('');
+	const location = useLocation();
+	//could useLocation hook to passdown the state
 	const [password, setPassword] = useState('');
+
+	console.log(location.state);
+	console.log(location.state ? true : false);
 
 	const handleLogin = async () => {
 		const user = {
@@ -25,7 +31,9 @@ const Login = () => {
 			const result = await axios.post('/api/sessions', user);
 			if (result.data.success) {
 				guestCartConversion();
-				window.location.replace('/');
+				location.state
+					? window.location.replace('/checkout')
+					: window.location.replace('/');
 			}
 		} catch (err) {
 			console.error(err);

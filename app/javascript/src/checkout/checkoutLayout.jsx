@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, Outlet } from 'react-router-dom';
 import axios from 'axios';
-import { Step, Container, Header, Button } from 'semantic-ui-react';
+import { Step, Container, Header, Button, Image } from 'semantic-ui-react';
 import { CheckoutState } from './checkoutContext';
 
 const CheckoutLayout = () => {
 	const { pathname } = useLocation();
 	const { cart, setCart, currentCartID, setCurrentCartID } = CheckoutState();
 	const path = pathname === '/checkout' ? 'home' : pathname.substring(10);
+	//10 char = '/checkout'
 	const [activeItem, setActiveItem] = useState(path);
 	const [isEmpty, setIsEmpty] = useState(false);
 
@@ -55,9 +56,12 @@ const CheckoutLayout = () => {
 
 	console.log(`isEmpty ` + isEmpty);
 
+	const src = 'https://via.placeholder.com/1250x90.png';
+
 	return (
 		<>
 			<Container style={{ marginTop: 20 }}>
+				<Image src={src} />
 				<Step.Group widths={3}>
 					<Step>
 						<Step.Content>
