@@ -24,7 +24,6 @@ class Api::SessionsController < ApplicationController
     else
       render json: { authenticated: false }, status: :bad_request
     end
-
   end
 
   def destroy
@@ -33,5 +32,4 @@ class Api::SessionsController < ApplicationController
 
     render json: { success: true }, status: :ok if session and session.destroy
   end
-
 end

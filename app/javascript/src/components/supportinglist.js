@@ -1,1 +1,1 @@
-export const sortingArray = ['desc', 'asce', 'price', 'date'];
+export const sortingArray = ["desc", "asce", "price", "date"];

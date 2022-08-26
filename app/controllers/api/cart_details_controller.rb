@@ -1,5 +1,4 @@
 class Api::CartDetailsController < ApplicationController
-
   def create
     token = cookies.signed[:ecommerce_session_token]
     session = Session.find_by(token: token)
@@ -39,9 +38,9 @@ class Api::CartDetailsController < ApplicationController
       render "api/cart_details/index", status: :ok
     else
       render json: { order_details: [] }, status: :bad_request
-    end 
+    end
   end
-  
+
   def inactive_item_in_cart
     if session
       cart_detail = CartDetail.find_by(id: params[:cartid])
@@ -60,12 +59,12 @@ class Api::CartDetailsController < ApplicationController
       @cart_detail = CartDetail.find_by(id: params[:id])
       new_total = @cart_detail.price * params[:quantity]
 
-      if @cart_detail.remove 
-        render json: {error: 'Invalid Cart Item'}
+      if @cart_detail.remove
+        render json: { error: "Invalid Cart Item" }
       elsif @cart_detail.update(quantity: params[:quantity], total: new_total)
         render "api/cart_details/show", status: :ok
       else
-        render json: {error: 'Invalid Cart Item'}
+        render json: { error: "Invalid Cart Item" }
       end
     else
       render json: { authenticated: false }, status: :bad_request
@@ -76,30 +75,28 @@ class Api::CartDetailsController < ApplicationController
     guest_cart_id = cookies.signed[:guest_cart]
 
     if guest_cart_id
-      guest_cart_details = GuestCartDetail.where(guest_cart_id: guest_cart_id, remove: false)
-      if session 
+      guest_cart_details =
+        GuestCartDetail.where(guest_cart_id: guest_cart_id, remove: false)
+      if session
         cart = Cart.create({ user_id: session.user.id })
         session.user.update_attribute(:current_cart, cart.id)
         guest_cart_details.map do |item|
           cart_detail =
-          CartDetail.create(
-            {
-              cart_id: cart.id,
-              product_id: item.product_id,
-              price: item.price,
-              quantity: item.quantity,
-              total: item.total
-            }
-          )
+            CartDetail.create(
+              {
+                cart_id: cart.id,
+                product_id: item.product_id,
+                price: item.price,
+                quantity: item.quantity,
+                total: item.total
+              }
+            )
         end
         cookies.delete :guest_cart
       end
       render json: { cart_conversion: true }, status: :ok
     else
-      render json: {
-        error: "could not create cart"
-      },
-      status: :bad_request
+      render json: { error: "could not create cart" }, status: :bad_request
     end
   end
 
@@ -113,5 +110,4 @@ class Api::CartDetailsController < ApplicationController
   def cart_detail_params
     params.require(:cart_detail).permit(:id, :product_id, :price, :quantity)
   end
-
 end

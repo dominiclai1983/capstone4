@@ -104,7 +104,6 @@ class AddAllTablesAtOnce < ActiveRecord::Migration[6.1]
       t.boolean :is_billing
       t.belongs_to :user, index: true, foreign_key: true
       t.timestamps
-
     end
   end
 end

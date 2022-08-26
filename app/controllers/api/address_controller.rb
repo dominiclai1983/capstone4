@@ -11,15 +11,15 @@ class Api::AddressesController < ApplicationController
           Address.create(
             {
               user_id: user_id,
-              first_name:params[:address][:first_name],
-              last_name:params[:address][:last_name],
-              billing_email:params[:address][:billing_email],
-              phone_number:params[:address][:phone_number],
-              address_1:params[:address][:address_1],
-              address_2:params[:address][:address_2],
-              district:params[:address][:district],
-              region:params[:address][:region],
-              is_billing:params[:address][:is_billing],
+              first_name: params[:address][:first_name],
+              last_name: params[:address][:last_name],
+              billing_email: params[:address][:billing_email],
+              phone_number: params[:address][:phone_number],
+              address_1: params[:address][:address_1],
+              address_2: params[:address][:address_2],
+              district: params[:address][:district],
+              region: params[:address][:region],
+              is_billing: params[:address][:is_billing]
             }
           )
         render "api/address/show", status: :created

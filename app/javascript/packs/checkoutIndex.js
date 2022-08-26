@@ -1,1 +1,1 @@
-import '@src/checkout/checkoutIndex';
+import "@src/checkout/checkoutIndex";

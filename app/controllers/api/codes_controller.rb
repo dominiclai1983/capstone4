@@ -14,9 +14,7 @@ class Api::CodesController < ApplicationController
 
   def find_product_code_by_desc
     @code = Code.find_by(desc: params[:desc])
-    if !@code
-      return render json: { error: "not_found" }, status: :not_found
-    end
+    return render json: { error: "not_found" }, status: :not_found if !@code
     render "api/codes/show", status: :ok
   end
 
@@ -35,4 +33,3 @@ class Api::CodesController < ApplicationController
     session.user.is_admin?
   end
 end
-

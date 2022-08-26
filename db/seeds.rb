@@ -67,8 +67,7 @@ products =
     ]
   )
 
-
-  users =
+users =
   User.create(
     [
       {
@@ -94,4 +93,3 @@ products =
       }
     ]
   )
-
