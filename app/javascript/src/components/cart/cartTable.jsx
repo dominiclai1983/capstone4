@@ -44,13 +44,8 @@ const CartTable = () => {
 		try {
 			const result = await axios.put(`api/cart_details_quantity`, prod);
 			if (result.data) {
-				const newState = cart.map((product) => {
-					if (product.id === cartID) {
-						return { ...product, quantity: quantity };
-					}
-					return product;
-				});
-				setCart(newState);
+				const result = await axios.get(`/api/cart_details/${currentCartID}`);
+				setCart(result.data.cart_details);
 			}
 		} catch (err) {
 			console.error(err);
@@ -103,13 +98,11 @@ const CartTable = () => {
 											e.preventDefault();
 											if (loginStatus) {
 												changeItemQuantityInLoginCart(product.id, data.value);
-												console.log(data.value);
 											} else {
 												changeItemQuantityInNotLoginCart(
 													product.id,
 													data.value
 												);
-												console.log(data.value);
 											}
 										}}
 									/>

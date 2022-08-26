@@ -1,5 +1,34 @@
 class Api::AddressesController < ApplicationController
   def create
+    token = cookies.signed[:ecommerce_session_token]
+    session = Session.find_by(token: token)
+
+    user_id = session.user.id
+
+    if session
+      begin
+        @address =
+          Address.create(
+            {
+              user_id: user_id,
+              first_name:params[:address][:first_name],
+              last_name:params[:address][:last_name],
+              billing_email:params[:address][:billing_email],
+              phone_number:params[:address][:phone_number],
+              address_1:params[:address][:address_1],
+              address_2:params[:address][:address_2],
+              district:params[:address][:district],
+              region:params[:address][:region],
+              is_billing:params[:address][:is_billing],
+            }
+          )
+        render "api/address/show", status: :created
+      rescue ArgumentError => e
+        render json: { error: e.message }, status: :bad_request
+      end
+    else
+      render json: { authenticated: false }, status: :bad_request
+    end
   end
 
   def index

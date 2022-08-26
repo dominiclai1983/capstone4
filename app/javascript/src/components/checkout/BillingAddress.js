@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, Form, Header, Icon } from 'semantic-ui-react';
 import { State } from 'country-state-city';
-import { CartState } from '@src/context';
+import { CheckoutState } from '@src/checkout/checkoutContext';
 
 const BillingAddress = (props) => {
 	const { checkBoxValue, setCheckBoxValue } = props;
-	const { billingAddress, setBillingAddress } = CartState();
+	const { billingAddress, setBillingAddress } = CheckoutState();
 	const [addressID, setAddressID] = useState(billingAddress.addressID);
 	const [firstName, setFirstName] = useState(billingAddress.firstName);
 	const [lastName, setLastName] = useState(billingAddress.lastName);

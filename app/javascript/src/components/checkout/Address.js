@@ -10,7 +10,7 @@ const Address = () => {
 				checkBoxValue={checkBoxValue}
 				setCheckBoxValue={setCheckBoxValue}
 			/>
-			{checkBoxValue ? <ShippingAddress /> : null}
+			if(checkBoxValue){<ShippingAddress />}
 		</>
 	);
 };

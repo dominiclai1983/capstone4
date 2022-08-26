@@ -1,7 +1,8 @@
 class Order < ApplicationRecord
   belongs_to :user
+  belongs_to :address
+
   has_many :order_details
-  has_many :cart_details
   has_many :charges
   has_many :products, through: :order_details
 

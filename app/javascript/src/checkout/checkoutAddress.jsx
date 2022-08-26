@@ -102,11 +102,15 @@ const CheckoutAddress = () => {
 		);
 	};
 
+	console.log(shippingAddress);
+	console.log(Object.keys(shippingAddress).length);
+	console.log(billingAddress);
+
 	return (
 		<>
 			<Container style={{ marginTop: 60 }}>
-				<ShowingAddress />
-				{editAddress ? <Address /> : null}
+				{Object.keys(shippingAddress).length !== 0 && <ShowingAddress />}
+				{editAddress && <Address />}
 			</Container>
 		</>
 	);

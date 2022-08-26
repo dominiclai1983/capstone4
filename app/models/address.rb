@@ -1,6 +1,8 @@
 class Address < ApplicationRecord
   belongs_to :user
 
+  has_many :order
+
   validates :user, presence: true
   validates :first_name, presence: true, length: { maximum: 120 }
   validates :last_name, presence: true, length: { maximum: 120 }
