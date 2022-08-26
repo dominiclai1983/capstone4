@@ -17,7 +17,7 @@ const Login = () => {
 	const [password, setPassword] = useState('');
 
 	console.log(location.state);
-	console.log(location.state ? true : false);
+	//console.log(location.state ? true : false);
 
 	const handleLogin = async () => {
 		const user = {
