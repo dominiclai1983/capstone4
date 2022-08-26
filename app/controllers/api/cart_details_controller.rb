@@ -55,6 +55,23 @@ class Api::CartDetailsController < ApplicationController
     end
   end
 
+  def change_quantity_in_cart
+    if session
+      @cart_detail = CartDetail.find_by(id: params[:id])
+      new_total = @cart_detail.price * params[:quantity]
+
+      if @cart_detail.remove 
+        render json: {error: 'Invalid Cart'}
+      elsif @cart_detail.update(quantity: params[:quantity], total: new_total)
+        render "api/cart_details/show", status: :ok
+      else
+        render json: {error: 'Invalid Cart'}
+      end
+    else
+      render json: { authenticated: false }, status: :bad_request
+    end
+  end
+
   def convert_guest_cart_to_cart
     guest_cart_id = cookies.signed[:guest_cart]
 
@@ -94,7 +111,7 @@ class Api::CartDetailsController < ApplicationController
   end
 
   def cart_detail_params
-    params.require(:cart_detail).permit(:product_id, :price, :quantity)
+    params.require(:cart_detail).permit(:id, :product_id, :price, :quantity)
   end
 
 end

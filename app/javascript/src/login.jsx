@@ -17,6 +17,7 @@ const Login = () => {
 	const [password, setPassword] = useState('');
 
 	console.log(location.state);
+	//get back the value by using the location.state
 	//console.log(location.state ? true : false);
 
 	const handleLogin = async () => {

@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     post    "/cart_details"                => "cart_details#create"
     get     "/cart_details/:cart"          => "cart_details#get_cart_details_by_cart_id"
     put     "/cart_details/:cartid"        => "cart_details#inactive_item_in_cart"
+    put     "/cart_details_quantity"       => "cart_details#change_quantity_in_cart"
     get     "/conversion"                  => "cart_details#convert_guest_cart_to_cart"
 
     #guest_cart_detail api

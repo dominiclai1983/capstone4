@@ -25,3 +25,6 @@ checkout
 							to={loginStatus ? null : '/login'}
 						state={loginStatus ? null : { prevPath: location.pathname }}
 						*/}
+cart
+-almost completed
+-chagne quantity
