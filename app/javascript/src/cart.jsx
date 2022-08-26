@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import CartSummary from '@components/cart/CartSummary';
 import CartTable from '@components/cart/CartTable';
 import { CartState } from '@src/context';
 import { Button, Container, Grid } from 'semantic-ui-react';
 import { Link, useOutletContext, useLocation } from 'react-router-dom';
 
 const Cart = () => {
-	const { cart, loginStatus } = CartState();
+	const { loginStatus } = CartState();
 	const location = useLocation();
 	const [activeItem, setActiveItem] = useOutletContext();
 	const [total, setTotal] = useState(0);
@@ -14,10 +13,6 @@ const Cart = () => {
 	const handleItemClick = (e, { name }) => {
 		setActiveItem(name);
 	};
-
-	useEffect(() => {
-		setTotal(cart.reduce((acc, cur) => acc + Number(cur.price), 0));
-	}, [cart]);
 
 	return (
 		<Container style={{ marginTop: 20, textAlign: 'center' }}>
@@ -59,14 +54,7 @@ const Cart = () => {
 					</Grid.Column>
 				</Grid.Row>
 
-				<Grid.Row>
-					<Grid.Column width={11}>
-						<CartTable />
-					</Grid.Column>
-					<Grid.Column width={5}>
-						<CartSummary total={total} />
-					</Grid.Column>
-				</Grid.Row>
+				<CartTable />
 			</Grid>
 		</Container>
 	);

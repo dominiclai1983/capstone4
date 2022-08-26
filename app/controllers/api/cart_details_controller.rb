@@ -61,11 +61,11 @@ class Api::CartDetailsController < ApplicationController
       new_total = @cart_detail.price * params[:quantity]
 
       if @cart_detail.remove 
-        render json: {error: 'Invalid Cart'}
+        render json: {error: 'Invalid Cart Item'}
       elsif @cart_detail.update(quantity: params[:quantity], total: new_total)
         render "api/cart_details/show", status: :ok
       else
-        render json: {error: 'Invalid Cart'}
+        render json: {error: 'Invalid Cart Item'}
       end
     else
       render json: { authenticated: false }, status: :bad_request

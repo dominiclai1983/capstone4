@@ -58,6 +58,21 @@ class Api::GuestCartDetailsController < ApplicationController
     end
   end
 
+  def change_quantity_in_guest_cart
+
+      @guest_cart_detail = GuestCartDetail.find_by(id: params[:id])
+      new_total = @guest_cart_detail.price.to_f * params[:quantity]
+
+      if @guest_cart_detail.remove
+        render json: {error: 'Invalid Cart Item'}
+      elsif @guest_cart_detail.update(quantity: params[:quantity], total: new_total)
+        render "api/guest_cart_details/show", status: :ok
+      else
+        render json: {error: 'Invalid Cart Item'}
+      end
+
+  end
+
   private
 
   def session
@@ -66,6 +81,6 @@ class Api::GuestCartDetailsController < ApplicationController
   end
 
   def cart_detail_params
-    params.require(:guest_cart_detail).permit(:product_id, :price, :quantity)
+    params.require(:guest_cart_detail).permit(:id, :product_id, :price, :quantity)
   end
 end

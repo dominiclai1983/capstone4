@@ -42,6 +42,7 @@ Rails.application.routes.draw do
     post    "/guest_cart_details"          => "guest_cart_details#create"
     get     "/guest_cart_details"          => "guest_cart_details#get_guest_cart_details_by_cart_id"
     put     "/guest_cart_details/:cartid"  => "guest_cart_details#inactive_item_in_guest_cart"
+    put     "/guest_cart_details_quantity" => "guest_cart_details#change_quantity_in_guest_cart"
 
     #order api
     get     "/orders"                      => "orders#index"

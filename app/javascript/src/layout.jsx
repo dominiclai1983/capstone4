@@ -98,7 +98,7 @@ function Layout() {
 		let { username } = props;
 		return (
 			<>
-				<Dropdown item text={username}>
+				<Dropdown item text={'Hello!' + username}>
 					<Dropdown.Menu>
 						<Dropdown.Item as='a' href='/account'>
 							Account
