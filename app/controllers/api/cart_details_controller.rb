@@ -77,6 +77,7 @@ class Api::CartDetailsController < ApplicationController
     if guest_cart_id
       guest_cart_details =
         GuestCartDetail.where(guest_cart_id: guest_cart_id, remove: false)
+      #ensure the user is logged in
       if session
         cart = Cart.create({ user_id: session.user.id })
         session.user.update_attribute(:current_cart, cart.id)

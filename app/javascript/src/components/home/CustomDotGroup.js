@@ -1,25 +1,25 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Dot } from "pure-react-carousel";
-import { Button, Container } from "semantic-ui-react";
+import React from 'react';
+import { Button, Container } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
+import { Dot } from 'pure-react-carousel';
 
 const CustomDotGroup = ({ slides, size }) => (
-  <Container textAlign="center">
-    <Button.Group size={size}>
-      {[...Array(slides).keys()].map((slide) => (
-        <Button as={Dot} key={slide} icon="circle" slide={slide} />
-      ))}
-    </Button.Group>
-  </Container>
+	<Container textAlign='center'>
+		<Button.Group size={size}>
+			{[...Array(slides).keys()].map((slide) => (
+				<Button as={Dot} key={slide} icon='circle' slide={slide} />
+			))}
+		</Button.Group>
+	</Container>
 );
 
 CustomDotGroup.defaultProps = {
-  size: "mini",
+	size: 'mini',
 };
 
 CustomDotGroup.propTypes = {
-  slides: PropTypes.number.isRequired,
-  size: PropTypes.string,
+	slides: PropTypes.number.isRequired,
+	size: PropTypes.string,
 };
 
 export default CustomDotGroup;

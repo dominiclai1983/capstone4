@@ -23,18 +23,7 @@ const CheckoutAddress = () => {
 			try {
 				const result = await axios.get('api/addresses');
 				if (result.data) {
-					let addresses = result.data.addresses;
-
-					let billing = addresses.filter(
-						(address) => address.isBilling === true
-					);
-					billing = Object.assign({}, ...billing);
-
-					let shipping = addresses.filter(
-						(address) => address.isBilling === false
-					);
-					shipping = Object.assign({}, ...shipping);
-					setShippingAddress(shipping);
+					setShippingAddress(result.data.address);
 
 					if (!billing) {
 						billing = shipping;
