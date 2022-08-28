@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CartState } from '@src/context';
 import _ from 'lodash';
-import { Menu, Image, Dropdown, Icon } from 'semantic-ui-react';
+import { Menu, Image, Dropdown, Icon, Popup, Button } from 'semantic-ui-react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
@@ -52,6 +52,8 @@ function Layout() {
 		};
 		fetchData();
 	}, [currentCartID]);
+
+	console.log(cart);
 
 	const handleItemClick = (e, { name }) => setActiveItem(name);
 
@@ -156,17 +158,36 @@ function Layout() {
 					) : (
 						<LoginComponent />
 					)}
-					<Menu.Item
-						as={Link}
-						to='/cart'
-						name='cart'
-						active={activeItem === 'cart'}
-						onClick={handleItemClick}
-						style={{ marginRight: 20 }}
+					<Popup
+						trigger={
+							<Menu.Item
+								as={Link}
+								to='/cart'
+								name='cart'
+								active={activeItem === 'cart'}
+								onClick={handleItemClick}
+								style={{ marginRight: 20 }}
+							>
+								<Icon name='shopping cart' size='large' />
+								{cart.length}
+							</Menu.Item>
+						}
+						disabled={path === 'cart' || cart.length === 0 ? true : false}
 					>
-						<Icon name='shopping cart' size='large' />
-						{cart.length}
-					</Menu.Item>
+						<p>My Cart - {cart.length} items</p>
+
+						{loginStatus ? (
+							<Button primary fluid as='a' href='/checkout'>
+								CheckOut
+							</Button>
+						) : (
+							<Link to={'/login'} state={{ prevPath: 'popup' }}>
+								<Button primary fluid name='login' onClick={handleItemClick}>
+									CheckOut
+								</Button>
+							</Link>
+						)}
+					</Popup>
 				</Menu.Menu>
 			</Menu>
 			<Outlet context={[activeItem, setActiveItem]} />
