@@ -35,8 +35,9 @@ const NewAddress = () => {
 		console.log(district);
 	};
 
-	const handleSubmit = async () => {
+	const handleSubmit = () => {
 		const address = {
+			id: nil,
 			first_name: firstName,
 			last_name: lastName,
 			billing_email: billingEmail,
@@ -44,6 +45,7 @@ const NewAddress = () => {
 			address_2: address2,
 			district: district,
 			region: value,
+			is_billing: false,
 		};
 	};
 

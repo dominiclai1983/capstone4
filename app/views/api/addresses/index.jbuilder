@@ -1,6 +1,6 @@
 json.addresses do
   json.array! @addresses do |address|
-    json.addressID address.id
+    json.id address.id
     json.firstName address.first_name
     json.lastName address.last_name
     json.billingEmail address.billing_email

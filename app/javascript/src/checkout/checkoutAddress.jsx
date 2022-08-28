@@ -7,10 +7,8 @@ import { CheckoutState } from './checkoutContext';
 import axios from 'axios';
 
 const CheckoutAddress = () => {
-	const { pathname } = useLocation();
-
 	const { shippingAddress, setShippingAddress } = CheckoutState();
-
+	const { pathname } = useLocation();
 	const [addresses, setAddresses] = useState({});
 
 	useEffect(() => {

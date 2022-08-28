@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { CheckoutState } from './checkoutContext';
+import {
+	Step,
+	Container,
+	Header,
+	Button,
+	Image,
+	Icon,
+} from 'semantic-ui-react';
 import { useLocation, Outlet } from 'react-router-dom';
 import axios from 'axios';
-import { Step, Container, Header, Button, Image } from 'semantic-ui-react';
-import { CheckoutState } from './checkoutContext';
 
 const CheckoutLayout = () => {
 	const { pathname } = useLocation();
@@ -66,16 +73,22 @@ const CheckoutLayout = () => {
 			<Container style={{ marginTop: 20 }}>
 				<Image src={src} />
 				<Step.Group widths={3}>
-					<Step>
+					<Step active={activeItem === 'home'}>
 						<Step.Content>
-							<Step.Title>Shipping</Step.Title>
+							<Step.Title>
+								<Icon name='shipping' />
+								Shipping
+							</Step.Title>
 							<Step.Description>Choose your shipping options</Step.Description>
 						</Step.Content>
 					</Step>
 
 					<Step>
 						<Step.Content>
-							<Step.Title>Confirm</Step.Title>
+							<Step.Title>
+								<Icon name='shipping' />
+								Confirm
+							</Step.Title>
 							<Step.Description>Enter billing information</Step.Description>
 						</Step.Content>
 					</Step>
