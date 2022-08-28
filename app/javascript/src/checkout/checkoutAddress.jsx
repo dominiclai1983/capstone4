@@ -9,14 +9,9 @@ import axios from 'axios';
 const CheckoutAddress = () => {
 	const { pathname } = useLocation();
 
-	const {
-		shippingAddress,
-		setShippingAddress,
-		billingAddress,
-		setBillingAddress,
-	} = CheckoutState();
+	const { shippingAddress, setShippingAddress } = CheckoutState();
 
-	const [editAddress, setEditAddress] = useState(false);
+	const [addresses, setAddresses] = useState({});
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -24,11 +19,6 @@ const CheckoutAddress = () => {
 				const result = await axios.get('api/addresses');
 				if (result.data) {
 					setShippingAddress(result.data.address);
-
-					if (!billing) {
-						billing = shipping;
-					}
-					setBillingAddress(billing);
 				}
 			} catch (err) {
 				console.error(err);
@@ -45,62 +35,20 @@ const CheckoutAddress = () => {
 			<Grid columns={2} divided>
 				<Grid.Row>
 					<Grid.Column>
-						<Header size='small'>Billing Address</Header>
-						<List>
-							<List.Item>
-								{billingAddress.firstName} {billingAddress.lastName}
-							</List.Item>
-							<List.Item>{billingAddress.address1}</List.Item>
-							{billingAddress.address2 ? (
-								<List.Item>{billingAddress.address2}</List.Item>
-							) : null}
-							<List.Item>
-								{billingAddress.district} {billingAddress.region}
-							</List.Item>
-							<List.Item
-								onClick={() => {
-									setEditAddress(!editAddress);
-									console.log(editAddress);
-								}}
-							>
-								Edit Address
-							</List.Item>
-						</List>
-					</Grid.Column>
-					<Grid.Column>
 						<Header size='small'>Shipping Address</Header>
-						<List>
-							<List.Item>
-								{shippingAddress.firstName} {shippingAddress.lastName}
-							</List.Item>
-							<List.Item>{shippingAddress.address1}</List.Item>
-							{shippingAddress.address2 ? (
-								<List.Item>{shippingAddress.address2}</List.Item>
-							) : null}
-							<List.Item>
-								{shippingAddress.district} {shippingAddress.region}
-							</List.Item>
-							<List.Item>
-								<Button primary size='tiny' as={Link} to='/checkout/confirm'>
-									Confirm
-								</Button>
-							</List.Item>
-						</List>
 					</Grid.Column>
 				</Grid.Row>
 			</Grid>
 		);
 	};
 
-	console.log(shippingAddress);
-	console.log(Object.keys(shippingAddress).length);
-	console.log(billingAddress);
-
 	return (
 		<>
 			<Container style={{ marginTop: 60 }}>
+				{/* 
 				{Object.keys(shippingAddress).length !== 0 && <ShowingAddress />}
-				{editAddress && <Address />}
+				*/}
+				<ShowingAddress />
 				{Object.keys(shippingAddress).length === 0 && <NewAddress />}
 			</Container>
 		</>

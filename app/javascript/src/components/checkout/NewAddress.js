@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Grid, Form, Button, Header, Radio, Select } from 'semantic-ui-react';
+import { CheckoutState } from '@src/checkout/checkoutContext';
 import _ from 'lodash';
 import { State } from 'country-state-city';
 
 const NewAddress = () => {
 	const { setShippingAddress } = CheckoutState();
 
-	const [hasBilling, setHasBilling] = useState(false);
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
 	const [address1, setAddress1] = useState('');

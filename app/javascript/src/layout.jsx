@@ -98,7 +98,7 @@ function Layout() {
 		let { username } = props;
 		return (
 			<>
-				<Dropdown item text={'Hello!' + username}>
+				<Dropdown item text={'Hello!' + '  ' + username}>
 					<Dropdown.Menu>
 						<Dropdown.Item as='a' href='/account'>
 							Account
@@ -173,6 +173,7 @@ function Layout() {
 							</Menu.Item>
 						}
 						disabled={path === 'cart' || cart.length === 0 ? true : false}
+						hoverable
 					>
 						<p>My Cart - {cart.length} items</p>
 
