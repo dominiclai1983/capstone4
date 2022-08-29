@@ -33,12 +33,10 @@ const CheckoutAddress = () => {
 
 		return (
 			<Segment
-				raised={raised === index ? true : false}
+				raised={raised === index}
 				onClick={() => {
 					setRaised(index);
-					console.log(index);
 					setShippingAddress(address);
-					console.log(shippingAddress);
 				}}
 			>
 				{address.address1} {address.address2} {address.region}
@@ -51,7 +49,7 @@ const CheckoutAddress = () => {
 			<Grid columns={2} divided>
 				<Grid.Row>
 					<Grid.Column>
-						<Header as='h2'>Shipping Address</Header>
+						<Header as='h2'>Choose A Shipping Address</Header>
 						{addresses.map((address, index) => {
 							return (
 								<AddressCart address={address} index={index} key={index} />

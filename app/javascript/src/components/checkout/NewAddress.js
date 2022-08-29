@@ -54,7 +54,11 @@ const NewAddress = () => {
 		try {
 			const result = await axios.post('/api/addresses', address);
 			console.log(result.data);
-			//if(result.data)
+			if (result.data) {
+				setShippingAddress(result.data.address);
+				console.log();
+				//navigate()
+			}
 		} catch (err) {
 			console.error(err);
 		}

@@ -22,7 +22,7 @@ class Api::AddressesController < ApplicationController
               is_billing: params[:address][:is_billing]
             }
           )
-        render "api/address/show", status: :created
+        render "api/addresses/show", status: :created
       rescue ArgumentError => e
         render json: { error: e.message }, status: :bad_request
       end
@@ -33,7 +33,7 @@ class Api::AddressesController < ApplicationController
 
   def index
     if session
-      @addresses = session.user.addresses
+      @addresses = session.user.addresses.where(remove: false)
       render "api/addresses/index"
     else
       render json: { addresses: [] }

@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { CartState } from '@src/context';
 import _ from 'lodash';
-import { Menu, Image, Dropdown, Icon, Popup, Button } from 'semantic-ui-react';
+import {
+	Menu,
+	Image,
+	Dropdown,
+	Icon,
+	Popup,
+	Button,
+	Header,
+	Divider,
+} from 'semantic-ui-react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
@@ -175,8 +184,18 @@ function Layout() {
 						disabled={path === 'cart' || cart.length === 0 ? true : false}
 						hoverable
 					>
-						<p>My Cart - {cart.length} items</p>
-
+						<Header>My Cart - {cart.length} items</Header>
+						{cart.map((cart, index) => {
+							return (
+								<p
+									key={index}
+									style={{ textAlign: 'justify', textJustify: 'interWord' }}
+								>
+									{cart.title} Qty: {cart.quantity}
+								</p>
+							);
+						})}
+						<Divider />
 						{loginStatus ? (
 							<Button primary fluid as='a' href='/checkout'>
 								CheckOut
