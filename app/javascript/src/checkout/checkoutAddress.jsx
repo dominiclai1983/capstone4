@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import { Segment, Grid, Container, List, Header } from 'semantic-ui-react';
-import Address from '@components/checkout/Address';
+import { Segment, Grid, Container, Header } from 'semantic-ui-react';
 import NewAddress from '@components/checkout/NewAddress';
 import { CheckoutState } from './checkoutContext';
 import axios from 'axios';
@@ -33,6 +32,7 @@ const CheckoutAddress = () => {
 
 		return (
 			<Segment
+				secondary={raised !== index}
 				raised={raised === index}
 				onClick={() => {
 					setRaised(index);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Form, Button, Header, Radio, Select } from 'semantic-ui-react';
+import { Grid, Form, Button, Radio, Select, Segment } from 'semantic-ui-react';
 import { CheckoutState } from '@src/checkout/checkoutContext';
 import { useNavigate } from 'react-router-dom';
 import _ from 'lodash';
@@ -18,6 +18,8 @@ const NewAddress = () => {
 	const [phoneNumber, setPhoneNumber] = useState('');
 	const [district, setDistrict] = useState('');
 	const [value, setValue] = useState(null);
+
+	const [showNewAddress, setShowNewAddress] = useState(false);
 
 	const info = State.getStatesOfCountry('HK');
 
@@ -68,116 +70,129 @@ const NewAddress = () => {
 		<Grid columns={2} divided>
 			<Grid.Row>
 				<Grid.Column>
-					<Header as='h2'>Add a new address</Header>
-					<Form>
-						<Form.Group widths='equal'>
-							<Form.Input
-								fluid
-								label='First Name'
-								placeholder='First Name'
-								type='text'
-								value={firstName}
-								onChange={(e) => {
-									e.preventDefault();
-									setFirstName(e.target.value);
-									console.log(firstName);
-								}}
-							/>
-							<Form.Input
-								fluid
-								label='Last Name'
-								placeholder='Last Name'
-								type='text'
-								value={lastName}
-								onChange={(e) => {
-									e.preventDefault();
-									setLastName(e.target.value);
-									console.log(lastName);
-								}}
-							/>
-						</Form.Group>
-						<Form.Input
-							label='Address'
-							placeholder='Street Address'
-							type='text'
-							value={address1}
-							onChange={(e) => {
-								e.preventDefault();
-								setAddress1(e.target.value);
-								console.log(address1);
-							}}
-						/>
-						<Form.Input
-							label=''
-							placeholder='Apt, Suite, Unit, Building, Floor'
-							type='text'
-							value={address2}
-							onChange={(e) => {
-								e.preventDefault();
-								setAddress2(e.target.value);
-								console.log(address1);
-							}}
-						/>
-						<Form.Input
-							label='Email'
-							placeholder='info@info.com'
-							type='email'
-							value={billingEmail}
-							onChange={(e) => {
-								e.preventDefault();
-								setBillingEmail(e.target.value);
-								console.log(setBillingEmail);
-							}}
-						/>
-						<Form.Group widths='equal'>
-							<Form.Field
-								control={Select}
-								label='District'
-								options={dropDownOption}
-								placeholder='District'
-								value={district}
-								onChange={handleDropDownChange}
-							/>
-							<Form.Input
-								label='Phone Number'
-								placeholder='9999 0000'
-								type='text'
-								value={phoneNumber}
-								onChange={(e) => {
-									e.preventDefault();
-									setPhoneNumber(e.target.value);
-								}}
-							/>
-						</Form.Group>
-						<Form.Group inline>
-							<label>Region</label>
-							<Form.Field>
-								<Radio
-									label='Hong Kong'
-									name='radioGroup'
-									value='HK'
-									checked={value === 'HK'}
-									onChange={handleRadioChange}
-								/>{' '}
-								<Radio
-									label='Kowloon'
-									name='radioGroup'
-									value='KL'
-									checked={value === 'KL'}
-									onChange={handleRadioChange}
-								/>{' '}
-								<Radio
-									label='N.T.'
-									name='radioGroup'
-									value='NT'
-									checked={value === 'NT'}
-									onChange={handleRadioChange}
+					<Segment
+						onClick={() => {
+							setShowNewAddress(!showNewAddress);
+							console.log(showNewAddress);
+						}}
+					>
+						Add a new address
+					</Segment>
+					{showNewAddress && (
+						<Form>
+							<Form.Group widths='equal'>
+								<Form.Input
+									fluid
+									label='First Name'
+									placeholder='First Name'
+									type='text'
+									value={firstName}
+									onChange={(e) => {
+										e.preventDefault();
+										setFirstName(e.target.value);
+										console.log(firstName);
+									}}
 								/>
-							</Form.Field>
-						</Form.Group>
-						<Form.Checkbox inline label='I agree to the terms and conditions' />
-						<Button color='blue'>Submit</Button>
-					</Form>
+								<Form.Input
+									fluid
+									label='Last Name'
+									placeholder='Last Name'
+									type='text'
+									value={lastName}
+									onChange={(e) => {
+										e.preventDefault();
+										setLastName(e.target.value);
+										console.log(lastName);
+									}}
+								/>
+							</Form.Group>
+							<Form.Input
+								label='Address'
+								placeholder='Street Address'
+								type='text'
+								value={address1}
+								onChange={(e) => {
+									e.preventDefault();
+									setAddress1(e.target.value);
+									console.log(address1);
+								}}
+							/>
+							<Form.Input
+								label=''
+								placeholder='Apt, Suite, Unit, Building, Floor'
+								type='text'
+								value={address2}
+								onChange={(e) => {
+									e.preventDefault();
+									setAddress2(e.target.value);
+									console.log(address1);
+								}}
+							/>
+							<Form.Input
+								label='Email'
+								placeholder='info@info.com'
+								type='email'
+								value={billingEmail}
+								onChange={(e) => {
+									e.preventDefault();
+									setBillingEmail(e.target.value);
+									console.log(setBillingEmail);
+								}}
+							/>
+							<Form.Group widths='equal'>
+								<Form.Field
+									control={Select}
+									label='District'
+									options={dropDownOption}
+									placeholder='District'
+									value={district}
+									onChange={handleDropDownChange}
+								/>
+								<Form.Input
+									label='Phone Number'
+									placeholder='9999 0000'
+									type='text'
+									value={phoneNumber}
+									onChange={(e) => {
+										e.preventDefault();
+										setPhoneNumber(e.target.value);
+									}}
+								/>
+							</Form.Group>
+							<Form.Group inline>
+								<label>Region</label>
+								<Form.Field>
+									<Radio
+										label='Hong Kong'
+										name='radioGroup'
+										value='HK'
+										checked={value === 'HK'}
+										onChange={handleRadioChange}
+									/>{' '}
+									<Radio
+										label='Kowloon'
+										name='radioGroup'
+										value='KL'
+										checked={value === 'KL'}
+										onChange={handleRadioChange}
+									/>{' '}
+									<Radio
+										label='N.T.'
+										name='radioGroup'
+										value='NT'
+										checked={value === 'NT'}
+										onChange={handleRadioChange}
+									/>
+								</Form.Field>
+							</Form.Group>
+							<Form.Checkbox
+								inline
+								label='I agree to the terms and conditions'
+							/>
+							<Button color='yellow'>Submit</Button>
+						</Form>
+					)}
+					{!showNewAddress && <Button color='yellow'>Submit</Button>}
 				</Grid.Column>
 			</Grid.Row>
 			<Grid.Row>

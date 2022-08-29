@@ -34,13 +34,13 @@ const Cart = () => {
 					</Grid.Column>
 					<Grid.Column width={4}>
 						{loginStatus ? (
-							<Button primary size='medium' as='a' href='/checkout'>
+							<Button color='yellow' size='medium' as='a' href='/checkout'>
 								CheckOut
 							</Button>
 						) : (
 							<Link to={'/login'} state={{ prevPath: location.pathname }}>
 								<Button
-									primary
+									color='yellow'
 									size='medium'
 									name='login'
 									onClick={handleItemClick}

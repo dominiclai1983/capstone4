@@ -197,12 +197,17 @@ function Layout() {
 						})}
 						<Divider />
 						{loginStatus ? (
-							<Button primary fluid as='a' href='/checkout'>
+							<Button color='yellow' fluid as='a' href='/checkout'>
 								CheckOut
 							</Button>
 						) : (
 							<Link to={'/login'} state={{ prevPath: 'popup' }}>
-								<Button primary fluid name='login' onClick={handleItemClick}>
+								<Button
+									color='yellow'
+									fluid
+									name='login'
+									onClick={handleItemClick}
+								>
 									CheckOut
 								</Button>
 							</Link>

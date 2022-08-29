@@ -110,7 +110,6 @@ const CartTable = () => {
 								<Table.Cell>{'$' + product.price}</Table.Cell>
 								<Table.Cell textAlign='right'>
 									<Button
-										color='red'
 										onClick={() => {
 											if (loginStatus) {
 												deleteItemInLoginCart(index, product.id);
