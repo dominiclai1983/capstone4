@@ -11,8 +11,6 @@ codes =
     [{ code: "A101", desc: "bracelet" }, { code: "A102", desc: "earrings" }]
   )
 
-=end
-
 products =
   Product.create(
     [
@@ -90,6 +88,35 @@ users =
         password: "password",
         password_confirmation: "password",
         is_admin: true
+      }
+    ]
+  )
+=end
+
+addresses =
+  Address.create(
+    [
+      {
+        user_id: 1,
+        first_name: "test",
+        last_name: "test",
+        billing_email: "test@test.com",
+        phone_number: "9999999",
+        address_1: "148 Wing Lok St",
+        district: "HWC",
+        region: "HK",
+        is_billing: false
+      },
+      {
+        user_id: 1,
+        first_name: "test",
+        last_name: "test",
+        billing_email: "test@test.com",
+        phone_number: "9999999",
+        address_1: "33 Ap Lei Chau Road",
+        district: "HSO",
+        region: "HK",
+        is_billing: false
       }
     ]
   )

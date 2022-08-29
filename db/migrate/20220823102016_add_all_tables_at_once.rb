@@ -1,6 +1,7 @@
 class AddAllTablesAtOnce < ActiveRecord::Migration[6.1]
   def change
     create_table :guest_carts do |t|
+      t.boolean :remove, default: false
       t.timestamps
     end
 
@@ -56,6 +57,7 @@ class AddAllTablesAtOnce < ActiveRecord::Migration[6.1]
       t.string :tracking_number
       t.decimal :shipping_fee, precision: 10, scale: 2
       t.belongs_to :user, index: true, foreign_key: true
+      t.belongs_to :address, index: true, foreign_key: true
       t.timestamps
     end
 
@@ -63,6 +65,7 @@ class AddAllTablesAtOnce < ActiveRecord::Migration[6.1]
       t.decimal :price, precision: 10, scale: 2
       t.decimal :total, precision: 10, scale: 2
       t.integer :quantity
+      t.boolean :remove, default: false
       t.belongs_to :order, index: true, foreign_key: true
       t.belongs_to :product, index: true, foreign_key: true
       t.timestamps
@@ -78,6 +81,7 @@ class AddAllTablesAtOnce < ActiveRecord::Migration[6.1]
     end
 
     create_table :carts do |t|
+      t.boolean :remove, default: false
       t.belongs_to :user, index: true, foreign_key: true
       t.timestamps
     end
@@ -102,6 +106,7 @@ class AddAllTablesAtOnce < ActiveRecord::Migration[6.1]
       t.string :district
       t.string :region
       t.boolean :is_billing
+      t.boolean :remove, default: false
       t.belongs_to :user, index: true, foreign_key: true
       t.timestamps
     end

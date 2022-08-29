@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Grid, Form, Button, Header, Radio, Select } from 'semantic-ui-react';
 import { CheckoutState } from '@src/checkout/checkoutContext';
+import { useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 import { State } from 'country-state-city';
+import axios from 'axios';
 
 const NewAddress = () => {
 	const { setShippingAddress } = CheckoutState();
+	const navigate = useNavigate();
 
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
@@ -35,7 +38,7 @@ const NewAddress = () => {
 		console.log(district);
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		const address = {
 			id: nil,
 			first_name: firstName,
@@ -47,6 +50,14 @@ const NewAddress = () => {
 			region: value,
 			is_billing: false,
 		};
+
+		try {
+			const result = await axios.post('/api/addresses', address);
+			console.log(result.data);
+			//if(result.data)
+		} catch (err) {
+			console.error(err);
+		}
 	};
 
 	return (

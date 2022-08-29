@@ -21,8 +21,11 @@ Rails.application.routes.draw do
     #including a .prettierignore to opt out a file
 
     #charge api
-    post "/charge/mark_complete"    => "charges#mark_complete"
-    post "/charges"                 => "charges#create"
+    post "/charges/mark_complete"       => "charges#mark_complete"
+    post "/charges"                     => "charges#create"
+
+    post "/charges_intent/mark_complete" => "charges#mark_complete_intent"
+    post "/charges_intent"               => "charges#create_intent"
 
     #order_detail api
     post "/order_details"           => "order_details#create"

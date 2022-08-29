@@ -10,6 +10,8 @@
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.4.3",
+    "@stripe/react-stripe-js": "^1.10.0",
+    "@stripe/stripe-js": "^1.35.0",
     "axios": "^0.27.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "country-state-city": "^3.1.0",

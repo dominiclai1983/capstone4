@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_26_141859) do
+ActiveRecord::Schema.define(version: 2022_08_23_102016) do
+
   create_table "addresses", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -21,10 +22,10 @@ ActiveRecord::Schema.define(version: 2022_08_26_141859) do
     t.string "district"
     t.string "region"
     t.boolean "is_billing"
+    t.boolean "remove", default: false
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "remove", default: false
     t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
@@ -42,6 +43,7 @@ ActiveRecord::Schema.define(version: 2022_08_26_141859) do
   end
 
   create_table "carts", force: :cascade do |t|
+    t.boolean "remove", default: false
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -80,6 +82,7 @@ ActiveRecord::Schema.define(version: 2022_08_26_141859) do
   end
 
   create_table "guest_carts", force: :cascade do |t|
+    t.boolean "remove", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -88,6 +91,7 @@ ActiveRecord::Schema.define(version: 2022_08_26_141859) do
     t.decimal "price", precision: 10, scale: 2
     t.decimal "total", precision: 10, scale: 2
     t.integer "quantity"
+    t.boolean "remove", default: false
     t.integer "order_id"
     t.integer "product_id"
     t.datetime "created_at", precision: 6, null: false
@@ -104,9 +108,9 @@ ActiveRecord::Schema.define(version: 2022_08_26_141859) do
     t.string "tracking_number"
     t.decimal "shipping_fee", precision: 10, scale: 2
     t.integer "user_id"
+    t.integer "address_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "address_id"
     t.index ["address_id"], name: "index_orders_on_address_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
@@ -152,6 +156,7 @@ ActiveRecord::Schema.define(version: 2022_08_26_141859) do
   add_foreign_key "guest_cart_details", "products"
   add_foreign_key "order_details", "orders"
   add_foreign_key "order_details", "products"
+  add_foreign_key "orders", "addresses"
   add_foreign_key "orders", "users"
   add_foreign_key "products", "codes"
   add_foreign_key "sessions", "users"
