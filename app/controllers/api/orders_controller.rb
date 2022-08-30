@@ -4,14 +4,11 @@ class Api::OrdersController < ApplicationController
       return render json: { error: "user not logged in" }, status: :unauthorized
     end
 
-    if !session.user.current_order
-      @order = Order.create({ user_id: session.user.id })
-    else
-      @order = session.user.current_order
-    end
-
+    @order =
+      Order.create(
+        { user_id: session.user.id, address_id: [:order][:address_id] }
+      )
     if @order.save
-      session.user.update_attribute(:current_order, @order.id)
       render "api/orders/create", status: :created
     else
       render json: { success: false }, status: :bad_request

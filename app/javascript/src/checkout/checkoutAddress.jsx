@@ -6,7 +6,8 @@ import { CheckoutState } from './checkoutContext';
 import axios from 'axios';
 
 const CheckoutAddress = () => {
-	const { shippingAddress, setShippingAddress } = CheckoutState();
+	const { setShippingAddress, setShowAddressForm } = CheckoutState();
+	//note: showNewAddress, selectAddress initial false
 	const { pathname } = useLocation();
 	const [addresses, setAddresses] = useState([]);
 	const [raised, setRaised] = useState(null);
@@ -25,7 +26,7 @@ const CheckoutAddress = () => {
 		fetchData();
 	}, []);
 
-	console.log(addresses);
+	console.log('checker');
 
 	const AddressCart = (props) => {
 		let { address, index } = props;
@@ -37,6 +38,7 @@ const CheckoutAddress = () => {
 				onClick={() => {
 					setRaised(index);
 					setShippingAddress(address);
+					setShowAddressForm(false);
 				}}
 			>
 				{address.address1} {address.address2} {address.region}
@@ -65,7 +67,7 @@ const CheckoutAddress = () => {
 		<>
 			<Container style={{ marginTop: 60 }}>
 				{addresses.length > 0 && <ShowingAddress />}
-				<NewAddress />
+				<NewAddress raised={raised} setRaised={setRaised} />
 			</Container>
 		</>
 	);

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_23_102016) do
+ActiveRecord::Schema.define(version: 2022_08_30_144856) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "first_name"
@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 2022_08_23_102016) do
     t.decimal "price", precision: 10, scale: 2
     t.decimal "total", precision: 10, scale: 2
     t.integer "quantity"
-    t.boolean "remove", default: false
+    t.boolean "remove", default: true
     t.integer "order_id"
     t.integer "product_id"
     t.datetime "created_at", precision: 6, null: false

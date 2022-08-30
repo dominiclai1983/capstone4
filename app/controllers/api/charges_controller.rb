@@ -86,6 +86,86 @@ class Api::ChargesController < ApplicationController
     return head :bad_request
   end
 
+  def create_intent
+    token = cookies.signed[:ecommerce_session_token]
+    session = Session.find_by(token: token)
+    if !session
+      return(
+        render json: { error: "user not logged in" }, status: :unauthorized
+      )
+    end
+    order_details = OrderDetail.where(order_id: params[:id], remove: false)
+    if !order_details
+      return render json: { error: "cannot find order" }, status: :not_found
+    end
+    total = (order_details.sum(:total) * 100).to_i
+
+    payment_intent =
+      Stripe::PaymentIntent.create(
+        amount: total,
+        currency: "hkd",
+        automatic_payment_methods: {
+          enabled: true
+        }
+      )
+
+    @charge =
+      order.charges.new(
+        {
+          checkout_session_id: payment_intent.client_secret,
+          currency: "HKD",
+          amount: total
+        }
+      )
+
+    if @charge.save
+      render "api/charges/create", status: :created
+    else
+      render json: {
+               error: "charge could not be created"
+             },
+             status: :bad_request
+    end
+  end
+
+  def mark_complete_intent
+    endpoint_secret = ENV["STRIPE_MARK_COMPLETE_WEBHOOK_SIGNING_SECRET"]
+    payload = request.body.read
+    event = nil
+
+    begin
+      event =
+        Stripe::Event.construct_from(JSON.parse(payload, symbolize_names: true))
+    rescue JSON::ParserError => e
+      # Invalid payload
+      puts "⚠️  Webhook error while parsing basic request. #{e.message})"
+      status 400
+      return
+    end
+
+    # Check if webhook signing is configured.
+    if endpoint_secret
+      # Retrieve the event by verifying the signature using the raw body and secret.
+      signature = request.env["HTTP_STRIPE_SIGNATURE"]
+      begin
+        event =
+          Stripe::Webhook.construct_event(payload, signature, endpoint_secret)
+      rescue Stripe::SignatureVerificationError
+        puts "⚠️  Webhook signature verification failed. #{err.message})"
+        status 400
+      end
+    end
+
+    if event["type"] == payment_intent.succeeded
+      payment_intent = event.data.object
+      charge = Charge.find_by(checkout_session_id: payment_intent.client_secret)
+      return head :bad_request if !charge
+      charge.update({ complete: true })
+      return head :ok
+    end
+    return head :bad_request
+  end
+
   private
 
   def mark_status

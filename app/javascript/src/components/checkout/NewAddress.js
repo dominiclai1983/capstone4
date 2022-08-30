@@ -6,8 +6,16 @@ import _ from 'lodash';
 import { State } from 'country-state-city';
 import axios from 'axios';
 
-const NewAddress = () => {
-	const { setShippingAddress } = CheckoutState();
+//note: once
+
+const NewAddress = (props) => {
+	const { raised, setRaised } = props;
+	const {
+		shippingAddress,
+		setShippingAddress,
+		showAddressForm,
+		setShowAddressForm,
+	} = CheckoutState();
 	const navigate = useNavigate();
 
 	const [firstName, setFirstName] = useState('');
@@ -19,9 +27,18 @@ const NewAddress = () => {
 	const [district, setDistrict] = useState('');
 	const [value, setValue] = useState(null);
 
-	const [showNewAddress, setShowNewAddress] = useState(false);
-
 	const info = State.getStatesOfCountry('HK');
+
+	const address = {
+		first_name: firstName,
+		last_name: lastName ? lastName : ' ',
+		billing_email: billingEmail,
+		address_1: address1,
+		address_2: address2,
+		district: district,
+		region: value,
+		is_billing: false,
+	};
 
 	const dropDownOption = _.times(info.length, (i) => ({
 		key: i,
@@ -40,19 +57,10 @@ const NewAddress = () => {
 		console.log(district);
 	};
 
-	const handleSubmit = async () => {
-		const address = {
-			id: nil,
-			first_name: firstName,
-			last_name: lastName,
-			billing_email: billingEmail,
-			address_1: address1,
-			address_2: address2,
-			district: district,
-			region: value,
-			is_billing: false,
-		};
+	//console.log(showAddressForm);
+	console.log(shippingAddress);
 
+	const handleSubmit = async () => {
 		try {
 			const result = await axios.post('/api/addresses', address);
 			console.log(result.data);
@@ -71,14 +79,16 @@ const NewAddress = () => {
 			<Grid.Row>
 				<Grid.Column>
 					<Segment
+						secondary={raised !== 'address'}
+						raised={raised === 'address'}
 						onClick={() => {
-							setShowNewAddress(!showNewAddress);
-							console.log(showNewAddress);
+							setShowAddressForm(true);
+							setRaised('address');
 						}}
 					>
 						Add a new address
 					</Segment>
-					{showNewAddress && (
+					{showAddressForm ? (
 						<Form>
 							<Form.Group widths='equal'>
 								<Form.Input
@@ -189,10 +199,16 @@ const NewAddress = () => {
 								inline
 								label='I agree to the terms and conditions'
 							/>
-							<Button color='yellow'>Submit</Button>
+							<Button color='yellow'>Submit 1</Button>
 						</Form>
+					) : (
+						<Button
+							color='yellow'
+							disabled={Object.keys(shippingAddress).length === 0}
+						>
+							Submit 2
+						</Button>
 					)}
-					{!showNewAddress && <Button color='yellow'>Submit</Button>}
 				</Grid.Column>
 			</Grid.Row>
 			<Grid.Row>
