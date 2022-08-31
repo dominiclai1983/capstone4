@@ -80,23 +80,28 @@ const CheckoutLayout = () => {
 								<Icon name='shipping' />
 								Shipping
 							</Step.Title>
-							<Step.Description>Choose your shipping options</Step.Description>
+							<Step.Description>Choose Your Shipping Options</Step.Description>
+						</Step.Content>
+					</Step>
+
+					<Step active={activeItem === 'confirm'}>
+						<Step.Content>
+							<Step.Title>
+								<Icon name='payment' />
+								Confirm
+							</Step.Title>
+							<Step.Description>
+								Enter Your Credit Card Information
+							</Step.Description>
 						</Step.Content>
 					</Step>
 
 					<Step>
 						<Step.Content>
 							<Step.Title>
-								<Icon name='shipping' />
-								Confirm
+								<Icon name='mail' />
+								Confirm Order
 							</Step.Title>
-							<Step.Description>Enter billing information</Step.Description>
-						</Step.Content>
-					</Step>
-
-					<Step>
-						<Step.Content>
-							<Step.Title>Confirm Order</Step.Title>
 						</Step.Content>
 					</Step>
 				</Step.Group>

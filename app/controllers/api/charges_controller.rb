@@ -175,7 +175,14 @@ class Api::ChargesController < ApplicationController
       charge.update({ complete: true })
       token = cookies.signed[:ecommerce_session_token]
       session = Session.find_by(token: token)
-      @order = Order.create({ address_id: metadata.address_id, user_id: session.user.id, charges })
+      @order =
+        Order.create(
+          {
+            address_id: metadata.address_id,
+            user_id: session.user.id,
+            charge_id: charge.id
+          }
+        )
 
       return head :ok
     end
