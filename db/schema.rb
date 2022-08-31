@@ -109,11 +109,11 @@ ActiveRecord::Schema.define(version: 2022_08_23_102016) do
     t.decimal "shipping_fee", precision: 10, scale: 2
     t.integer "user_id"
     t.integer "address_id"
-    t.integer "charges_id"
+    t.integer "charge_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["address_id"], name: "index_orders_on_address_id"
-    t.index ["charges_id"], name: "index_orders_on_charges_id"
+    t.index ["charge_id"], name: "index_orders_on_charge_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -159,7 +159,7 @@ ActiveRecord::Schema.define(version: 2022_08_23_102016) do
   add_foreign_key "order_details", "orders"
   add_foreign_key "order_details", "products"
   add_foreign_key "orders", "addresses"
-  add_foreign_key "orders", "charges", column: "charges_id"
+  add_foreign_key "orders", "charges"
   add_foreign_key "orders", "users"
   add_foreign_key "products", "codes"
   add_foreign_key "sessions", "users"

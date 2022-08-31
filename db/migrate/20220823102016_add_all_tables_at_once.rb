@@ -58,7 +58,7 @@ class AddAllTablesAtOnce < ActiveRecord::Migration[6.1]
       t.decimal :shipping_fee, precision: 10, scale: 2
       t.belongs_to :user, index: true, foreign_key: true
       t.belongs_to :address, index: true, foreign_key: true
-      t.belongs_to :charges, index: true, foreign_key: true
+      t.belongs_to :charge, index: true, foreign_key: true
       t.timestamps
     end
 

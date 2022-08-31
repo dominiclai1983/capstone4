@@ -173,6 +173,10 @@ class Api::ChargesController < ApplicationController
       charge = Charge.find_by(checkout_session_id: payment_intent.client_secret)
       return head :bad_request if !charge
       charge.update({ complete: true })
+      token = cookies.signed[:ecommerce_session_token]
+      session = Session.find_by(token: token)
+      @order = Order.create({ address_id: metadata.address_id, user_id: session.user.id, charges })
+
       return head :ok
     end
     return head :bad_request
