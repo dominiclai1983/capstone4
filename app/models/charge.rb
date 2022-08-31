@@ -1,5 +1,5 @@
 class Charge < ApplicationRecord
-  belongs_to :order
+  belongs_to :cart
 
   validates :checkout_session_id, presence: true
   validates :currency, presence: true

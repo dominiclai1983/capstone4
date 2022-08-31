@@ -89,30 +89,41 @@ class Api::ChargesController < ApplicationController
   def create_intent
     token = cookies.signed[:ecommerce_session_token]
     session = Session.find_by(token: token)
+    Stripe.api_key = ENV["STRIPE_SECRET_KEY"]
     if !session
       return(
         render json: { error: "user not logged in" }, status: :unauthorized
       )
     end
-    order_details = OrderDetail.where(order_id: params[:id], remove: false)
-    if !order_details
-      return render json: { error: "cannot find order" }, status: :not_found
+
+    data = JSON.parse(request.body.read)
+    puts data
+
+    cart_details =
+      CartDetail.where(cart_id: data["metadata"]["cart_id"], remove: false)
+    if !cart_details
+      return render json: { error: "cannot find cart" }, status: :not_found
     end
-    total = (order_details.sum(:total) * 100).to_i
+    total = (cart_details.sum(:total) * 100).to_i
 
     payment_intent =
       Stripe::PaymentIntent.create(
         amount: total,
-        currency: "hkd",
+        currency: "HKD",
         automatic_payment_methods: {
           enabled: true
-        }
+        },
+        metadata: data["metadata"]
       )
 
+    puts payment_intent
+    puts payment_intent.client_secret
+
     @charge =
-      order.charges.new(
+      Charge.new(
         {
           checkout_session_id: payment_intent.client_secret,
+          cart_id: data["metadata"]["cart_id"],
           currency: "HKD",
           amount: total
         }
@@ -155,9 +166,10 @@ class Api::ChargesController < ApplicationController
         status 400
       end
     end
-
+    #TODO: rewrite the relogic
     if event["type"] == payment_intent.succeeded
       payment_intent = event.data.object
+      metadata = payment_intent.metadata
       charge = Charge.find_by(checkout_session_id: payment_intent.client_secret)
       return head :bad_request if !charge
       charge.update({ complete: true })

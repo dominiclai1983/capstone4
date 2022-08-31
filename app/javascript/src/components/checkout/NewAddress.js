@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Grid, Form, Button, Radio, Select, Segment } from 'semantic-ui-react';
 import { CheckoutState } from '@src/checkout/checkoutContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import _ from 'lodash';
 import { State } from 'country-state-city';
 import axios from 'axios';
@@ -31,14 +31,17 @@ const NewAddress = (props) => {
 
 	const address = {
 		first_name: firstName,
-		last_name: lastName ? lastName : ' ',
+		last_name: lastName,
 		billing_email: billingEmail,
 		address_1: address1,
-		address_2: address2,
+		address_2: address2 ? address2 : ' ',
 		district: district,
 		region: value,
+		phone_number: phoneNumber,
 		is_billing: false,
 	};
+
+	console.log(address);
 
 	const dropDownOption = _.times(info.length, (i) => ({
 		key: i,
@@ -66,8 +69,8 @@ const NewAddress = (props) => {
 			console.log(result.data);
 			if (result.data) {
 				setShippingAddress(result.data.address);
-				console.log();
-				//navigate()
+				console.log(result.data.address);
+				navigate('/confirm');
 			}
 		} catch (err) {
 			console.error(err);
@@ -89,7 +92,7 @@ const NewAddress = (props) => {
 						Add a new address
 					</Segment>
 					{showAddressForm ? (
-						<Form>
+						<Form onSubmit={handleSubmit}>
 							<Form.Group widths='equal'>
 								<Form.Input
 									fluid
@@ -146,7 +149,7 @@ const NewAddress = (props) => {
 								onChange={(e) => {
 									e.preventDefault();
 									setBillingEmail(e.target.value);
-									console.log(setBillingEmail);
+									console.log(billingEmail);
 								}}
 							/>
 							<Form.Group widths='equal'>
@@ -166,6 +169,7 @@ const NewAddress = (props) => {
 									onChange={(e) => {
 										e.preventDefault();
 										setPhoneNumber(e.target.value);
+										console.log(e.target.value);
 									}}
 								/>
 							</Form.Group>
@@ -205,6 +209,8 @@ const NewAddress = (props) => {
 						<Button
 							color='yellow'
 							disabled={Object.keys(shippingAddress).length === 0}
+							as={Link}
+							to='../confirm'
 						>
 							Submit 2
 						</Button>

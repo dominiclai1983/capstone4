@@ -65,6 +65,7 @@ const CheckoutLayout = () => {
 	};
 
 	console.log(`isEmpty ` + isEmpty);
+	console.log(`currentCartID` + currentCartID);
 
 	const src = 'https://via.placeholder.com/1250x90.png';
 

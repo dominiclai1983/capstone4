@@ -15,8 +15,8 @@ const CheckoutIndex = () => {
 					<Routes>
 						<Route path='checkout' element={<CheckoutLayout />}>
 							<Route index element={<CheckoutAddress />} />
-							{/* <Route path="confirm" element={<CheckoutConfirm />} /> */}
-							<Route path=':id/success' element={<CheckoutSuccess />} />
+							<Route path='confirm' element={<CheckoutConfirm />} />
+							<Route path='success' element={<CheckoutSuccess />} />
 						</Route>
 					</Routes>
 				</BrowserRouter>

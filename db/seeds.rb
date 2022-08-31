@@ -5,7 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-=begin
+
 codes =
   Code.create(
     [{ code: "A101", desc: "bracelet" }, { code: "A102", desc: "earrings" }]
@@ -91,7 +91,6 @@ users =
       }
     ]
   )
-=end
 
 addresses =
   Address.create(

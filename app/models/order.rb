@@ -1,9 +1,9 @@
 class Order < ApplicationRecord
   belongs_to :user
   belongs_to :address
+  belongs_to :charges
 
   has_many :order_details
-  has_many :charges
   has_many :products, through: :order_details
 
   #validates :order_date, presence: true

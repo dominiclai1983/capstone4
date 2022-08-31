@@ -10,6 +10,8 @@ import {
 	Button,
 	Header,
 	Divider,
+	Grid,
+	Container,
 } from 'semantic-ui-react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -185,6 +187,7 @@ function Layout() {
 						hoverable
 					>
 						<Header>My Cart - {cart.length} items</Header>
+
 						{cart.map((cart, index) => {
 							return (
 								<p
@@ -195,6 +198,7 @@ function Layout() {
 								</p>
 							);
 						})}
+
 						<Divider />
 						{loginStatus ? (
 							<Button color='yellow' fluid as='a' href='/checkout'>
