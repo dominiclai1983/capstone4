@@ -70,7 +70,7 @@ const NewAddress = (props) => {
 			if (result.data) {
 				setShippingAddress(result.data.address);
 				console.log(result.data.address);
-				navigate('/confirm');
+				navigate('../confirm');
 			}
 		} catch (err) {
 			console.error(err);

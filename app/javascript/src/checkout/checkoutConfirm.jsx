@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { CheckoutState } from './checkoutContext';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
-//import { safeCredentials, handleErrors } from '@components/utils/fetchHelper';
+import { safeCredentials, handleErrors } from '@components/utils/fetchHelper';
 import StripeCheckoutForm from '@components/checkout/StripeCheckoutForm';
 import { useLocation, useOutletContext } from 'react-router-dom';
 import '@src/css/checkoutConfirm.scss';
@@ -16,16 +16,19 @@ const CheckoutConfirm = () => {
 	const [clientSecret, setClientSecret] = useState('');
 	const { shippingAddress, currentCartID } = CheckoutState();
 
+	//TODO: change to use the safeCredentials() and handleErrors
 	useEffect(() => {
 		// Create PaymentIntent as soon as the page loads
-		fetch('/api/charges_intent', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({
-				metadata: { cart_id: currentCartID, address_id: shippingAddress.id },
-			}),
-		})
-			.then((res) => res.json())
+		fetch(
+			'/api/charges_intent',
+			safeCredentials({
+				method: 'POST',
+				body: JSON.stringify({
+					metadata: { cart_id: currentCartID, address_id: shippingAddress.id },
+				}),
+			})
+		)
+			.then(handleErrors)
 			.then((data) => {
 				console.log(data);
 				setClientSecret(data.client_secret);
@@ -42,7 +45,7 @@ const CheckoutConfirm = () => {
 	};
 
 	return (
-		<div className='App'>
+		<div className='checkoutConfirm'>
 			{clientSecret && (
 				<Elements options={options} stripe={stripePromise}>
 					<StripeCheckoutForm />

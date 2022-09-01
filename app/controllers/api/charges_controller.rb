@@ -89,7 +89,7 @@ class Api::ChargesController < ApplicationController
   def create_intent
     token = cookies.signed[:ecommerce_session_token]
     session = Session.find_by(token: token)
-    Stripe.api_key = ENV["STRIPE_SECRET_KEY"]
+    #Stripe.api_key = ENV["STRIPE_SECRET_KEY"]
     if !session
       return(
         render json: { error: "user not logged in" }, status: :unauthorized
@@ -122,7 +122,7 @@ class Api::ChargesController < ApplicationController
     @charge =
       Charge.new(
         {
-          checkout_session_id: payment_intent.client_secret,
+          checkout_session_id: payment_intent["client_secret"],
           cart_id: data["metadata"]["cart_id"],
           currency: "HKD",
           amount: total
@@ -167,12 +167,14 @@ class Api::ChargesController < ApplicationController
       end
     end
     #TODO: rewrite the relogic
+    #TODO: test the webhook first
     if event["type"] == payment_intent.succeeded
       payment_intent = event.data.object
       metadata = payment_intent.metadata
       charge = Charge.find_by(checkout_session_id: payment_intent.client_secret)
       return head :bad_request if !charge
       charge.update({ complete: true })
+=begin
       token = cookies.signed[:ecommerce_session_token]
       session = Session.find_by(token: token)
       @order =
@@ -183,7 +185,7 @@ class Api::ChargesController < ApplicationController
             charge_id: charge.id
           }
         )
-
+=end
       return head :ok
     end
     return head :bad_request

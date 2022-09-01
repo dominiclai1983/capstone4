@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { CheckoutState } from './checkoutContext';
 import {
-	Step,
+	Button,
 	Container,
 	Header,
-	Button,
-	Image,
 	Icon,
+	Image,
+	Step,
 } from 'semantic-ui-react';
 import { useLocation, Outlet } from 'react-router-dom';
 import axios from 'axios';

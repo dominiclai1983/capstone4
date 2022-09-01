@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CheckoutLayout from './checkoutLayout';
 import CheckoutAddress from './checkoutAddress';
 import CheckoutConfirm from './checkoutConfirm';
-import CheckoutSuccess from './checkoutSuccess';
 import CheckoutContext from './checkoutContext';
+import CheckoutLayout from './checkoutLayout';
+import CheckoutSuccess from './checkoutSuccess';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const CheckoutIndex = () => {
