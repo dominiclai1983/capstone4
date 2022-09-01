@@ -1,18 +1,19 @@
 Rails.application.routes.draw do
   root to: "static_pages#index"
 
-  get "/login"          => "static_pages#index"
-  get "/signup"         => "static_pages#index"
-  get "/bracelet"       => "static_pages#index"
-  get "/earrings"       => "static_pages#index"
-  get "/product/:sku"   => "static_pages#index"
-  get "/account"        => "static_pages#index"
-  get "/cart"           => "static_pages#index"
+  get "/login"                => "static_pages#index"
+  get "/signup"               => "static_pages#index"
+  get "/bracelet"             => "static_pages#index"
+  get "/earrings"             => "static_pages#index"
+  get "/product/:sku"         => "static_pages#index"
+  get "/account"              => "static_pages#index"
+  get "/cart"                 => "static_pages#index"
 
-  get "/checkout"       => "static_pages#checkout"
-  get "/checkout/:id/success" => "static_pages#checkout"
+  get "/checkout"             => "static_pages#checkout"
+  get "/checkout/confirm"     => "static_pages#checkout"
+  get "/checkout/success"     => "static_pages#checkout"
 
-  get "/account"        => "static_pages#index"
+  get "/account"              => "static_pages#index"
 
   namespace :api do
     resources :users, only: %i[create index]

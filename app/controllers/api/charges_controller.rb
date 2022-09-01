@@ -1,5 +1,6 @@
 class Api::ChargesController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:mark_complete]
+  skip_before_action :verify_authenticity_token,
+                     only: %i[mark_complete mark_complete_intent]
 
   def create
     token = cookies.signed[:ecommerce_session_token]
@@ -168,23 +169,25 @@ class Api::ChargesController < ApplicationController
     end
     #TODO: rewrite the relogic
     #TODO: test the webhook first
-    if event["type"] == payment_intent.succeeded
+    if event["type"] == "payment_intent.succeeded"
       payment_intent = event.data.object
-      metadata = payment_intent.metadata
+      puts payment_intent
+      metadata = payment_intent["metadata"]
+      puts metadata
+      puts payment_intent.client_secret
+
       charge = Charge.find_by(checkout_session_id: payment_intent.client_secret)
-      return head :bad_request if !charge
-      charge.update({ complete: true })
+      charge.update_attribute(:complete, true)
+      cart = Cart.find_by(id: metadata["cart_id"])
+      cart.update_attribute(:remove, true)
+      cart.user.update_attribute(:current_cart, nil)
 =begin
-      token = cookies.signed[:ecommerce_session_token]
-      session = Session.find_by(token: token)
-      @order =
-        Order.create(
-          {
-            address_id: metadata.address_id,
-            user_id: session.user.id,
-            charge_id: charge.id
-          }
-        )
+
+      return head :bad_request if !charge
+      charge.update_attribute({ complete: true })
+      cart = Cart.find_by(id: metadata.cart_id)
+      cart.update_attribute(remove: true)
+      cart.user.update_attribute(current_cart: nil)
 =end
       return head :ok
     end
