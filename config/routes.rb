@@ -79,5 +79,8 @@ Rails.application.routes.draw do
     post "/sessions"                => "sessions#create"
     get "/authenticated"            => "sessions#authenticated"
     delete "/sessions"              => "sessions#destroy"
+
+    #user api
+    post "/remove_current_cart"     => "user#remove_current_cart"
   end
 end

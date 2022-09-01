@@ -33,6 +33,22 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def remove_current_cart
+    token = cookies.signed[:ecommerce_session_token]
+    session = Session.find_by(token: token)
+
+    if session
+      @user = session.user
+      if @user and @user.update_attribute(:current_cart, nil)
+        render json: { cart_removal: true }, status: :ok
+      else
+        render json: { cart_removal: false }, status: :bad_request
+      end
+    else
+      render json: { authenticated: false }, status: :bad_request
+    end
+  end
+
   private
 
   def user_params
