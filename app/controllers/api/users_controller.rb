@@ -36,7 +36,7 @@ class Api::UsersController < ApplicationController
   def remove_current_cart
     token = cookies.signed[:ecommerce_session_token]
     session = Session.find_by(token: token)
-    order = order.find_by(params[:order_id])
+    order = Order.find_by(id: params[:order_id])
 
     if session
       @user = session.user

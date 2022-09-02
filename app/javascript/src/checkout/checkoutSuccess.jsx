@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import 
+import { useBeforeunload } from 'react-beforeunload';
 import { handleErrors } from '@components/utils/fetchHelper';
 import axios from 'axios';
 
@@ -30,17 +30,23 @@ const CheckoutSuccess = () => {
 
 	console.log(clientSecret);
 
-	const handleRemoveCurrentCart = () => {
-		fetch(`/api/charges_intent?order_id=${orderDetail.id}`)
-			.then(handleErrors)
-			.then((data) => {
-				console.log(data);
-			});
+	const id = orderDetail.id;
+
+	const handleRemoveCurrentCart = async () => {
+		const order_id = {
+			order_id: id,
+		};
+		try {
+			const result = await axios.post('/api/remove_current_cart', order_id);
+			console.log(result);
+		} catch (err) {
+			console.error(err);
+		}
 	};
 
-	useBeforeunload((e) => {
+	useBeforeunload(async (e) => {
 		handleRemoveCurrentCart();
-	})
+	});
 
 	return <div>CheckoutSuccess: {orderDetail.id}</div>;
 };

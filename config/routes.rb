@@ -82,6 +82,6 @@ Rails.application.routes.draw do
     delete "/sessions"              => "sessions#destroy"
 
     #user api
-    post "/remove_current_cart"     => "user#remove_current_cart"
+    post "/remove_current_cart"     => "users#remove_current_cart"
   end
 end
