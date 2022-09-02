@@ -21,6 +21,8 @@ const StripeCheckoutForm = () => {
 			'payment_intent_client_secret'
 		);
 
+		console.log(clientSecret);
+
 		if (!clientSecret) {
 			return;
 		}

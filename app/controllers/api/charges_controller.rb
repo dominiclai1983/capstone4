@@ -178,20 +178,40 @@ class Api::ChargesController < ApplicationController
 
       charge = Charge.find_by(checkout_session_id: payment_intent.client_secret)
       charge.update_attribute(:complete, true)
+
       cart = Cart.find_by(id: metadata["cart_id"])
       cart.update_attribute(:remove, true)
-      cart.user.update_attribute(:current_cart, nil)
-=begin
 
-      return head :bad_request if !charge
-      charge.update_attribute({ complete: true })
-      cart = Cart.find_by(id: metadata.cart_id)
-      cart.update_attribute(remove: true)
-      cart.user.update_attribute(current_cart: nil)
-=end
-      return head :ok
+      @order =
+        Order.create(
+          {
+            ordre_date: Date.current,
+            status: true,
+            payment_status: true,
+            user_id: cart.user.id,
+            address_id: metadata["address_id"],
+            charge_id: charge.id
+          }
+        )
+
+      cart_details =
+        CartDetail.where(cart_id: metadata["cart_id"], remove: false)
+      cart_details.map do |item|
+        order_detail =
+          OrderDetail.create(
+            {
+              order_id: @order.id,
+              product_id: item.product_id,
+              price: item.price,
+              quantity: item.quantity,
+              total: item.total
+            }
+          )
+      end
+      render json: { order_creation: "success" }
+    else
+      render json: { error: "cannot create order" }, status: :bad_request
     end
-    return head :bad_request
   end
 
   private
