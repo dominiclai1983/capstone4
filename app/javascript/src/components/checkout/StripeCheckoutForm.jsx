@@ -56,13 +56,15 @@ const StripeCheckoutForm = () => {
 
 		setIsLoading(true);
 
-		const { error } = await stripe.confirmPayment({
+		const { error, paymentIntent } = await stripe.confirmPayment({
 			elements,
 			confirmParams: {
 				// Make sure to change this to your payment completion page
 				return_url: `${process.env.URL}/checkout/success`,
 			},
 		});
+
+		console.log(paymentIntent);
 
 		// This point will only be reached if there is an immediate error when
 		// confirming the payment. Otherwise, your customer will be redirected to

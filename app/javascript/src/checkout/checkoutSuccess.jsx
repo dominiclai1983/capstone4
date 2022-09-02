@@ -1,7 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const CheckoutSuccess = () => {
-	return <div>CheckoutSuccess</div>;
+	const location = window.location.search;
+	const clientSecret = new URLSearchParams(window.location.search).get(
+		'payment_intent_client_secret'
+	);
+	const [orderDetail, setOrderDetail] = useState({});
+	console.log(location);
+	console.log(clientSecret);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const result = await axios.get(
+					`/api/charges_intent?checkout_session_id=${clientSecret}`
+				);
+				if (result.data) {
+					setOrderDetail(result.data.order);
+				}
+			} catch (err) {
+				console.error(err);
+			}
+		};
+		fetchData();
+	}, []);
+
+	console.log(clientSecret);
+
+	return <div>CheckoutSuccess: {orderDetail.id}</div>;
 };
 
 export default CheckoutSuccess;

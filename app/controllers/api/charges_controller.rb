@@ -179,16 +179,15 @@ class Api::ChargesController < ApplicationController
       charge = Charge.find_by(checkout_session_id: payment_intent.client_secret)
       charge.update_attribute(:complete, true)
 
-      cart = Cart.find_by(id: metadata["cart_id"])
-      cart.update_attribute(:remove, true)
+      charge.cart.update_attribute(:remove, true)
 
       @order =
         Order.create(
           {
-            ordre_date: Date.current,
+            order_date: DateTime.now,
             status: true,
             payment_status: true,
-            user_id: cart.user.id,
+            user_id: charge.cart.user.id,
             address_id: metadata["address_id"],
             charge_id: charge.id
           }
@@ -211,6 +210,21 @@ class Api::ChargesController < ApplicationController
       render json: { order_creation: "success" }
     else
       render json: { error: "cannot create order" }, status: :bad_request
+    end
+  end
+
+  def get_charge_by_client_secret
+    if !session
+      return(
+        render json: { error: "user not logged in" }, status: :unauthorized
+      )
+    end
+    charge = Charge.find_by(checkout_session_id: params[:checkout_session_id])
+    @order = Order.find_by(charge_id: charge.id)
+    if @order
+      render "api/orders/show", status: :created
+    else
+      render json: { error: "cannot find order" }, status: :bad_request
     end
   end
 

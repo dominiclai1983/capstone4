@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
     post "/charges_intent/mark_complete" => "charges#mark_complete_intent"
     post "/charges_intent"               => "charges#create_intent"
+    get "/charges_intent"                => "charges#get_charge_by_client_secret"
 
     #order_detail api
     post "/order_details"           => "order_details#create"
