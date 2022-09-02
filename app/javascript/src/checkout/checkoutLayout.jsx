@@ -13,7 +13,7 @@ import axios from 'axios';
 
 const CheckoutLayout = () => {
 	const { pathname } = useLocation();
-	const { cart, setCart, currentCartID, setCurrentCartID } = CheckoutState();
+	const { setCart, currentCartID, setCurrentCartID } = CheckoutState();
 	const path = pathname === '/checkout' ? 'home' : pathname.substring(10);
 	//10 char = '/checkout'
 	const [activeItem, setActiveItem] = useState(path);
@@ -96,11 +96,11 @@ const CheckoutLayout = () => {
 						</Step.Content>
 					</Step>
 
-					<Step>
+					<Step active={activeItem === 'success'}>
 						<Step.Content>
 							<Step.Title>
 								<Icon name='mail' />
-								Confirm Order
+								Order Success!!!
 							</Step.Title>
 						</Step.Content>
 					</Step>

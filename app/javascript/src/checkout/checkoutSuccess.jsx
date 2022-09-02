@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useBeforeunload } from 'react-beforeunload';
-import { handleErrors } from '@components/utils/fetchHelper';
+import { useLocation, useOutletContext } from 'react-router-dom';
 import axios from 'axios';
-
+//useBeforeunload() is a hook to handle onbeforeunload event
+/*fire an api call to change dispatch_confirm to true when the page is close 
+and prevent the revisit of the page*/
 const CheckoutSuccess = () => {
+	const { pathname } = useLocation();
+	const [activeItem, setActiveItem] = useOutletContext();
+	const path = pathname === '/checkout' ? 'home' : pathname.substring(10);
 	const location = window.location.search;
 	const clientSecret = new URLSearchParams(window.location.search).get(
 		'payment_intent_client_secret'
@@ -13,11 +18,13 @@ const CheckoutSuccess = () => {
 	console.log(clientSecret);
 
 	useEffect(() => {
+		setActiveItem(path);
 		const fetchData = async () => {
 			try {
 				const result = await axios.get(
 					`/api/charges_intent?checkout_session_id=${clientSecret}`
 				);
+				//TODO: redirect to account page when account section ready
 				if (result.data) {
 					setOrderDetail(result.data.order);
 				}

@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { CheckoutState } from './checkoutContext';
-//import { useLocation } from 'react-router-dom';
 import { Segment, Grid, Container, Header } from 'semantic-ui-react';
 import NewAddress from '@components/checkout/NewAddress';
 import axios from 'axios';
 
 const CheckoutAddress = () => {
 	const { setShippingAddress, setShowAddressForm } = CheckoutState();
-	//note: showNewAddress, selectAddress initial false
-	//const { pathname } = useLocation();
 	const [addresses, setAddresses] = useState([]);
 	const [raised, setRaised] = useState(null);
 

@@ -18,6 +18,7 @@ const CheckoutConfirm = () => {
 
 	//TODO: change to use the safeCredentials() and handleErrors
 	useEffect(() => {
+		setActiveItem(path);
 		// Create PaymentIntent as soon as the page loads
 		fetch(
 			'/api/charges_intent',
@@ -32,7 +33,6 @@ const CheckoutConfirm = () => {
 			.then((data) => {
 				console.log(data);
 				setClientSecret(data.client_secret);
-				setActiveItem(path);
 			});
 	}, []);
 
