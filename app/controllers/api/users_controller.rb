@@ -36,11 +36,13 @@ class Api::UsersController < ApplicationController
   def remove_current_cart
     token = cookies.signed[:ecommerce_session_token]
     session = Session.find_by(token: token)
+    order = order.find_by(params[:order_id])
 
     if session
       @user = session.user
-      if @user and @user.update_attribute(:current_cart, nil)
-        render json: { cart_removal: true }, status: :ok
+      if @user && @user.update_attribute(:current_cart, nil) &&
+           order.update_attribute(:dispatch_confirm, true)
+        render json: { cart_removal: true, dispatch_confirm: true }, status: :ok
       else
         render json: { cart_removal: false }, status: :bad_request
       end

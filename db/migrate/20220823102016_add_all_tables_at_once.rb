@@ -54,6 +54,7 @@ class AddAllTablesAtOnce < ActiveRecord::Migration[6.1]
       t.datetime :shipping_date
       t.boolean :status, default: false
       t.boolean :payment_status, default: false
+      t.boolean :dispatch_confirm, default: false
       t.string :tracking_number
       t.decimal :shipping_fee, precision: 10, scale: 2
       t.belongs_to :user, index: true, foreign_key: true

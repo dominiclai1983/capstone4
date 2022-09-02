@@ -16,7 +16,6 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "country-state-city": "^3.1.0",
     "dotenv": "^16.0.1",
-    "faker": "^6.6.6",
     "lodash": "^4.17.21",
     "prop-types": "^15.8.1",
     "pure-react-carousel": "^1.29.0",
