@@ -89,7 +89,7 @@ const Signup = () => {
 							setDisableTAndC(!disableTAndC);
 						}}
 					/>
-					<Button color='blue' disabled={disableTAndC}>
+					<Button color='yellow' disabled={disableTAndC}>
 						Submit
 					</Button>
 				</Form>

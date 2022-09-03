@@ -81,7 +81,7 @@ const ProductLayOut = (props) => {
 					<Divider style={{ marginBottom: 20 }} />
 					<Button
 						fluid
-						primary
+						color='yellow'
 						onClick={() => {
 							loginStatus
 								? getItemIntoLoginCart(currentCartID)

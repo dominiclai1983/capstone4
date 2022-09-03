@@ -25,7 +25,7 @@ const Product = () => {
 	return (
 		<>
 			<Container style={{ marginTop: 20 }}>
-				<Breadcrumb size='small'>
+				<Breadcrumb>
 					<Breadcrumb.Section
 						as={Link}
 						to='/'

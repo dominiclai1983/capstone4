@@ -8,7 +8,7 @@ const CheckoutContext = ({ children }) => {
 	const [currentCartID, setCurrentCartID] = useState('');
 	const [shippingAddress, setShippingAddress] = useState({});
 	const [showAddressForm, setShowAddressForm] = useState(false);
-	const [secret, setSecret] = useState(null);
+	const [shippingFee, setShippingFee] = useState(null);
 
 	return (
 		<Checkout.Provider
@@ -23,6 +23,8 @@ const CheckoutContext = ({ children }) => {
 				setShippingAddress,
 				showAddressForm,
 				setShowAddressForm,
+				shippingFee,
+				setShippingFee,
 			}}
 		>
 			{children}

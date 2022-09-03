@@ -17,7 +17,6 @@ const CheckoutLayout = () => {
 	const path = pathname === '/checkout' ? 'home' : pathname.substring(10);
 	//10 char = '/checkout'
 	const [activeItem, setActiveItem] = useState(path);
-	const [isEmpty, setIsEmpty] = useState(false);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -27,9 +26,6 @@ const CheckoutLayout = () => {
 					window.location.replace('/login');
 				}
 				setCurrentCartID(result.data.current_cart);
-				if (!result.data.current_cart) {
-					setIsEmpty(!isEmpty);
-				}
 			} catch (err) {
 				console.error(err);
 			}
@@ -51,20 +47,6 @@ const CheckoutLayout = () => {
 		fetchData();
 	}, [currentCartID]);
 
-	const EmptyCart = () => {
-		return (
-			<>
-				<Container style={{ marginTop: 20 }}>
-					<Header as='h1'>The cart is empty!</Header>
-					<Button primary as='a' href='/'>
-						Go Shopping!
-					</Button>
-				</Container>
-			</>
-		);
-	};
-
-	console.log(`isEmpty ` + isEmpty);
 	console.log(`currentCartID` + currentCartID);
 
 	const src = 'https://via.placeholder.com/1250x90.png';
@@ -73,7 +55,7 @@ const CheckoutLayout = () => {
 		<>
 			<Container style={{ marginTop: 20 }}>
 				<Image src={src} />
-				<Step.Group widths={3}>
+				<Step.Group widths={4}>
 					<Step active={activeItem === 'home'}>
 						<Step.Content>
 							<Step.Title>
@@ -84,11 +66,23 @@ const CheckoutLayout = () => {
 						</Step.Content>
 					</Step>
 
-					<Step active={activeItem === 'confirm'}>
+					<Step active={activeItem === 'final'}>
+						<Step.Content>
+							<Step.Title>
+								<Icon name='mouse pointer' />
+								Confirm
+							</Step.Title>
+							<Step.Description>
+								Confirm Your Order Information
+							</Step.Description>
+						</Step.Content>
+					</Step>
+
+					<Step active={activeItem === 'payment'}>
 						<Step.Content>
 							<Step.Title>
 								<Icon name='payment' />
-								Confirm
+								Payment
 							</Step.Title>
 							<Step.Description>
 								Enter Your Credit Card Information
@@ -106,11 +100,7 @@ const CheckoutLayout = () => {
 					</Step>
 				</Step.Group>
 			</Container>
-			{isEmpty ? (
-				<EmptyCart />
-			) : (
-				<Outlet context={[activeItem, setActiveItem]} />
-			)}
+			<Outlet context={[activeItem, setActiveItem]} />
 		</>
 	);
 };

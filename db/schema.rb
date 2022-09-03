@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(version: 2022_08_23_102016) do
     t.boolean "dispatch_confirm", default: false
     t.string "tracking_number"
     t.decimal "shipping_fee", precision: 10, scale: 2
+    t.decimal "order_total", precision: 10, scale: 2
     t.integer "user_id"
     t.integer "address_id"
     t.integer "charge_id"

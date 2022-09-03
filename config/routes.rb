@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   get "/cart"                 => "static_pages#index"
 
   get "/checkout"             => "static_pages#checkout"
-  get "/checkout/confirm"     => "static_pages#checkout"
+  get "/checkout/final"       => "static_pages#checkout"
+  get "/checkout/payment"     => "static_pages#checkout"
   get "/checkout/success"     => "static_pages#checkout"
 
   get "/account"              => "static_pages#index"

@@ -70,7 +70,7 @@ const NewAddress = (props) => {
 			if (result.data) {
 				setShippingAddress(result.data.address);
 				console.log(result.data.address);
-				navigate('../confirm');
+				navigate('../final');
 			}
 		} catch (err) {
 			console.error(err);
@@ -210,7 +210,7 @@ const NewAddress = (props) => {
 							color='yellow'
 							disabled={Object.keys(shippingAddress).length === 0}
 							as={Link}
-							to='../confirm'
+							to='../final'
 						>
 							Submit 2
 						</Button>

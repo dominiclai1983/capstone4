@@ -189,7 +189,9 @@ class Api::ChargesController < ApplicationController
             payment_status: true,
             user_id: charge.cart.user.id,
             address_id: metadata["address_id"],
-            charge_id: charge.id
+            shipping_fee: metadata["shipping_fee"],
+            charge_id: charge.id,
+            order_total: charge.amount
           }
         )
 

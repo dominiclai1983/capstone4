@@ -42,12 +42,12 @@ class Api::UsersController < ApplicationController
       @user = session.user
       if @user && @user.update_attribute(:current_cart, nil) &&
            order.update_attribute(:dispatch_confirm, true)
-        render json: { cart_removal: true, dispatch_confirm: true }, status: :ok
+        puts "{ cart_removal: true, dispatch_confirm: true }"
       else
-        render json: { cart_removal: false }, status: :bad_request
+        puts "{ cart_removal: false }"
       end
     else
-      render json: { authenticated: false }, status: :bad_request
+      puts "{ authenticated: false }"
     end
   end
 

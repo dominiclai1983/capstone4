@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import { Breadcrumb } from 'semantic-ui-react';
 import { Link, useOutletContext } from 'react-router-dom';
 
@@ -10,7 +11,7 @@ const ProductBreadcrumb = (props) => {
 
 	return (
 		<>
-			<Breadcrumb size='small' style={{ marginLeft: 80 }}>
+			<Breadcrumb style={{ marginLeft: 80 }}>
 				<Breadcrumb.Section
 					as={Link}
 					to='/'
@@ -26,7 +27,7 @@ const ProductBreadcrumb = (props) => {
 					name={desc}
 					onClick={handleItemClick}
 				>
-					{desc}
+					{_.startCase(desc)}
 				</Breadcrumb.Section>
 				<Breadcrumb.Divider icon='right chevron' color='orange' />
 				<Breadcrumb.Section>{title}</Breadcrumb.Section>

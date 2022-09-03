@@ -78,7 +78,7 @@ const Login = () => {
 								}}
 							/>
 
-							<Button content='Login' primary />
+							<Button content='Login' color='yellow' />
 						</Form>
 					</Grid.Column>
 

@@ -2,7 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { CartState } from '@src/context';
 import _ from 'lodash';
 import CartSummary from '@components/cart/CartSummary';
-import { Button, Table, Image, Icon, Dropdown, Grid } from 'semantic-ui-react';
+import {
+	Button,
+	Table,
+	Image,
+	Icon,
+	Dropdown,
+	Grid,
+	Header,
+	Container,
+} from 'semantic-ui-react';
 import axios from 'axios';
 
 const CartTable = () => {
@@ -75,56 +84,68 @@ const CartTable = () => {
 		text: 'Qty: ' + (i + 1),
 	}));
 
+	const EmptyCart = () => {
+		return (
+			<Container textAlign='left'>
+				<Header as='h2'>The Cart Is Empty</Header>
+			</Container>
+		);
+	};
+
 	console.log(cart);
 
 	return (
 		<Grid.Row>
 			<Grid.Column width={11}>
-				<Table>
-					<Table.Body>
-						{cart.map((product, index) => (
-							<Table.Row key={index}>
-								<Table.Cell>
-									<Image src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
-								</Table.Cell>
-								<Table.Cell>{product.title}</Table.Cell>
-								<Table.Cell>
-									<Dropdown
-										text={'Qty :' + product.quantity}
-										value={product.quantity}
-										selection
-										options={dropDownOption}
-										onChange={(e, data) => {
-											e.preventDefault();
-											if (loginStatus) {
-												changeItemQuantityInLoginCart(product.id, data.value);
-											} else {
-												changeItemQuantityInNotLoginCart(
-													product.id,
-													data.value
-												);
-											}
-										}}
-									/>
-								</Table.Cell>
-								<Table.Cell>{'$' + product.price}</Table.Cell>
-								<Table.Cell textAlign='right'>
-									<Button
-										onClick={() => {
-											if (loginStatus) {
-												deleteItemInLoginCart(index, product.id);
-											} else {
-												deleteItemInNotLoginCart(index, product.id);
-											}
-										}}
-									>
-										<Icon name='close' /> Cancel
-									</Button>
-								</Table.Cell>
-							</Table.Row>
-						))}
-					</Table.Body>
-				</Table>
+				{cart.length === 0 ? (
+					<EmptyCart />
+				) : (
+					<Table>
+						<Table.Body>
+							{cart.map((product, index) => (
+								<Table.Row key={index}>
+									<Table.Cell>
+										<Image src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
+									</Table.Cell>
+									<Table.Cell>{product.title}</Table.Cell>
+									<Table.Cell>
+										<Dropdown
+											text={'Qty :' + product.quantity}
+											value={product.quantity}
+											selection
+											options={dropDownOption}
+											onChange={(e, data) => {
+												e.preventDefault();
+												if (loginStatus) {
+													changeItemQuantityInLoginCart(product.id, data.value);
+												} else {
+													changeItemQuantityInNotLoginCart(
+														product.id,
+														data.value
+													);
+												}
+											}}
+										/>
+									</Table.Cell>
+									<Table.Cell>{'HK$' + product.price}</Table.Cell>
+									<Table.Cell textAlign='right'>
+										<Button
+											onClick={() => {
+												if (loginStatus) {
+													deleteItemInLoginCart(index, product.id);
+												} else {
+													deleteItemInNotLoginCart(index, product.id);
+												}
+											}}
+										>
+											<Icon name='close' /> Cancel
+										</Button>
+									</Table.Cell>
+								</Table.Row>
+							))}
+						</Table.Body>
+					</Table>
+				)}
 			</Grid.Column>
 			<Grid.Column width={5}>
 				<CartSummary total={total} />

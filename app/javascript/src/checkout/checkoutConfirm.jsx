@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CheckoutState } from './checkoutContext';
+import { Grid, Container, Header } from 'semantic-ui-react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import { safeCredentials, handleErrors } from '@components/utils/fetchHelper';
@@ -14,7 +15,7 @@ const CheckoutConfirm = () => {
 	const [activeItem, setActiveItem] = useOutletContext();
 	const path = pathname === '/checkout' ? 'home' : pathname.substring(10);
 	const [clientSecret, setClientSecret] = useState('');
-	const { shippingAddress, currentCartID } = CheckoutState();
+	const { shippingAddress, currentCartID, shippingFee } = CheckoutState();
 
 	//TODO: change to use the safeCredentials() and handleErrors
 	useEffect(() => {
@@ -25,7 +26,11 @@ const CheckoutConfirm = () => {
 			safeCredentials({
 				method: 'POST',
 				body: JSON.stringify({
-					metadata: { cart_id: currentCartID, address_id: shippingAddress.id },
+					metadata: {
+						cart_id: currentCartID,
+						address_id: shippingAddress.id,
+						shipping_fee: shippingFee,
+					},
 				}),
 			})
 		)
@@ -45,13 +50,20 @@ const CheckoutConfirm = () => {
 	};
 
 	return (
-		<div className='checkoutConfirm'>
-			{clientSecret && (
-				<Elements options={options} stripe={stripePromise}>
-					<StripeCheckoutForm />
-				</Elements>
-			)}
-		</div>
+		<Grid columns={2} divided style={{ marginTop: '25px' }}>
+			<Grid.Column>
+				<Header as='h2'>Credit Card Details</Header>
+				<Container textAlign='left'>
+					<div className='checkoutConfirm'>
+						{clientSecret && (
+							<Elements options={options} stripe={stripePromise}>
+								<StripeCheckoutForm />
+							</Elements>
+						)}
+					</div>
+				</Container>
+			</Grid.Column>
+		</Grid>
 	);
 };
 

@@ -30,6 +30,13 @@ function Layout() {
 
 	const [activeItem, setActiveItem] = useState(path);
 	const [username, setUsername] = useState('');
+	const [totalItem, setTotalItem] = useState(0);
+	const [total, setTotal] = useState(0);
+
+	useEffect(() => {
+		setTotalItem(cart.reduce((acc, cur) => acc + Number(cur.quantity), 0));
+		setTotal(cart.reduce((acc, cur) => acc + Number(cur.total), 0).toFixed(2));
+	}, [cart]);
 
 	//this useEffect() is checking the login status
 	useEffect(() => {
@@ -128,10 +135,10 @@ function Layout() {
 		<>
 			<Menu secondary>
 				<Menu.Item style={{ marginLeft: 20 }}>
-					<Image
-						src='https://cdn6.agoda.net/images/kite-js/logo/agoda/color-default.svg'
-						size='tiny'
-					/>
+					<Header as='h6' icon>
+						<Icon name='shopping bag' color='yellow' />
+						Ecommerce Demo
+					</Header>
 				</Menu.Item>
 
 				<Menu.Item
@@ -180,14 +187,13 @@ function Layout() {
 								style={{ marginRight: 20 }}
 							>
 								<Icon name='shopping cart' size='large' />
-								{cart.length}
+								{totalItem}
 							</Menu.Item>
 						}
 						disabled={path === 'cart' || cart.length === 0 ? true : false}
 						hoverable
 					>
-						<Header>My Cart - {cart.length} items</Header>
-
+						<Header>My Cart - {totalItem} items</Header>
 						{cart.map((cart, index) => {
 							return (
 								<p
@@ -198,7 +204,8 @@ function Layout() {
 								</p>
 							);
 						})}
-
+						<Divider />
+						<p style={{ textAlign: 'center' }}>Total: HK$ {total}</p>
 						<Divider />
 						{loginStatus ? (
 							<Button color='yellow' fluid as='a' href='/checkout'>
