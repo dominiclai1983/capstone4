@@ -1,7 +1,6 @@
 import React from 'react';
 import { CheckoutState } from '@src/checkout/checkoutContext';
 import { Table, Image, Header, Icon, Button } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
 
 const OrderTable = () => {
 	const { cart } = CheckoutState();

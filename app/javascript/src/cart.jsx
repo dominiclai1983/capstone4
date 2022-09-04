@@ -8,7 +8,6 @@ const Cart = () => {
 	const { cart, loginStatus } = CartState();
 	const location = useLocation();
 	const [activeItem, setActiveItem] = useOutletContext();
-	const [total, setTotal] = useState(0);
 
 	const handleItemClick = (e, { name }) => setActiveItem(name);
 

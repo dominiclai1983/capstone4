@@ -105,7 +105,9 @@ class Api::ChargesController < ApplicationController
     if !cart_details
       return render json: { error: "cannot find cart" }, status: :not_found
     end
-    total = (cart_details.sum(:total) * 100).to_i
+    total =
+      (cart_details.sum(:total) * 100).to_i +
+        (data["metadata"]["shipping_fee"] * 100).to_i
 
     payment_intent =
       Stripe::PaymentIntent.create(

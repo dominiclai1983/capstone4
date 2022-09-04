@@ -3,15 +3,12 @@ import { CartState } from '@src/context';
 import _ from 'lodash';
 import {
 	Menu,
-	Image,
 	Dropdown,
 	Icon,
 	Popup,
 	Button,
 	Header,
 	Divider,
-	Grid,
-	Container,
 } from 'semantic-ui-react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import axios from 'axios';

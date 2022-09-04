@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Grid, Header, Container } from 'semantic-ui-react';
 import ConfirmGrid from '@components/checkout/ConfirmGrid';
 import { useLocation, useOutletContext } from 'react-router-dom';
@@ -14,7 +14,6 @@ const CheckoutFinal = () => {
 	return (
 		<Container style={{ marginTop: '25px' }}>
 			<Grid>
-				{/* button to payment*/}
 				<Header as='h2'>Confirm Your Order Details</Header>
 				<ConfirmGrid />
 			</Grid>

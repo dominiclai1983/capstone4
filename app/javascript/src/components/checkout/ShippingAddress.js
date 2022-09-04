@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { CheckoutState } from '@src/checkout/checkoutContext';
-import { Button, Form, Header, Icon, Container } from 'semantic-ui-react';
+import { Header, Icon, Container } from 'semantic-ui-react';
 import { State } from 'country-state-city';
 
 const ShippingAddress = () => {
 	const { shippingAddress } = CheckoutState();
-	const [addressID, setAddressID] = useState(shippingAddress.addressID);
 	const [firstName, setFirstName] = useState(shippingAddress.firstName);
 	const [lastName, setLastName] = useState(shippingAddress.lastName);
 	const [address1, setAddress1] = useState(shippingAddress.address1);
