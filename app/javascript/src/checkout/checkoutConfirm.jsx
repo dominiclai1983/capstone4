@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CheckoutState } from './checkoutContext';
-import { Grid, Container, Header } from 'semantic-ui-react';
+import { Grid, Container, Header, Card } from 'semantic-ui-react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import { safeCredentials, handleErrors } from '@components/utils/fetchHelper';
@@ -15,6 +15,8 @@ const CheckoutConfirm = () => {
 	const [activeItem, setActiveItem] = useOutletContext();
 	const path = pathname === '/checkout' ? 'home' : pathname.substring(10);
 	const [clientSecret, setClientSecret] = useState('');
+	const [amountInCent, setAmountInCent] = useState(0);
+	const amount = parseInt(amountInCent) / 100;
 	const { shippingAddress, currentCartID, shippingFee } = CheckoutState();
 
 	//TODO: change to use the safeCredentials() and handleErrors
@@ -36,8 +38,8 @@ const CheckoutConfirm = () => {
 		)
 			.then(handleErrors)
 			.then((data) => {
-				console.log(data);
 				setClientSecret(data.client_secret);
+				setAmountInCent(data.amount);
 			});
 	}, []);
 
@@ -51,18 +53,29 @@ const CheckoutConfirm = () => {
 
 	return (
 		<Grid columns={2} divided style={{ marginTop: '25px' }}>
-			<Grid.Column>
-				<Header as='h2'>Credit Card Details</Header>
-				<Container textAlign='left'>
-					<div className='checkoutConfirm'>
-						{clientSecret && (
-							<Elements options={options} stripe={stripePromise}>
-								<StripeCheckoutForm />
-							</Elements>
-						)}
-					</div>
-				</Container>
-			</Grid.Column>
+			{amount && (
+				<Grid.Column>
+					<Header as='h2' style={{ marginTop: '8px' }}>
+						Credit Card Details
+					</Header>
+					<Container textAlign='left'>
+						<Card style={{ minWidth: '500px' }}>
+							<Card.Content>
+								<Card.Header color='yellow'>
+									Total Amount: HK${amount === 0 ? null : amount}
+								</Card.Header>
+							</Card.Content>
+						</Card>
+						<div className='checkoutConfirm'>
+							{clientSecret && (
+								<Elements options={options} stripe={stripePromise}>
+									<StripeCheckoutForm />
+								</Elements>
+							)}
+						</div>
+					</Container>
+				</Grid.Column>
+			)}
 		</Grid>
 	);
 };

@@ -30,7 +30,7 @@ const OrderTable = () => {
 				<Table.Footer>
 					<Table.Row>
 						<Table.HeaderCell colSpan='5'>
-							<Button floated='right' as={Link} to='../../cart'>
+							<Button floated='right' as='a' href='../../cart'>
 								Edit Cart
 							</Button>
 						</Table.HeaderCell>

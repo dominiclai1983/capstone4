@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Grid, Button } from 'semantic-ui-react';
 import { CheckoutState } from '@src/checkout/checkoutContext';
+import { Link } from 'react-router-dom';
 
 const OrderSummary = (props) => {
 	const { chooseShipping } = props;
@@ -15,7 +16,7 @@ const OrderSummary = (props) => {
 
 	return (
 		<>
-			<Card>
+			<Card style={{ width: '100%' }}>
 				<Card.Content>
 					<Card.Header style={{ textAlign: 'left' }}>Order Summary</Card.Header>
 					<Grid columns={2}>
@@ -42,7 +43,15 @@ const OrderSummary = (props) => {
 					</Grid>
 				</Card.Content>
 			</Card>
-			{chooseShipping && <Button color='yellow'>Pay Now!</Button>}
+			<Button
+				fluid
+				color='yellow'
+				disabled={!chooseShipping}
+				as={Link}
+				to='../payment'
+			>
+				Pay Now!
+			</Button>
 		</>
 	);
 };

@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CheckoutState } from './checkoutContext';
-import {
-	Button,
-	Container,
-	Header,
-	Icon,
-	Image,
-	Step,
-} from 'semantic-ui-react';
+import { Container, Icon, Image, Step } from 'semantic-ui-react';
 import { useLocation, Outlet } from 'react-router-dom';
 import axios from 'axios';
 
@@ -46,8 +39,6 @@ const CheckoutLayout = () => {
 		};
 		fetchData();
 	}, [currentCartID]);
-
-	console.log(`currentCartID` + currentCartID);
 
 	const src = 'https://via.placeholder.com/1250x90.png';
 

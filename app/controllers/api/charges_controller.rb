@@ -208,6 +208,11 @@ class Api::ChargesController < ApplicationController
               total: item.total
             }
           )
+        product = Product.find_by(id: item.product_id)
+        new_reserved = (product.reserved.to_i + item.quantity.to_i)
+        product.update_attribute(:reserved, new_reserved)
+        new_available = product.quantity - new_reserved
+        product.update_attribute(:available, new_available)
       end
       render json: { order_creation: "success" }
     else

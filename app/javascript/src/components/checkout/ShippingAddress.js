@@ -27,17 +27,18 @@ const ShippingAddress = () => {
 				<Icon name='shipping' />
 				1. Your Shipping Address
 			</Header>
-			<Container>
+			<Container style={{ padding: '25px' }}>
 				<p>
 					{firstName} {lastName}
 				</p>
-				<p>{address1}</p>
-				{address2 && <p>{address2}</p>}
 				<p>
+					{address1}
+					{address2 && <p>{address2}</p>}
 					{infoDistrict} {region}
 				</p>
-				<p>Email Address: {billingEmail}</p>
-				<p>Phone Number: {phoneNumber}</p>
+				<p>
+					Email Address: {billingEmail} Phone Number: {phoneNumber}
+				</p>
 			</Container>
 		</>
 	);

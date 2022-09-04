@@ -21,8 +21,6 @@ const StripeCheckoutForm = () => {
 			'payment_intent_client_secret'
 		);
 
-		console.log(clientSecret);
-
 		if (!clientSecret) {
 			return;
 		}
@@ -63,8 +61,6 @@ const StripeCheckoutForm = () => {
 				return_url: `${process.env.URL}/checkout/success`,
 			},
 		});
-
-		console.log(paymentIntent);
 
 		// This point will only be reached if there is an immediate error when
 		// confirming the payment. Otherwise, your customer will be redirected to

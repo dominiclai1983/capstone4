@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { CheckoutState } from '@src/checkout/checkoutContext';
+import React, { useState } from 'react';
 import ShippingAddress from './ShippingAddress';
 import ShippingFee from './ShippingFee';
 import OrderTable from './OrderTable';
 import OrderSummary from './OrderSummary';
-import { Grid, Table, Divider, Container } from 'semantic-ui-react';
-import { useLocation, useOutletContext } from 'react-router-dom';
+import { Grid } from 'semantic-ui-react';
 
 const ConfirmGrid = () => {
 	const [chooseShipping, setChooseShipping] = useState(false);
