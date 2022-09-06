@@ -3,7 +3,6 @@ import React, { createContext, useContext, useState } from 'react';
 const Checkout = createContext();
 
 const CheckoutContext = ({ children }) => {
-	const [billingAddress, setBillingAddress] = useState({});
 	const [cart, setCart] = useState([]);
 	const [currentCartID, setCurrentCartID] = useState('');
 	const [shippingAddress, setShippingAddress] = useState({});
@@ -13,8 +12,6 @@ const CheckoutContext = ({ children }) => {
 	return (
 		<Checkout.Provider
 			value={{
-				billingAddress,
-				setBillingAddress,
 				cart,
 				setCart,
 				currentCartID,

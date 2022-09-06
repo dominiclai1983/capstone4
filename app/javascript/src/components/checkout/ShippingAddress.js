@@ -26,7 +26,7 @@ const ShippingAddress = () => {
 				<Icon name='shipping' />
 				1. Your Shipping Address
 			</Header>
-			<Container style={{ padding: '25px' }}>
+			<Container style={{ paddingLeft: '25px' }}>
 				<p>
 					{firstName} {lastName}
 				</p>

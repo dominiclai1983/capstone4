@@ -32,4 +32,34 @@ class Api::SessionsController < ApplicationController
 
     render json: { success: true }, status: :ok if session and session.destroy
   end
+
+  def admin
+    @admin = User.find_by(email: params[:user][:email])
+
+    if @admin.is_admin and @admin.authenticate(params[:user][:password])
+      session = @admin.sessions.create
+      cookies.permanent.signed[:ecommerce_admin_session_token] = {
+        value: session.token,
+        httponly: true
+      }
+      render "api/sessions/create", status: :created
+    else
+      render json: { success: false }, status: :bad_request
+    end
+  end
+
+  def admin_auth
+    token = cookies.signed[:ecommerce_admin_session_token]
+    admin_session = Session.find_by(token: token)
+
+    if admin_session
+      @admin = admin_session.user
+      render "api/sessions/authenticated", status: :ok
+    else
+      render json: { authenticated: false }, status: :bad_request
+    end
+  end
+
+  def admin_destory
+  end
 end

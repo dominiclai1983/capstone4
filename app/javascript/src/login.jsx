@@ -12,9 +12,9 @@ import axios from 'axios';
 
 const Login = () => {
 	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
 	const location = useLocation();
 	//could useLocation hook to pass down the state. get it by location.state
-	const [password, setPassword] = useState('');
 
 	console.log(location.state);
 

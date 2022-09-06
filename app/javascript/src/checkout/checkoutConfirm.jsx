@@ -15,11 +15,12 @@ const CheckoutConfirm = () => {
 	const [activeItem, setActiveItem] = useOutletContext();
 	const path = pathname === '/checkout' ? 'home' : pathname.substring(10);
 	const [clientSecret, setClientSecret] = useState('');
-	const [amountInCent, setAmountInCent] = useState(0);
-	const amount = parseInt(amountInCent) / 100;
+	const [amountInCent, setAmountInCent] = useState(null);
+	const amount = isNaN(parseInt(amountInCent) / 100)
+		? ''
+		: parseInt(amountInCent) / 100;
 	const { shippingAddress, currentCartID, shippingFee } = CheckoutState();
 
-	//TODO: change to use the safeCredentials() and handleErrors
 	useEffect(() => {
 		setActiveItem(path);
 		// Create PaymentIntent as soon as the page loads
@@ -53,17 +54,15 @@ const CheckoutConfirm = () => {
 
 	return (
 		<Grid columns={2} divided style={{ marginTop: '25px' }}>
-			{amount && (
-				<Grid.Column>
-					<Header as='h2' style={{ marginTop: '8px' }}>
-						Credit Card Details
-					</Header>
+			<Grid.Column>
+				<Header as='h2' style={{ marginTop: '8px' }}>
+					Credit Card Details
+				</Header>
+				{amount && (
 					<Container textAlign='left'>
 						<Card style={{ minWidth: '500px' }}>
 							<Card.Content>
-								<Card.Header color='yellow'>
-									Total Amount: HK${amount === 0 ? null : amount}
-								</Card.Header>
+								<Card.Header>Total Amount: HK$ {amount}</Card.Header>
 							</Card.Content>
 						</Card>
 						<div className='checkoutConfirm'>
@@ -74,8 +73,8 @@ const CheckoutConfirm = () => {
 							)}
 						</div>
 					</Container>
-				</Grid.Column>
-			)}
+				)}
+			</Grid.Column>
 		</Grid>
 	);
 };

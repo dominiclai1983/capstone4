@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   get "/account"              => "static_pages#index"
 
+  get "/admin"                => "static_pages#admin"
+
   namespace :api do
     resources :users, only: %i[create index]
     resources :order_details, only: [:create]
@@ -81,6 +83,9 @@ Rails.application.routes.draw do
     post "/sessions"                => "sessions#create"
     get "/authenticated"            => "sessions#authenticated"
     delete "/sessions"              => "sessions#destroy"
+    post "/admins"                  => "sessions#admin"
+    get "/admin_auth"               => "sessions#admin_auth"
+    delete "/admins"                => "sessions#admin_destory"
 
     #user api
     post "/remove_current_cart"     => "users#remove_current_cart"

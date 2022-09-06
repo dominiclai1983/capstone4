@@ -77,8 +77,6 @@ class Api::ChargesController < ApplicationController
       charge = Charge.find_by(checkout_session_id: session.id)
       return head :bad_request if !charge #|| !order_details
       charge.update({ complete: true })
-      #TODO: get all the item by using Order.find(order_id).order_deatils
-      #TODO: order_details update reserved quantity
       mark_payment_state
       mark_reserved
       mark_current_order
@@ -98,7 +96,6 @@ class Api::ChargesController < ApplicationController
     end
 
     data = JSON.parse(request.body.read)
-    puts data
 
     cart_details =
       CartDetail.where(cart_id: data["metadata"]["cart_id"], remove: false)
@@ -118,9 +115,6 @@ class Api::ChargesController < ApplicationController
         },
         metadata: data["metadata"]
       )
-
-    puts payment_intent
-    puts payment_intent.client_secret
 
     @charge =
       Charge.new(
@@ -169,20 +163,17 @@ class Api::ChargesController < ApplicationController
         status 400
       end
     end
-    #TODO: rewrite the relogic
-    #TODO: test the webhook first
+
     if event["type"] == "payment_intent.succeeded"
       payment_intent = event.data.object
       puts payment_intent
       metadata = payment_intent["metadata"]
-      puts metadata
-      puts payment_intent.client_secret
 
       charge = Charge.find_by(checkout_session_id: payment_intent.client_secret)
       charge.update_attribute(:complete, true)
-
       charge.cart.update_attribute(:remove, true)
 
+      #create an order
       @order =
         Order.create(
           {
@@ -196,7 +187,7 @@ class Api::ChargesController < ApplicationController
             order_total: charge.amount
           }
         )
-
+      #convert the cart line items into order line items
       cart_details =
         CartDetail.where(cart_id: metadata["cart_id"], remove: false)
       cart_details.map do |item|
@@ -210,8 +201,10 @@ class Api::ChargesController < ApplicationController
               total: item.total
             }
           )
+        #change the product quantity  
         product = Product.find_by(id: item.product_id)
         new_reserved = (product.reserved.to_i + item.quantity.to_i)
+        #ruby treats + is concatenation if not specific the variable is interger
         product.update_attribute(:reserved, new_reserved)
         new_available = product.quantity - new_reserved
         product.update_attribute(:available, new_available)

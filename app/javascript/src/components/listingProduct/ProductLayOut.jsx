@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
 	Grid,
 	Image,
@@ -22,7 +22,6 @@ const ProductLayOut = (props) => {
 			const result = await axios.post(`/api/carts`);
 			if (result.data) {
 				setCurrentCartID(result.data.cart_id);
-				console.log(currentCartID);
 			}
 		} catch (err) {
 			console.error(err);
@@ -44,7 +43,6 @@ const ProductLayOut = (props) => {
 		try {
 			const result = await axios.post(`/api/cart_details`, prod);
 			if (result.data) {
-				console.log(result.data.cart_detail);
 				setCart([...cart, result.data.cart_detail]);
 			}
 		} catch (err) {

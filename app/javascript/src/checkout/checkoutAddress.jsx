@@ -23,8 +23,6 @@ const CheckoutAddress = () => {
 		fetchData();
 	}, []);
 
-	console.log('checker');
-
 	const AddressCart = (props) => {
 		let { address, index } = props;
 

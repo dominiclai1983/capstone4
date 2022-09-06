@@ -1,36 +1,11 @@
-backend
-- app
-  - view
-  - controller
-  - model
-- config
-  - route
+-admin
+add new product
+user control 
+user data 
 
-frontend
-- product 
-- loyout
-  - active item on the layout bar
-
-webpack 
--setting
-
-account
--complete order methods
-
-checkout
--check the flow of checkout 
-
-							{/*
-							as={loginStatus ? null : Link}
-							to={loginStatus ? null : '/login'}
-						state={loginStatus ? null : { prevPath: location.pathname }}
-						*/}
-cart
--almost completed
--chagne quantity
 
 stripe listen --events payment_intent.succeeded --forward-to localhost:3000/api/charges_intent/mark_complete
 
 http://localhost:3000/checkout/success?payment_intent=pi_3LdUl8FnptBzEzOP0pY3hbF9&payment_intent_client_secret=pi_3LdUl8FnptBzEzOP0pY3hbF9_secret_YO4syLZIJdCN6RNQQMBA0etij&redirect_status=succeeded
 
-pi_3LdVYLFnptBzEzOP0wzql7pf_secret_4iwR4ZpB10ICH97EKY2rFcU1Z
+e

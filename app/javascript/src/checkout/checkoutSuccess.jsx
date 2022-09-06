@@ -22,11 +22,8 @@ const CheckoutSuccess = () => {
 				const result = await axios.get(
 					`/api/charges_intent?checkout_session_id=${clientSecret}`
 				);
-				//TODO: redirect to account page when account section ready
-				console.log(result.data.order.dispatch_confirm);
 				if (!result.data.order.dispatch_confirm) {
 					setOrderDetail(result.data.order);
-					console.log(orderDetail);
 				}
 			} catch (err) {
 				console.error(err);
@@ -34,8 +31,6 @@ const CheckoutSuccess = () => {
 		};
 		fetchData();
 	}, []);
-
-	console.log(clientSecret);
 
 	const handleRemoveCurrentCart = async () => {
 		const order_id = {

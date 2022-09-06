@@ -92,8 +92,6 @@ const CartTable = () => {
 		);
 	};
 
-	console.log(cart);
-
 	return (
 		<Grid.Row>
 			<Grid.Column width={11}>

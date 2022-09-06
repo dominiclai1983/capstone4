@@ -22,14 +22,16 @@ const OrderSummary = (props) => {
 					<Grid columns={2}>
 						<Grid.Row>
 							<Grid.Column style={{ textAlign: 'left' }}>SubTotal:</Grid.Column>
-							<Grid.Column style={{ textAlign: 'right' }}>${total}</Grid.Column>
+							<Grid.Column style={{ textAlign: 'right' }}>
+								${total.toFixed(2)}
+							</Grid.Column>
 						</Grid.Row>
 						<Grid.Row>
 							<Grid.Column style={{ textAlign: 'left' }}>
 								Shipping Fee:
 							</Grid.Column>
 							<Grid.Column style={{ textAlign: 'right' }}>
-								${shippingFee ? shippingFee : 0}
+								${shippingFee ? shippingFee.toFixed(2) : 0}
 							</Grid.Column>
 						</Grid.Row>
 						<Grid.Row>
@@ -37,7 +39,7 @@ const OrderSummary = (props) => {
 								Order Total:
 							</Grid.Column>
 							<Grid.Column style={{ textAlign: 'right' }}>
-								${orderTotal}
+								${orderTotal.toFixed(2)}
 							</Grid.Column>
 						</Grid.Row>
 					</Grid>

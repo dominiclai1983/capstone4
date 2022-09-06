@@ -115,7 +115,7 @@ function Layout() {
 			<>
 				<Dropdown item text={'Hello!' + '  ' + username}>
 					<Dropdown.Menu>
-						<Dropdown.Item as='a' href='/account'>
+						<Dropdown.Item as={Link} to='/account'>
 							Account
 						</Dropdown.Item>
 						<Dropdown.Item>Order</Dropdown.Item>

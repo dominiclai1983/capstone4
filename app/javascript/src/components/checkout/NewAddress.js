@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { Grid, Form, Button, Radio, Select, Segment } from 'semantic-ui-react';
+import {
+	Grid,
+	Form,
+	Button,
+	Radio,
+	Select,
+	Segment,
+	Container,
+} from 'semantic-ui-react';
 import { CheckoutState } from '@src/checkout/checkoutContext';
 import { useNavigate, Link } from 'react-router-dom';
 import _ from 'lodash';
@@ -60,9 +68,6 @@ const NewAddress = (props) => {
 		console.log(district);
 	};
 
-	//console.log(showAddressForm);
-	console.log(shippingAddress);
-
 	const handleSubmit = async () => {
 		try {
 			const result = await axios.post('/api/addresses', address);
@@ -92,7 +97,7 @@ const NewAddress = (props) => {
 						Add a new address
 					</Segment>
 					{showAddressForm ? (
-						<Form onSubmit={handleSubmit}>
+						<Form onSubmit={handleSubmit} style={{ width: '100%' }}>
 							<Form.Group widths='equal'>
 								<Form.Input
 									fluid
@@ -199,21 +204,21 @@ const NewAddress = (props) => {
 									/>
 								</Form.Field>
 							</Form.Group>
-							<Form.Checkbox
-								inline
-								label='I agree to the terms and conditions'
-							/>
-							<Button color='yellow'>Submit 1</Button>
+							<Container>
+								<Button color='yellow'>Submit 1</Button>
+							</Container>
 						</Form>
 					) : (
-						<Button
-							color='yellow'
-							disabled={Object.keys(shippingAddress).length === 0}
-							as={Link}
-							to='../final'
-						>
-							Submit 2
-						</Button>
+						<Container textAlign='right'>
+							<Button
+								color='yellow'
+								disabled={Object.keys(shippingAddress).length === 0}
+								as={Link}
+								to='../final'
+							>
+								Submit 2
+							</Button>
+						</Container>
 					)}
 				</Grid.Column>
 			</Grid.Row>
