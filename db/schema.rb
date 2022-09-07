@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 2022_08_23_102016) do
   end
 
   create_table "order_details", force: :cascade do |t|
-    t.decimal "price", precision: 10, scale: 2
+    t.decimal "price", precision: 10, scale: 2s
     t.decimal "total", precision: 10, scale: 2
     t.integer "quantity"
     t.boolean "remove", default: true

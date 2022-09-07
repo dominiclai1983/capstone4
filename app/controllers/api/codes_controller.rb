@@ -18,6 +18,12 @@ class Api::CodesController < ApplicationController
     render "api/codes/show", status: :ok
   end
 
+  def index
+    @codes = Code.all
+    return render json: { error: "not_found" }, status: :not_found if !@codes
+    render "api/codes/index", status: :ok
+  end
+
   private
 
   def code_params

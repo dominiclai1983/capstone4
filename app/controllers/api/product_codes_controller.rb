@@ -14,6 +14,10 @@ class Api::ProductCodesController < ApplicationController
 
   def index
     @product_codes = ProductCode.all
+    if !!@product_codes
+      return render json: { error: "not_found" }, status: :not_found
+    end
+    render "api/product_codes/index", status: :ok
   end
 
   def find_product_code_by_desc

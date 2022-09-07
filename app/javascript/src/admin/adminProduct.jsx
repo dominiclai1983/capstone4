@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	Menu,
 	Container,
@@ -6,7 +6,10 @@ import {
 	Segment,
 	Form,
 	Button,
+	Select,
 } from 'semantic-ui-react';
+import _ from 'lodash';
+import axios from 'axios';
 
 const AdminProduct = () => {
 	const [activeItem, setActiveItem] = useState('info');
@@ -15,11 +18,55 @@ const AdminProduct = () => {
 	const [title, setTitle] = useState('');
 	const [sku, setSKU] = useState('');
 	const [price, setPrice] = useState(0);
+	const [description, setDescription] = useState('');
+	const [codes, setCodes] = useState([]);
+	const [productCode, setProductCode] = useState('');
+	const [quantity, setQuantity] = useState(0);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const result = await axios.get('/api/codes');
+				if (result.data) {
+					setCodes(result.data.codes);
+				}
+			} catch (err) {
+				console.error(err);
+			}
+		};
+		fetchData();
+	}, []);
 
 	const product = {
 		title,
 		sku,
 		price,
+		description,
+		codes,
+		productCode,
+		quantity,
+	};
+
+	console.log(codes);
+
+	const dropDownOption = _.times(codes.length, (i) => ({
+		key: i,
+		value: codes[i].code,
+		text: _.startCase(codes[i].desc),
+	}));
+
+	const handleDropDownChange = (e, { value }) => {
+		setProductCode(value);
+	};
+
+	const handleSubmit = async () => {
+		try {
+			const result = await axios.post('api/products', product);
+			if (result.data) {
+			}
+		} catch (err) {
+			console.error(err);
+		}
 	};
 
 	return (
@@ -63,7 +110,7 @@ const AdminProduct = () => {
 								value={sku}
 								onChange={(e) => {
 									e.preventDefault();
-									setTitle(e.target.value);
+									setSKU(e.target.value);
 								}}
 							/>
 							<Form.Input
@@ -73,32 +120,39 @@ const AdminProduct = () => {
 								value={price === 0 ? '' : price}
 								onChange={(e) => {
 									e.preventDefault();
-									setTitle(e.target.value);
+									setPrice(e.target.value);
 								}}
 							/>
 						</Form.Group>
 						<Form.Group widths='equal'>
 							<Form.Input
 								fluid
-								label='SKU'
+								label='Quantity'
 								placeholder='A1234'
-								value={sku}
+								value={quantity}
 								onChange={(e) => {
 									e.preventDefault();
-									setTitle(e.target.value);
+									setQuantity(e.target.value);
 								}}
 							/>
-							<Form.Input
-								fluid
-								label='Price'
-								placeholder='$16.99'
-								value={price === 0 ? '' : price}
-								onChange={(e) => {
-									e.preventDefault();
-									setTitle(e.target.value);
-								}}
+							<Form.Field
+								control={Select}
+								label='Category'
+								options={dropDownOption}
+								placeholder='Bracelet'
+								value={productCode}
+								onChange={handleDropDownChange}
 							/>
 						</Form.Group>
+						<Form.TextArea
+							label='About'
+							placeholder='Tell us more about you...'
+							value={description}
+							onChange={(e) => {
+								e.preventDefault();
+								setDescription(e.target.value);
+							}}
+						/>
 						<Button type='submit'>Submit</Button>
 					</Form>
 				</Segment>

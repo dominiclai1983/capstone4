@@ -71,7 +71,6 @@ const NewAddress = (props) => {
 	const handleSubmit = async () => {
 		try {
 			const result = await axios.post('/api/addresses', address);
-			console.log(result.data);
 			if (result.data) {
 				setShippingAddress(result.data.address);
 				console.log(result.data.address);
