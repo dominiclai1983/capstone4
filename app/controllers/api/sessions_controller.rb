@@ -61,5 +61,9 @@ class Api::SessionsController < ApplicationController
   end
 
   def admin_destory
+    token = cookies.signed[:ecommerce_admin_session_token]
+    session = Session.find_by(token: token)
+
+    render json: { success: true }, status: :ok if session and session.destroy
   end
 end

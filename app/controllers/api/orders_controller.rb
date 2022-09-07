@@ -19,6 +19,26 @@ class Api::OrdersController < ApplicationController
     if session
       @orders = session.user.orders
       render "api/orders/index"
+      #if there is query params ?month=[:month]
+    elsif params[:month]
+      month = params[:month].to_i
+      year = params[:year].to_i
+
+      if month == (1 || 3 || 5 || 7 || 8 || 10 || 12)
+        day = 30
+      elsif month == 2 && (year % 4 == 0)
+        day = 28
+      elsif month == 2 && (year % 4 != 0)
+        day = 27
+      else
+        day = 29
+      end
+
+      date = DateTime.new(year, month, 1)
+      range = (date)..(date + day.days)
+      @orders =
+        Order.where(order_date: range, status: true, payment_status: true)
+      render "api/orders/index"
     else
       render json: { orders: [] }
     end
@@ -65,7 +85,25 @@ class Api::OrdersController < ApplicationController
     end
   end
 
-  #TODO: deduct shipping quantity method
+=begin
+
+  def get_order_by_month
+    month = params[:month].to_i
+
+    if month == (1 || 3 || 5 || 7 || 8 || 10 || 12)
+      days = 30
+    elsif month == 2
+      days = 29
+    else
+      days = 29
+    end
+
+    date = DateTime.new(2022, month, 1)
+    range = (date)..(date + days.days)
+    @orders = Order.where(order_date: range, status: true, payment_status: true)
+    render "api/orders/index"
+  end
+=end
 
   private
 

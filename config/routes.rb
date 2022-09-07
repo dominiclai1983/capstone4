@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   get "/account"              => "static_pages#index"
 
   get "/admin"                => "static_pages#admin"
+  get "/admin/home"           => "static_pages#admin"
+  get "/admin/home/customer"  => "static_pages#admin"
 
   namespace :api do
     resources :users, only: %i[create index]
@@ -58,6 +60,7 @@ Rails.application.routes.draw do
     get "/orders/:id"               => "orders#get_order_by_order_id"
     post "/orders/:id"              => "orders#edit_order_by_order_id"
     post "/orders/tracking/:id"     => "orders#report_tracking_number_by_order_id"
+    #get "/orders_month"             => "orders#get_order_by_month"
 
     #product api
     get "/products"                 => "products#index"

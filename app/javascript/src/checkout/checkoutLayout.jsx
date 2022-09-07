@@ -8,7 +8,7 @@ const CheckoutLayout = () => {
 	const { pathname } = useLocation();
 	const { setCart, currentCartID, setCurrentCartID } = CheckoutState();
 	const path = pathname === '/checkout' ? 'home' : pathname.substring(10);
-	//10 char = '/checkout'
+	//10 char = '/checkout/'
 	const [activeItem, setActiveItem] = useState(path);
 
 	useEffect(() => {

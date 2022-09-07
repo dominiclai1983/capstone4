@@ -26,7 +26,7 @@ const AdminLogin = () => {
 		try {
 			const result = await axios.post('/api/admins', user);
 			if (result.data.success) {
-				navigate('../home');
+				window.location.replace('/admin/home');
 			}
 		} catch (err) {
 			console.error(err);
@@ -40,18 +40,31 @@ const AdminLogin = () => {
 					<Icon name='shopping bag' />
 					Ecommerce Demo Admin Site Login
 				</Header>
-				<Form>
-					<Form.Field>
-						<label>Email:</label>
-						<input placeholder='info@info.com' />
-					</Form.Field>
-					<Form.Field>
-						<label>Password:</label>
-						<input placeholder='' />
-					</Form.Field>
-					<Button type='submit' fluid color='yellow'>
-						Login Now!
-					</Button>
+				<Form onSubmit={handleLogin}>
+					<Form.Input
+						icon='user'
+						iconPosition='left'
+						label='Email'
+						placeholder='info@info.com'
+						value={email}
+						onChange={(e) => {
+							e.preventDefault();
+							setEmail(e.target.value);
+						}}
+					/>
+					<Form.Input
+						icon='lock'
+						iconPosition='left'
+						label='Password'
+						type='password'
+						value={password}
+						onChange={(e) => {
+							e.preventDefault();
+							setPassword(e.target.value);
+						}}
+					/>
+
+					<Button content='Login' color='yellow' fluid />
 				</Form>
 			</Segment>
 		</Container>

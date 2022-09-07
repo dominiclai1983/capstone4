@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import AdminLogin from './adminLogin';
 import AdminLayout from './adminLayout';
 import AdminHome from './adminHome';
+import AdminCustomer from './adminCustomer';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const AdminIndex = () => {
@@ -10,10 +11,10 @@ const AdminIndex = () => {
 		<>
 			<BrowserRouter>
 				<Routes>
-					<Route path='admin' element={<AdminLogin />}>
-						<Route path='home' element={<AdminLayout />}>
-							<Route index element={<AdminHome />} />
-						</Route>
+					<Route path='admin' element={<AdminLogin />} />
+					<Route path='admin/home' element={<AdminLayout />}>
+						<Route index element={<AdminHome />} />
+						<Route path='customer' element={<AdminCustomer />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>
