@@ -12,6 +12,10 @@ class Api::ProductCodesController < ApplicationController
     end
   end
 
+  def index
+    @product_codes = ProductCode.all
+  end
+
   def find_product_code_by_desc
     @product_code = ProductCode.find_by(desc: params[:desc])
     if !@product_code

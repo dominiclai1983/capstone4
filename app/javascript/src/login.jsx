@@ -62,6 +62,7 @@ const Login = () => {
 								iconPosition='left'
 								label='Email'
 								placeholder='Email'
+								type='email'
 								onChange={(e) => {
 									e.preventDefault();
 									setEmail(e.target.value);

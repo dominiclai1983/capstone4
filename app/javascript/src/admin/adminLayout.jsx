@@ -5,9 +5,10 @@ import { Outlet, useLocation, Link } from 'react-router-dom';
 
 const AdminLayout = () => {
 	const { pathname } = useLocation();
-	const path = pathname.substring(7);
+	const path = pathname.substring(7).replace('/', '');
 	//7 char = '/admin/
 	const [activeItem, setActiveItem] = useState(path);
+	console.log(path);
 
 	const handleItemClick = (e, { name }) => setActiveItem(name);
 
