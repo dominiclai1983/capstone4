@@ -29,10 +29,10 @@ const AdminHome = () => {
 	useEffect(() => {
 		let newArray = [];
 		for (let i = 0; i < 31; i++) {
-			let new_total = allOrders
+			let newTotal = allOrders
 				.filter((item) => parseInt(item.order_date.substring(8, 10)) === i)
 				.reduce((acc, cur) => acc + Number(cur.order_total), 0);
-			newArray.push(new_total / 100);
+			newArray.push(newTotal / 100);
 		}
 		setRevenueArray(newArray);
 		setTotalRevenue(
