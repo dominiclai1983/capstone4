@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Header } from 'semantic-ui-react';
+import { Container, Header, Divider } from 'semantic-ui-react';
 
 const AdminPayment = () => {
 	return (
@@ -8,6 +8,7 @@ const AdminPayment = () => {
 				<Header as='h2' textAlign='left'>
 					Payment
 				</Header>
+				<Divider />
 			</Container>
 		</>
 	);

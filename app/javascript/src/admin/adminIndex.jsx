@@ -4,6 +4,7 @@ import AdminLogin from './adminLogin';
 import AdminLayout from './adminLayout';
 import AdminHome from './adminHome';
 import AdminCustomer from './adminCustomer';
+import AdminCustomerProf from './adminCustomerProf';
 import AdminOrder from './adminOrder';
 import AdminProduct from './adminProduct';
 import AdminPayment from './adminPayment';

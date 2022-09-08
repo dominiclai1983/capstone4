@@ -14,23 +14,21 @@ const AdminLayout = () => {
 
 	return (
 		<>
-			<Grid>
+			<Grid container style={{ width: '100vw' }}>
 				<Grid.Row>
 					<Grid.Column width={3}>
-						<Container
+						<p
 							style={{
-								marginTop: '15px',
+								marginTop: '35px',
 								marginBottom: '35px',
 								paddingLeft: '25px',
 								display: 'inlineBlock',
 								width: '100%',
 							}}
 						>
-							<p>
-								<Icon name='shopping bag' color='yellow' />
-								<span style={{ fontSize: '16px' }}>Ecommerce Demo</span>
-							</p>
-						</Container>
+							<Icon name='shopping bag' color='yellow' />
+							<span style={{ fontSize: '16px' }}>Ecommerce Demo</span>
+						</p>
 						<Menu secondary vertical>
 							<Menu.Item
 								as={Link}

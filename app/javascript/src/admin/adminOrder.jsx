@@ -46,8 +46,8 @@ const AdminOrder = () => {
 							setInputField(e.target.value);
 						}}
 					/>
+					<Divider />
 				</Container>
-				<Divider />
 			</Container>
 		</>
 	);

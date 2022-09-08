@@ -39,7 +39,9 @@ const AdminHome = () => {
 				const result = await axios.get(
 					`/api/orders?month=${month}&year=${year}`
 				);
-				setAllOrders(result.data.orders);
+				if (result.data) {
+					setAllOrders(result.data.orders);
+				}
 			} catch (err) {
 				console.error(err);
 			}
@@ -77,24 +79,42 @@ const AdminHome = () => {
 		text: (year + i).toString(),
 	}));
 
+	const monthNames = [
+		'January',
+		'February',
+		'March',
+		'April',
+		'May',
+		'June',
+		'July',
+		'August',
+		'September',
+		'October',
+		'November',
+		'December',
+	];
+
 	const monthDropDownOption = _.times(12, (i) => ({
 		key: i,
 		value: i + 1,
-		text: (i + 1).toString(),
+		text: monthNames[i],
 	}));
 
 	console.log(allOrders);
 
 	return (
 		<>
-			<Container textAlign='center' style={{ marginTop: '15px' }}>
+			<Container
+				textAlign='center'
+				style={{ marginTop: '15px', width: '1000px' }}
+			>
 				<Header as='h2' textAlign='left'>
 					Dashboard
 				</Header>
 				<Container textAlign='right'>
 					<Menu compact>
 						<Dropdown
-							text={year}
+							text={year.toString()}
 							value={year}
 							options={yearDropDownOption}
 							simple
@@ -103,9 +123,8 @@ const AdminHome = () => {
 								setYear(data.value);
 							}}
 						/>
-
 						<Dropdown
-							text={month}
+							text={monthNames[month].toString()}
 							value={month}
 							options={monthDropDownOption}
 							simple
@@ -122,27 +141,29 @@ const AdminHome = () => {
 					</Button>
 				</Container>
 
-				<HomePanel totalOrder={totalOrder} totalRevenue={totalRevenue} />
-				<Grid columns={2}>
-					<Grid.Row>
-						<Grid.Column>
-							<HomeRevenueChart
-								dataArray={orderArray}
-								title='Order Placed'
-								month={month}
-								year={year}
-							/>
-						</Grid.Column>
-						<Grid.Column>
-							<HomeRevenueChart
-								dataArray={revenueArray}
-								title='Ordered Product Sales'
-								month={month}
-								year={year}
-							/>
-						</Grid.Column>
-					</Grid.Row>
-				</Grid>
+				<Container textAlign='center' style={{ marginTop: '15px' }}>
+					<HomePanel totalOrder={totalOrder} totalRevenue={totalRevenue} />
+					<Grid columns={2}>
+						<Grid.Row>
+							<Grid.Column>
+								<HomeRevenueChart
+									dataArray={orderArray}
+									title='Order Placed'
+									month={month}
+									year={year}
+								/>
+							</Grid.Column>
+							<Grid.Column>
+								<HomeRevenueChart
+									dataArray={revenueArray}
+									title='Ordered Product Sales'
+									month={month}
+									year={year}
+								/>
+							</Grid.Column>
+						</Grid.Row>
+					</Grid>
+				</Container>
 			</Container>
 		</>
 	);

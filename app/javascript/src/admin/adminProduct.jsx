@@ -43,8 +43,8 @@ const AdminProduct = () => {
 							setInputField(e.target.value);
 						}}
 					/>
+					<Divider />
 				</Container>
-				<Divider />
 			</Container>
 		</>
 	);
