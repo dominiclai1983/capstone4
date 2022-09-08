@@ -85,6 +85,11 @@ class Api::UsersController < ApplicationController
     session = Session.find_by(token: token)
   end
 
+  def admin_session
+    token = cookies.signed[:ecommerce_admin_session_token]
+    admin_session = Session.find_by(token: token)
+  end
+
   def is_admin?
     session.user.is_admin?
   end

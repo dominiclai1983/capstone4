@@ -1,9 +1,23 @@
 class Api::ProductsController < ApplicationController
   def index
-    @products = Product.order(created_at: :desc).page(params[:page]).per(6)
-    return render json: { error: "not_found" }, status: :not_found if !@products
-
-    render "api/products/index", status: :ok
+    if params[:query]
+      @products =
+        Product
+          .where("title LIKE ?", "%" + params[:query] + "%")
+          .page(params[:page])
+          .per(6)
+      render "api/products/index", status: :ok
+    elsif params[:sku]
+      @product = Product.find_by(sku: params[:sku])
+      @code = Code.find(@product.code_id)
+      render "api/products/show", status: :ok
+    else
+      @products = Product.order(created_at: :desc).page(params[:page]).per(6)
+      render "api/products/index", status: :ok
+      if !@products
+        return render json: { error: "not_found" }, status: :not_found
+      end
+    end
   end
 
   def show
@@ -66,6 +80,11 @@ class Api::ProductsController < ApplicationController
   def session
     token = cookies.signed[:ecommerce_session_token]
     session = Session.find_by(token: token)
+  end
+
+  def admin_session
+    token = cookies.signed[:ecommerce_admin_session_token]
+    admin_session = Session.find_by(token: token)
   end
 
   def is_admin?

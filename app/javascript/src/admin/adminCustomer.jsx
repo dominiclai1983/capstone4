@@ -13,13 +13,29 @@ const AdminCustomer = () => {
 		dropDownOption[0].value
 	);
 	const [inputField, setInputField] = useState('');
+	const [orders, setOrders] = useState([]);
+	const [user, setUser] = useState({});
 
 	const handleOnClick = async () => {
 		try {
-			if (dropDownSelection === 'email') {
-				const result = await axios.get(`/api/users?email=${inputField}`);
+			if (!inputField) {
+				if (dropDownSelection === 'email') {
+					const result = await axios.get(`/api/users?email=${inputField}`);
+					if (result.data) {
+						setUser(result.data.user);
+						setOrders(result.data.orders);
+					}
+				} else {
+					const result = await axios.get(`/api/users?username=${inputField}`);
+					if (result.data) {
+						setUser(result.data.user);
+						setOrders(result.data.orders);
+					}
+				}
 			} else {
-				const result = await axios.get(`/api/users?username=${inputField}`);
+				const result = await axios.get(`/api/users`);
+				if (result.data) {
+				}
 			}
 		} catch (err) {
 			console.error(err);

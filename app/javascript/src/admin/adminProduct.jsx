@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import { Container, Header, Input, Dropdown, Divider } from 'semantic-ui-react';
 
 const AdminProduct = () => {
@@ -11,6 +12,39 @@ const AdminProduct = () => {
 		dropDownOption[0].value
 	);
 	const [inputField, setInputField] = useState('');
+	const [products, setProducts] = useState([]);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const result = await axios.get('/api/products');
+				setProducts(result.data.products);
+			} catch (err) {
+				console.error(err);
+			}
+		};
+		fetchData();
+	}, []);
+
+	console.log(products);
+
+	const handleTitleSearch = async () => {
+		try {
+			const result = await axios.get(`/api/products?query=${inputField}`);
+			setProducts(result.data.products);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const handleSKUSearch = async () => {
+		try {
+			const result = await axios.get(`/api/products?sku=${inputField}`);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 	return (
 		<>
 			<Header as='h2' textAlign='left'>
@@ -33,7 +67,11 @@ const AdminProduct = () => {
 					action={{
 						content: 'Submit',
 						onClick: () => {
-							console.log('eeee');
+							if (dropDownSelection === 'title') {
+								handleTitleSearch();
+							} else {
+								handleSKUSearch();
+							}
 						},
 					}}
 					placeholder='Search...'
