@@ -131,7 +131,7 @@ function Layout() {
 	return (
 		<>
 			<Menu secondary>
-				<Menu.Item style={{ marginLeft: 20 }}>
+				<Menu.Item>
 					<Header as='h6' icon>
 						<Icon name='shopping bag' color='yellow' />
 						Ecommerce Demo
