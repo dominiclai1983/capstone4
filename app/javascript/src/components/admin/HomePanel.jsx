@@ -10,6 +10,7 @@ const HomePanel = (props) => {
 				divided
 				stackable
 				container
+				textAlign='center'
 				style={{
 					marginTop: '15px',
 					boxShadow: '1px 0px 5px #ccc',
