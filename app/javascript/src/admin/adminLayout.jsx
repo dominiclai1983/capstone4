@@ -44,7 +44,7 @@ const AdminLayout = () => {
 							</Menu.Item>
 							<Menu.Item
 								as={Link}
-								to='/admin/customer'
+								to='/admin/home/customer'
 								name='customer'
 								active={activeItem === 'customer'}
 								onClick={handleItemClick}
@@ -53,6 +53,8 @@ const AdminLayout = () => {
 								Customer
 							</Menu.Item>
 							<Menu.Item
+								as={Link}
+								to='/admin/home/order'
 								name='order'
 								active={activeItem === 'order'}
 								onClick={handleItemClick}
@@ -72,6 +74,8 @@ const AdminLayout = () => {
 							</Dropdown>
 
 							<Menu.Item
+								as={Link}
+								to='/admin/home/payment'
 								name='payment'
 								active={activeItem === 'payment'}
 								onClick={handleItemClick}

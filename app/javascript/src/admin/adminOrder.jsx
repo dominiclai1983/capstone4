@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
 import { Container, Header, Input, Dropdown, Divider } from 'semantic-ui-react';
 
-const AdminProduct = () => {
+const AdminOrder = () => {
 	const dropDownOption = [
-		{ key: 1, text: 'Title', value: 'title' },
+		{ key: 1, text: 'Order ID', value: 'id' },
 		{ key: 2, text: 'SKU', value: 'sku' },
+		{ key: 3, text: 'Customer Email', value: 'email' },
+		{ key: 4, text: 'Tracking ID', value: 'tracking' },
 	];
 
 	const [dropDownSelection, setDropDownSelection] = useState(
 		dropDownOption[0].value
 	);
 	const [inputField, setInputField] = useState('');
+
 	return (
 		<>
 			<Container textAlign='center' style={{ marginTop: '15px' }}>
 				<Header as='h2' textAlign='left'>
-					Product
+					Order
 				</Header>
 				<Container textAlign='right'>
 					<Dropdown
@@ -50,4 +53,4 @@ const AdminProduct = () => {
 	);
 };
 
-export default AdminProduct;
+export default AdminOrder;

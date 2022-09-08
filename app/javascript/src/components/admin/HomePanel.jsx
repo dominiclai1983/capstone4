@@ -1,13 +1,10 @@
 import React from 'react';
-import { Grid, Header, Icon } from 'semantic-ui-react';
+import { Grid, Icon } from 'semantic-ui-react';
 
 const HomePanel = (props) => {
 	let { totalOrder, totalRevenue } = props;
 	return (
 		<>
-			<Header as='h3' textAlign='left'>
-				Dashboard
-			</Header>
 			<Grid
 				columns={2}
 				divided

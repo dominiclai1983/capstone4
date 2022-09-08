@@ -4,7 +4,9 @@ import AdminLogin from './adminLogin';
 import AdminLayout from './adminLayout';
 import AdminHome from './adminHome';
 import AdminCustomer from './adminCustomer';
+import AdminOrder from './adminOrder';
 import AdminProduct from './adminProduct';
+import AdminPayment from './adminPayment';
 import AdminAddProduct from './adminAddProduct';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -17,7 +19,9 @@ const AdminIndex = () => {
 					<Route path='admin/home' element={<AdminLayout />}>
 						<Route index element={<AdminHome />} />
 						<Route path='customer' element={<AdminCustomer />} />
+						<Route path='order' element={<AdminOrder />} />
 						<Route path='product' element={<AdminProduct />} />
+						<Route path='payment' element={<AdminPayment />} />
 					</Route>
 					<Route path='admin/addproduct' element={<AdminAddProduct />} />
 				</Routes>

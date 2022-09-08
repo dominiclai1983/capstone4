@@ -19,7 +19,9 @@ Rails.application.routes.draw do
   get "/admin"                => "static_pages#admin"
   get "/admin/home"           => "static_pages#admin"
   get "/admin/home/customer"  => "static_pages#admin"
+  get "/admin/home/order"     => "static_pages#admin"
   get "/admin/home/product"   => "static_pages#admin"
+  get "/admin/home/payment"   => "static_pages#admin"
   get "/admin/addproduct"     => "static_pages#admin"
 
   namespace :api do
