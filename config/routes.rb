@@ -14,15 +14,16 @@ Rails.application.routes.draw do
   get "/checkout/payment"     => "static_pages#checkout"
   get "/checkout/success"     => "static_pages#checkout"
 
-  get "/account"              => "static_pages#index"
+  get "/account"                        => "static_pages#index"
 
-  get "/admin"                => "static_pages#admin"
-  get "/admin/home"           => "static_pages#admin"
-  get "/admin/home/customer"  => "static_pages#admin"
-  get "/admin/home/order"     => "static_pages#admin"
-  get "/admin/home/product"   => "static_pages#admin"
-  get "/admin/home/payment"   => "static_pages#admin"
-  get "/admin/addproduct"     => "static_pages#admin"
+  get "/admin"                          => "static_pages#admin"
+  get "/admin/home"                     => "static_pages#admin"
+  get "/admin/home/customer"            => "static_pages#admin"
+  get "/admin/home/customer/:username"  => "static_pages#admin"
+  get "/admin/home/order"               => "static_pages#admin"
+  get "/admin/home/product"             => "static_pages#admin"
+  get "/admin/home/payment"             => "static_pages#admin"
+  get "/admin/addproduct"               => "static_pages#admin"
 
   namespace :api do
     resources :users, only: %i[create index]
@@ -98,5 +99,6 @@ Rails.application.routes.draw do
 
     #user api
     post "/remove_current_cart"     => "users#remove_current_cart"
+    get "/users"                    => "users#index"
   end
 end

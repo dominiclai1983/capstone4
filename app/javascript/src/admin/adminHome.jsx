@@ -35,6 +35,41 @@ const AdminHome = () => {
 
 	useEffect(() => {
 		const fetchData = async () => {
+			let newDailyArray = [];
+			let newDailyTotalArray = [];
+			await axios
+				.get(`/api/orders?month=${month}&year=${year}`)
+				.then((result) => {
+					if (result.data.orders) {
+						for (let i = 1; i <= result.data.orders.length; i++) {
+							let dailyOrders = result.data.orders.filter(
+								(item) => parseInt(item.order_date.substring(8, 10)) === i
+							);
+							newDailyArray.push(dailyOrders.length);
+
+							let newTotal = dailyOrders.reduce(
+								(acc, cur) => acc + Number(cur.order_total),
+								0
+							);
+							newDailyTotalArray.push(newTotal / 100);
+						}
+					}
+					setRevenueArray(newDailyTotalArray);
+					setOrderArray(newDailyArray);
+					setTotalRevenue(
+						result.data.orders.reduce(
+							(acc, cur) => acc + Number(cur.order_total),
+							0
+						) / 100
+					);
+					setTotalOrder(result.data.orders.length);
+				});
+		};
+		fetchData();
+	}, []);
+	/*
+	useEffect(() => {
+		const fetchData = async () => {
 			try {
 				const result = await axios.get(
 					`/api/orders?month=${month}&year=${year}`
@@ -72,7 +107,7 @@ const AdminHome = () => {
 		);
 		setTotalOrder(allOrders.length);
 	}, [allOrders]);
-
+*/
 	const yearDropDownOption = _.times(2, (i) => ({
 		key: i,
 		value: year + i,
@@ -99,8 +134,6 @@ const AdminHome = () => {
 		value: i + 1,
 		text: monthNames[i],
 	}));
-
-	console.log(allOrders);
 
 	return (
 		<>

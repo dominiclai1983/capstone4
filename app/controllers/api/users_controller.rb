@@ -9,6 +9,22 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def index
+    if session && is_admin?
+      if params[:email]
+        @users = User.where(email: params[:email])
+        render "api/users/show", status: :ok
+      else
+        @users = User.where(username: params[:username])
+        render "api/users/show", status: :ok
+      end
+    else
+      @users = User.order(created_at: :desc)
+      return render json: { error: "not_found" }, status: :not_found if !@users
+      render "api/users/index", status: :ok
+    end
+  end
+
   def show
     if session
       @user = session.user
@@ -65,5 +81,9 @@ class Api::UsersController < ApplicationController
   def session
     token = cookies.signed[:ecommerce_session_token]
     session = Session.find_by(token: token)
+  end
+
+  def is_admin?
+    session.user.is_admin?
   end
 end

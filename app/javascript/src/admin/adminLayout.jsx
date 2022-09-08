@@ -27,7 +27,7 @@ const AdminLayout = () => {
 							}}
 						>
 							<Icon name='shopping bag' color='yellow' />
-							<span style={{ fontSize: '16px' }}>Ecommerce Demo</span>
+							<span style={{ fontSize: '16px' }}>Ecommerce Demo Admin</span>
 						</p>
 						<Menu secondary vertical>
 							<Menu.Item
@@ -83,7 +83,7 @@ const AdminLayout = () => {
 							</Menu.Item>
 						</Menu>
 					</Grid.Column>
-					<Grid.Column width={13}>
+					<Grid.Column width={13} textAlign='center'>
 						<LayoutMenu />
 						<Outlet context={[activeItem, setActiveItem]} />
 					</Grid.Column>

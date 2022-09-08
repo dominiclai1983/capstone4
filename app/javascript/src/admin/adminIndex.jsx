@@ -19,7 +19,9 @@ const AdminIndex = () => {
 					<Route path='admin' element={<AdminLogin />} />
 					<Route path='admin/home' element={<AdminLayout />}>
 						<Route index element={<AdminHome />} />
-						<Route path='customer' element={<AdminCustomer />} />
+						<Route path='customer' element={<AdminCustomer />}>
+							<Route path=':username' element={<AdminCustomerProf />} />
+						</Route>
 						<Route path='order' element={<AdminOrder />} />
 						<Route path='product' element={<AdminProduct />} />
 						<Route path='payment' element={<AdminPayment />} />
