@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, Grid, Icon, Header, Container } from 'semantic-ui-react';
+import React, { useState } from 'react';
+import { Menu, Grid, Icon, Dropdown, Container } from 'semantic-ui-react';
 import LayoutMenu from '@components/admin/LayoutMenu';
 import { Outlet, useLocation, Link } from 'react-router-dom';
 
 const AdminLayout = () => {
 	const { pathname } = useLocation();
-	const path = pathname.substring(7).replace('/', '');
+	const path = pathname.substring(7).replace('home/', '');
 	//7 char = '/admin/
-	const [activeItem, setActiveItem] = useState(path);
 	console.log(path);
+	const [activeItem, setActiveItem] = useState(path);
 
 	const handleItemClick = (e, { name }) => setActiveItem(name);
 
@@ -60,14 +60,17 @@ const AdminLayout = () => {
 								<Icon name='shopping cart' />
 								Order
 							</Menu.Item>
-							<Menu.Item
-								name='product'
-								active={activeItem === 'product'}
-								onClick={handleItemClick}
-							>
-								<Icon name='computer' />
-								Product
-							</Menu.Item>
+							<Dropdown item text='Product'>
+								<Dropdown.Menu>
+									<Dropdown.Item as={Link} to='/admin/home/product'>
+										Manage Products
+									</Dropdown.Item>
+									<Dropdown.Item as={Link} to='/admin/addproduct'>
+										Add a Product
+									</Dropdown.Item>
+								</Dropdown.Menu>
+							</Dropdown>
+
 							<Menu.Item
 								name='payment'
 								active={activeItem === 'payment'}
@@ -80,7 +83,7 @@ const AdminLayout = () => {
 					</Grid.Column>
 					<Grid.Column width={13}>
 						<LayoutMenu />
-						<Outlet />
+						<Outlet context={[activeItem, setActiveItem]} />
 					</Grid.Column>
 				</Grid.Row>
 			</Grid>

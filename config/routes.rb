@@ -19,7 +19,8 @@ Rails.application.routes.draw do
   get "/admin"                => "static_pages#admin"
   get "/admin/home"           => "static_pages#admin"
   get "/admin/home/customer"  => "static_pages#admin"
-  get "/admin/product"        => "static_pages#admin"
+  get "/admin/home/product"   => "static_pages#admin"
+  get "/admin/addproduct"     => "static_pages#admin"
 
   namespace :api do
     resources :users, only: %i[create index]

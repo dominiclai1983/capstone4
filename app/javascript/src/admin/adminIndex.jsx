@@ -5,6 +5,7 @@ import AdminLayout from './adminLayout';
 import AdminHome from './adminHome';
 import AdminCustomer from './adminCustomer';
 import AdminProduct from './adminProduct';
+import AdminAddProduct from './adminAddProduct';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const AdminIndex = () => {
@@ -16,8 +17,9 @@ const AdminIndex = () => {
 					<Route path='admin/home' element={<AdminLayout />}>
 						<Route index element={<AdminHome />} />
 						<Route path='customer' element={<AdminCustomer />} />
+						<Route path='product' element={<AdminProduct />} />
 					</Route>
-					<Route path='admin/product' element={<AdminProduct />} />
+					<Route path='admin/addproduct' element={<AdminAddProduct />} />
 				</Routes>
 			</BrowserRouter>
 		</>
