@@ -107,7 +107,6 @@ const NewAddress = (props) => {
 									onChange={(e) => {
 										e.preventDefault();
 										setFirstName(e.target.value);
-										console.log(firstName);
 									}}
 								/>
 								<Form.Input
@@ -119,7 +118,6 @@ const NewAddress = (props) => {
 									onChange={(e) => {
 										e.preventDefault();
 										setLastName(e.target.value);
-										console.log(lastName);
 									}}
 								/>
 							</Form.Group>
@@ -131,7 +129,6 @@ const NewAddress = (props) => {
 								onChange={(e) => {
 									e.preventDefault();
 									setAddress1(e.target.value);
-									console.log(address1);
 								}}
 							/>
 							<Form.Input
@@ -142,7 +139,6 @@ const NewAddress = (props) => {
 								onChange={(e) => {
 									e.preventDefault();
 									setAddress2(e.target.value);
-									console.log(address1);
 								}}
 							/>
 							<Form.Input
@@ -153,7 +149,6 @@ const NewAddress = (props) => {
 								onChange={(e) => {
 									e.preventDefault();
 									setBillingEmail(e.target.value);
-									console.log(billingEmail);
 								}}
 							/>
 							<Form.Group widths='equal'>

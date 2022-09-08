@@ -20,10 +20,13 @@ ChartJS.register(
 );
 
 export const HomeRevenueChart = (props) => {
-	let { dataArray, title } = props;
+	let { dataArray, title, month, year } = props;
+
+	let length = new Date(year, month, 0).getDate();
+	//return the numbers of days for specific month in specific year
 
 	let labels = [];
-	for (let i = 0; i < 31; i++) {
+	for (let i = 1; i <= length; i++) {
 		labels.push(i);
 	}
 

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import {
 	Container,
@@ -8,12 +7,11 @@ import {
 	Button,
 	Form,
 } from 'semantic-ui-react';
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const AdminLogin = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const navigate = useNavigate();
 
 	const handleLogin = async () => {
 		const user = {

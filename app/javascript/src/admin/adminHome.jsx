@@ -29,29 +29,28 @@ const AdminHome = () => {
 	}, [month, year]);
 
 	useEffect(() => {
-		let newArray = [];
 		let newDailyArray = [];
-		for (let i = 0; i < 31; i++) {
+		let newDailyTotalArray = [];
+		//hardcode to ensure all the datapoint would be capture
+		for (let i = 1; i < 32; i++) {
 			let dailyOrders = allOrders.filter(
 				(item) => parseInt(item.order_date.substring(8, 10)) === i
 			);
+			newDailyArray.push(dailyOrders.length);
+
 			let newTotal = dailyOrders.reduce(
 				(acc, cur) => acc + Number(cur.order_total),
 				0
 			);
-			newArray.push(newTotal / 100);
-			newDailyArray.push(dailyOrders.length);
+			newDailyTotalArray.push(newTotal / 100);
 		}
-		setRevenueArray(newArray);
+		setRevenueArray(newDailyTotalArray);
 		setOrderArray(newDailyArray);
 		setTotalRevenue(
 			allOrders.reduce((acc, cur) => acc + Number(cur.order_total), 0) / 100
 		);
 		setTotalOrder(allOrders.length);
 	}, [allOrders]);
-
-	console.log(revenueArray);
-	console.log(orderArray);
 
 	return (
 		<>
@@ -60,12 +59,19 @@ const AdminHome = () => {
 				<Grid columns={2}>
 					<Grid.Row>
 						<Grid.Column>
-							<HomeRevenueChart dataArray={orderArray} title='Order Placed' />
+							<HomeRevenueChart
+								dataArray={orderArray}
+								title='Order Placed'
+								month={month}
+								year={year}
+							/>
 						</Grid.Column>
 						<Grid.Column>
 							<HomeRevenueChart
 								dataArray={revenueArray}
 								title='Ordered Product Sales'
+								month={month}
+								year={year}
 							/>
 						</Grid.Column>
 					</Grid.Row>
