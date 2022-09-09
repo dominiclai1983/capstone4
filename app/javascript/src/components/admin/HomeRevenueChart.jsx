@@ -46,7 +46,7 @@ export const HomeRevenueChart = (props) => {
 		labels,
 		datasets: [
 			{
-				label: 'Dataset 1',
+				label: orderChart ? 'Order' : 'Revenue',
 				data: dataArray,
 				borderColor: orderChart ? 'rgb(255, 99, 132)' : 'rgb(53, 162, 235)',
 				backgroundColor: orderChart
