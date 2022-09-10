@@ -10,20 +10,18 @@ class Api::UsersController < ApplicationController
   end
 
   def index
-    if session && is_admin?
-      if params[:email]
-        @user = User.find_by(email: params[:email])
-        render "api/users/show", status: :ok
-      elsif params[:username]
-        @user = User.find_by(username: params[:username])
-        render "api/users/show", status: :ok
-      else
-        @users = User.order(created_at: :desc)
-        if !@users
-          return render json: { error: "not_found" }, status: :not_found
-        end
-        render "api/users/index", status: :ok
-      end
+    if params[:email]
+      @user = User.find_by(email: params[:email])
+      render "api/users/show", status: :ok
+      return render json: { error: "not_found" }, status: :not_found if !@user
+    elsif params[:username]
+      @user = User.find_by(username: params[:username])
+      render "api/users/show", status: :ok
+      return render json: { error: "not_found" }, status: :not_found if !@user
+    else
+      @users = User.order(created_at: :desc)
+      return render json: { error: "not_found" }, status: :not_found if !@users
+      render "api/users/index", status: :ok
     end
   end
 

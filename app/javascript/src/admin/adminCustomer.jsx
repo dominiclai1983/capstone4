@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Header, Input, Dropdown, Divider } from 'semantic-ui-react';
-import { Outlet } from 'react-router-dom';
+import CustomerDisplay from '@components/admin/CustomerDisplay';
 import axios from 'axios';
 
 const AdminCustomer = () => {
@@ -18,16 +18,18 @@ const AdminCustomer = () => {
 
 	const handleOnClick = async () => {
 		try {
-			if (!inputField) {
+			if (inputField) {
 				if (dropDownSelection === 'email') {
 					const result = await axios.get(`/api/users?email=${inputField}`);
 					if (result.data) {
+						console.log(result.data);
 						setUser(result.data.user);
 						setOrders(result.data.orders);
 					}
 				} else {
 					const result = await axios.get(`/api/users?username=${inputField}`);
 					if (result.data) {
+						console.log(result.data);
 						setUser(result.data.user);
 						setOrders(result.data.orders);
 					}
@@ -64,7 +66,7 @@ const AdminCustomer = () => {
 					action={{
 						content: 'Submit',
 						onClick: () => {
-							console.log('eeee');
+							handleOnClick();
 						},
 					}}
 					placeholder='Search...'
@@ -75,7 +77,7 @@ const AdminCustomer = () => {
 				/>
 			</Container>
 			<Divider />
-			<Outlet />
+			{Object.keys(user).length > 0 && <CustomerDisplay user={user} />}
 		</>
 	);
 };
