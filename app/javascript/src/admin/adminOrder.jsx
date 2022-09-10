@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Header, Input, Dropdown, Divider } from 'semantic-ui-react';
+import axios from 'axios';
 
 const AdminOrder = () => {
 	const dropDownOption = [
@@ -9,10 +10,25 @@ const AdminOrder = () => {
 		{ key: 4, text: 'Tracking ID', value: 'tracking' },
 	];
 
+	const [orders, setOrders] = useState([]);
 	const [dropDownSelection, setDropDownSelection] = useState(
 		dropDownOption[0].value
 	);
 	const [inputField, setInputField] = useState('');
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const result = await axios.get('/api/orders?admin_checker=true');
+				if (result.data) {
+					setOrders(result.data.orders);
+				}
+			} catch (err) {
+				console.error(err);
+			}
+		};
+		fetchData();
+	}, []);
 
 	return (
 		<>
