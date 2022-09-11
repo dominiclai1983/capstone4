@@ -24,6 +24,7 @@ const CheckoutConfirm = () => {
 	useEffect(() => {
 		setActiveItem(path);
 		// Create PaymentIntent as soon as the page loads
+		//protect the route by check login and the pervious route is checkout/final
 		fetch(
 			'/api/charges_intent',
 			safeCredentials({

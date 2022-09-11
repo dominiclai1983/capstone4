@@ -29,7 +29,9 @@ const AdminHome = () => {
 			.get(`/api/orders?month=${month}&year=${year}`)
 			.then((result) => {
 				if (result.data.orders) {
-					for (let i = 1; i <= result.data.orders.length; i++) {
+					console.log(result.data.orders);
+					const length = new Date(year, month, 0).getDate();
+					for (let i = 1; i <= length; i++) {
 						let dailyOrders = result.data.orders.filter(
 							(item) => parseInt(item.order_date.substring(8, 10)) === i
 						);
@@ -52,7 +54,11 @@ const AdminHome = () => {
 				);
 				setTotalOrder(result.data.orders.length);
 			});
+
+		console.log();
 	};
+
+	console.log;
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -109,6 +115,7 @@ const AdminHome = () => {
 						item
 						onChange={(_, data) => {
 							setYear(data.value);
+							console.log(year);
 						}}
 					/>
 					<Dropdown
@@ -119,6 +126,7 @@ const AdminHome = () => {
 						item
 						onChange={(_, data) => {
 							setMonth(data.value);
+							console.log(month);
 						}}
 					/>
 				</Menu>{' '}

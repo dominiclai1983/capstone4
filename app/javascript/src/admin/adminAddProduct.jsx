@@ -11,6 +11,7 @@ import {
 } from 'semantic-ui-react';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
+import AddPicturePanel from '@components/admin/AddPicturePanel';
 import axios from 'axios';
 
 const AdminAddProduct = () => {
@@ -25,6 +26,14 @@ const AdminAddProduct = () => {
 	const [productCode, setProductCode] = useState('');
 	const [quantity, setQuantity] = useState(0);
 
+	const [imageOne, setImageOne] = useState(null);
+	const [previewImageOne, setPreviewImageOne] = useState(null);
+	/*	
+	const [imageSecond, setImageSecond] = useState(null);
+	const [imageThird, setImageThird] = useState(null);
+	const [previewImageSecond, setPreviewImageSecond] = useState(null);
+	const [previewImageThird, setPreviewImageThird] = useState(null);
+*/
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -70,6 +79,29 @@ const AdminAddProduct = () => {
 		try {
 			const result = await axios.post('api/products', product);
 			if (result.data) {
+			}
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const handleChange = (event) => {
+		setPreviewImageOne(window.URL.createObjectURL(event.target.files[0]));
+		setImageOne(event.target.files[0]);
+	};
+
+	const handleAttachingPhoto = async (e) => {
+		e.preventDefault();
+		const formData = new FormData();
+
+		const image = [imageOne];
+
+		formData.append('picture[attachments]', imageOne);
+
+		try {
+			const result = await axios.post('/api/pictures', formData);
+			if (result.data) {
+				console.log(result.data);
 			}
 		} catch (err) {
 			console.error(err);
@@ -181,7 +213,13 @@ const AdminAddProduct = () => {
 								}}
 							/>
 						</Form>
-					) : null}
+					) : (
+						<AddPicturePanel
+							previewImageOne={previewImageOne}
+							handleChange={handleChange}
+							handleAttachingPhoto={handleAttachingPhoto}
+						/>
+					)}
 					<Button as={Link} to='/admin/home' style={{ marginTop: '10px' }}>
 						Cancel
 					</Button>

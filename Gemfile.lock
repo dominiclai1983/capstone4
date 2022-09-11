@@ -276,6 +276,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   kaminari
   listen (~> 3.3)
+  mini_magick
   prettier
   puma (~> 5.0)
   rails (~> 6.1.6, >= 6.1.6.1)

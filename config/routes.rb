@@ -100,5 +100,9 @@ Rails.application.routes.draw do
     #user api
     post "/remove_current_cart"     => "users#remove_current_cart"
     get "/users"                    => "users#index"
+
+    #picture api 
+    post "/pictures"                 => "pictures#create"
+    get "/pictures"                  => "pictures#show"
   end
 end
