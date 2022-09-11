@@ -90,13 +90,16 @@ const AdminAddProduct = () => {
 		setImageOne(event.target.files[0]);
 	};
 
+	const product_id = 1;
+	const ranking = 1;
+
 	const handleAttachingPhoto = async (e) => {
 		e.preventDefault();
 		const formData = new FormData();
 
-		const image = [imageOne];
-
-		formData.append('picture[attachments]', imageOne);
+		formData.append('picture[attachment]', imageOne);
+		formData.append('picture[product_id]', product_id);
+		formData.append('picture[ranking]', 1);
 
 		try {
 			const result = await axios.post('/api/pictures', formData);

@@ -115,6 +115,8 @@ class AddAllTablesAtOnce < ActiveRecord::Migration[6.1]
     end
 
     create_table :pictures do |t|
+      t.integer :ranking
+      t.belongs_to :product, index: true, foreign_key: true
       t.timestamps
     end
   end

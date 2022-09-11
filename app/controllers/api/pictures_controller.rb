@@ -1,7 +1,8 @@
 class Api::PicturesController < ApplicationController
-=begin 
+  require "mini_magick"
+
   def create
-    @picture = Picture.create(picture_params)
+    @picture = Picture.new(picture_params)
 
     if @picture.save
       render "api/pictures/show", status: :created
@@ -9,24 +10,20 @@ class Api::PicturesController < ApplicationController
       render json: { success: false }, status: :bad_request
     end
   end
-=end
-  def create
-    image = MiniMagick::Image.new(params[:attachment])
-    image.resize "400x400"
-    @picture = Picture.create()
-    @picture.attachments.attach(image)
-    if @picture.save
-      render "api/pictures/show", status: :created
+
+  def index
+    @picture = Picture.where(product_id: params[:id])
+
+    if @picture
+      render "api/orders/index", status: :ok
     else
-      render json: { success: false }, status: :bad_request
+      render json: { products: [] }
     end
-  end
-  def show
   end
 
   private
 
   def picture_params
-    params.require(:picture).permit(:attachment)
+    params.require(:picture).permit(:product_id, :ranking, :attachment)
   end
 end

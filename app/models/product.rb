@@ -1,9 +1,7 @@
 class Product < ApplicationRecord
-  has_one_attached :image do |attachable|
-    attachable.variant :thumb, resize_to_limit: [300, 300]
-  end
-
   has_one :code
+
+  has_many :photos
 
   validates_uniqueness_of :sku
 
