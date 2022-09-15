@@ -1,26 +1,65 @@
-import React, { useState } from 'react';
-import _ from 'lodash';
+import React, { useState, useEffect } from 'react';
+import _, { set } from 'lodash';
 import {
 	Grid,
 	Container,
 	Header,
 	Breadcrumb,
 	Dropdown,
+	Card,
+	Image,
 } from 'semantic-ui-react';
 import { Link, useLocation, useOutletContext } from 'react-router-dom';
 import ItemDisplay from '@components/product/ItemDisplay';
+import axios from 'axios';
 
 import '@src/css/utils.scss';
 
 const Product = () => {
-	const { pathname } = useLocation();
 	const [activeItem, setActiveItem] = useOutletContext();
 	const [sortingType, setSortingType] = useState('default');
+	const { pathname } = useLocation();
+	const [products, setProducts] = useState([]);
+	const [totalPages, setTotalPages] = useState(null);
+	const [nextPage, setNextPage] = useState(null);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const result = await axios.get(`/api/products${pathname}/cat?page=1`);
+				//cat is needed. pls refer to route
+				setProducts(result.data.products);
+				setTotalPages(result.data.total_pages);
+				setNextPage(result.data.next_page);
+			} catch (err) {
+				console.error(err);
+			}
+		};
+		fetchData();
+	}, [pathname]);
+
+	console.log(products);
 
 	//refer layout.jsx for useOutletContext() hook
 	const handleItemClick = (e, { name }) => setActiveItem(name);
 
 	const handleDropDownClick = (e, { name }) => setSortingType(name);
+
+	const src = 'https://react.semantic-ui.com/images/avatar/large/daniel.jpg';
+
+	const items = products.map((product, index) => {
+		return (
+			<Card key={index}>
+				<Image src={src} as={Link} to={'/product/' + product.sku} />
+				<Card.Content>
+					<Card.Header>{product.title}</Card.Header>
+					<Card.Description textAlign='right'>
+						${product.price}
+					</Card.Description>
+				</Card.Content>
+			</Card>
+		);
+	});
 
 	return (
 		<>
@@ -51,7 +90,7 @@ const Product = () => {
 						</Grid.Column>
 					</Grid.Row>
 				</Grid>
-				{/* TODO: writing the method to change the sorting mode*/}
+
 				<Grid>
 					<Grid.Row columns={1}>
 						<Grid.Column textAlign='right'>
@@ -78,7 +117,7 @@ const Product = () => {
 					</Grid.Row>
 				</Grid>
 			</Container>
-			<ItemDisplay sortingType={sortingType} />
+			<ItemDisplay products={products} sortingType={sortingType} />
 		</>
 	);
 };

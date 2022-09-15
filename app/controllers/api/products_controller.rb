@@ -1,5 +1,6 @@
 class Api::ProductsController < ApplicationController
   def index
+    #keep this one for the list of product. DO NIT MIX UP THE ROUTE ANYMORE!
     if params[:query]
       @products =
         Product
@@ -7,10 +8,6 @@ class Api::ProductsController < ApplicationController
           .page(params[:page])
           .per(6)
       render "api/products/index", status: :ok
-    elsif params[:sku]
-      @product = Product.find_by(sku: params[:sku])
-      @code = Code.find(@product.code_id)
-      render "api/products/show", status: :ok
     else
       @products = Product.order(created_at: :desc).page(params[:page]).per(6)
       render "api/products/index", status: :ok
@@ -21,6 +18,7 @@ class Api::ProductsController < ApplicationController
   end
 
   def show
+    #keep this one for single product. DO NOT MIX UP THE ROUTE ANYMOR!
     @product = Product.find_by(sku: params[:sku])
     @code = Code.find(@product.code_id)
     return render json: { error: "not_found" }, status: :not_found if !@product
@@ -29,9 +27,15 @@ class Api::ProductsController < ApplicationController
   end
 
   def find_product_by_product_code
-    @products = Product.where(code_id: params[:code]).page(params[:page]).per(6)
-
-    return render json: { error: "not_found" }, status: :not_found if !@products
+    @products =
+      Product
+        .joins(:code)
+        .where(code: { desc: params[:category] })
+        .page(params[:page])
+        .per(6)
+    if !@products
+      return(render json: { error: "not_found" }, status: :not_found)
+    end
     render "api/products/index", status: :ok
   end
 

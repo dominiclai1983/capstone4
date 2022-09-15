@@ -1,7 +1,7 @@
 class Product < ApplicationRecord
-  has_one :code
+  belongs_to :code
 
-  has_many :photos
+  has_one_attached :attachment
 
   validates_uniqueness_of :sku
 
