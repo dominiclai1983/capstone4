@@ -10,5 +10,10 @@ json.products do
     json.price product.price
     json.quantity product.quantity
     json.reserved product.reserved
+    if product.attachment.attached?
+      json.grid_image url_for(
+                        product.attachment.variant(resize_and_pad: [650, 650])
+                      )
+    end
   end
 end

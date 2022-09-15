@@ -40,17 +40,17 @@ class Api::ProductsController < ApplicationController
   end
 
   def create
-    if session and is_admin?
-      @product = Product.new(product_params)
+    #if session and is_admin?
+    @product = Product.new(product_params)
 
-      if @product.save
-        render "api/products/create", status: :ok
-      else
-        render json: { products: [] }
-      end
+    if @product.save
+      render "api/products/create", status: :ok
     else
       render json: { products: [] }
     end
+    #else
+    #  render json: { products: [] }
+    #end
   end
 
   def edit_by_sku
@@ -76,8 +76,8 @@ class Api::ProductsController < ApplicationController
       :sku,
       :price,
       :quantity,
-      :image,
-      :product_code_id
+      :code_id,
+      :attachment
     )
   end
 

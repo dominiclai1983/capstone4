@@ -71,38 +71,32 @@ const AdminAddProduct = () => {
 
 	const dropDownOption = _.times(codes.length, (i) => ({
 		key: i,
-		value: codes[i].code,
+		value: codes[i].id,
 		text: _.startCase(codes[i].desc),
 	}));
-
-	const handleSubmit = async () => {
-		try {
-			const result = await axios.post('api/products', product);
-			if (result.data) {
-			}
-		} catch (err) {
-			console.error(err);
-		}
-	};
 
 	const handleChange = (event) => {
 		setPreviewImageOne(window.URL.createObjectURL(event.target.files[0]));
 		setImageOne(event.target.files[0]);
 	};
 
-	const product_id = 1;
-	const ranking = 1;
+	console.log(codes);
+	console.log(product);
 
-	const handleAttachingPhoto = async (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const formData = new FormData();
 
-		formData.append('picture[attachment]', imageOne);
-		formData.append('picture[product_id]', product_id);
-		formData.append('picture[ranking]', 1);
+		formData.append('product[title]', title);
+		formData.append('product[description]', description);
+		formData.append('product[sku]', sku);
+		formData.append('product[price]', price);
+		formData.append('product[quantity]', quantity);
+		formData.append('product[code_id]', productCode);
+		formData.append('product[attachment]', imageOne);
 
 		try {
-			const result = await axios.post('/api/pictures', formData);
+			const result = await axios.post('/api/products', formData);
 			if (result.data) {
 				console.log(result.data);
 			}
@@ -220,7 +214,6 @@ const AdminAddProduct = () => {
 						<AddPicturePanel
 							previewImageOne={previewImageOne}
 							handleChange={handleChange}
-							handleAttachingPhoto={handleAttachingPhoto}
 						/>
 					)}
 					<Button as={Link} to='/admin/home' style={{ marginTop: '10px' }}>
@@ -228,9 +221,10 @@ const AdminAddProduct = () => {
 					</Button>
 					<Button
 						floated='right'
-						disabled={submitActive}
+						//disabled={submitActive}
 						color='yellow'
 						style={{ marginTop: '10px' }}
+						onClick={handleSubmit}
 					>
 						Submit
 					</Button>

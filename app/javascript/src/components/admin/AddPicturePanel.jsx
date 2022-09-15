@@ -6,7 +6,7 @@ const AddPicturePanel = (props) => {
 
 	const fileInputRef = useRef();
 
-	const { previewImageOne, handleChange, handleAttachingPhoto } = props;
+	const { previewImageOne, handleChange } = props;
 	return (
 		<Grid columns={3} textAlign='center' divided>
 			<Grid.Row>
@@ -32,11 +32,13 @@ const AddPicturePanel = (props) => {
 						src={previewImageOne ? previewImageOne : placeholder}
 						size='small'
 						centered
+						style={{ marginBottom: '2px' }}
 					/>
 					<Button
 						content='Choose File'
 						labelPosition='left'
 						icon='file'
+						size='mini'
 						onClick={() => fileInputRef.current.click()}
 					/>
 					<input
@@ -46,7 +48,6 @@ const AddPicturePanel = (props) => {
 						hidden
 						onChange={handleChange}
 					/>
-					<Button content='Submit' onClick={handleAttachingPhoto} />
 				</Grid.Column>
 				{/*
 				<Grid.Column>

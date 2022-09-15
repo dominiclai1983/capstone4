@@ -45,22 +45,6 @@ const Product = () => {
 
 	const handleDropDownClick = (e, { name }) => setSortingType(name);
 
-	const src = 'https://react.semantic-ui.com/images/avatar/large/daniel.jpg';
-
-	const items = products.map((product, index) => {
-		return (
-			<Card key={index}>
-				<Image src={src} as={Link} to={'/product/' + product.sku} />
-				<Card.Content>
-					<Card.Header>{product.title}</Card.Header>
-					<Card.Description textAlign='right'>
-						${product.price}
-					</Card.Description>
-				</Card.Content>
-			</Card>
-		);
-	});
-
 	return (
 		<>
 			<Container style={{ marginTop: 20 }}>

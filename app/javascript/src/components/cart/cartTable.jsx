@@ -103,7 +103,13 @@ const CartTable = () => {
 							{cart.map((product, index) => (
 								<Table.Row key={index}>
 									<Table.Cell>
-										<Image src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
+										<Image
+											src={
+												product.thumb
+													? product.thumb
+													: 'https://react.semantic-ui.com/images/avatar/small/matt.jpg'
+											}
+										/>
 									</Table.Cell>
 									<Table.Cell>{product.title}</Table.Cell>
 									<Table.Cell>

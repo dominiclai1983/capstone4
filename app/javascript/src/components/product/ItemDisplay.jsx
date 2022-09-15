@@ -27,7 +27,11 @@ const ItemDisplay = (props) => {
 	const items = sortingProducts().map((product, index) => {
 		return (
 			<Card key={index}>
-				<Image src={src} as={Link} to={'/product/' + product.sku} />
+				<Image
+					src={product.grid_image ? product.grid_image : src}
+					as={Link}
+					to={'/product/' + product.sku}
+				/>
 				<Card.Content>
 					<Card.Header>{product.title}</Card.Header>
 					<Card.Description textAlign='right'>
