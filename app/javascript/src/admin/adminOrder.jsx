@@ -7,6 +7,7 @@ import {
 	Divider,
 	Menu,
 } from 'semantic-ui-react';
+import OrderTable from '@components/admin/OrderTable';
 import axios from 'axios';
 
 const AdminOrder = () => {
@@ -98,6 +99,7 @@ const AdminOrder = () => {
 						Cancelled
 					</Menu.Item>
 				</Menu>
+				<OrderTable orders={orders} />
 			</Container>
 		</>
 	);
