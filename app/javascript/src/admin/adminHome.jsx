@@ -134,8 +134,6 @@ const AdminHome = () => {
 					Apply
 				</Button>
 				<Divider />
-				{/* </Container> */}
-				{/* <Container textAlign='center' style={{ marginTop: '15px' }}>*/}
 				<HomePanel totalOrder={totalOrder} totalRevenue={totalRevenue} />
 				<Grid columns={2}>
 					<Grid.Row>
@@ -158,7 +156,6 @@ const AdminHome = () => {
 					</Grid.Row>
 				</Grid>
 			</Container>
-			{/* </Container> */}
 		</>
 	);
 };

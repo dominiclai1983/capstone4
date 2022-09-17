@@ -11,41 +11,64 @@ const OrderTable = (props) => {
 		const itemRows = itemValues.map((item, i) => {
 			const itemDate =
 				i === 0 ? (
-					<Table.Cell rowSpan={itemValues.length + 1}>
-						{order.order_date}
+					<Table.Cell rowSpan={itemValues.length + 1} verticalAlign='top'>
+						{order.order_date.slice(0, 10)}
 					</Table.Cell>
 				) : null;
 			const itemDetails =
 				i === 0 ? (
-					<Table.Cell rowSpan={itemValues.length + 1}>{order.id}</Table.Cell>
+					<Table.Cell
+						rowSpan={itemValues.length + 1}
+						verticalAlign='top'
+						textAlign='center'
+					>
+						{order.id}
+					</Table.Cell>
 				) : null;
 			const customerOptions =
 				i === 0 ? (
-					<Table.Cell rowSpan={itemValues.length + 1}>
-						{order.shipping_fee}
+					<Table.Cell
+						rowSpan={itemValues.length + 1}
+						verticalAlign='top'
+						textAlign='center'
+					>
+						{order.shipping_fee ? 'Expedited' : 'Free'}
 					</Table.Cell>
 				) : null;
 			const orderStatus =
 				i === 0 ? (
-					<Table.Cell rowSpan={itemValues.length + 1}>
+					<Table.Cell
+						rowSpan={itemValues.length + 1}
+						verticalAlign='top'
+						textAlign='center'
+					>
 						{order.status ? 'Active' : 'Cancelled'}
 					</Table.Cell>
 				) : null;
 			const price =
 				i === 0 ? (
-					<Table.Cell rowSpan={itemValues.length + 1}>
-						{order.order_total / 100}
+					<Table.Cell
+						rowSpan={itemValues.length + 1}
+						verticalAlign='top'
+						textAlign='center'
+					>
+						HK$ {order.order_total / 100}
 					</Table.Cell>
 				) : null;
 			return (
 				<Table.Row key={i}>
 					{itemDate}
 					{itemDetails}
-
-					<Table.Cell>
+					<Table.Cell textAlign='center'>
 						<Image src={item.thumb ? item.thumb : src} />
 					</Table.Cell>
-					<Table.Cell>{item.title}</Table.Cell>
+					<Table.Cell>
+						{item.title}
+						<br />
+						Qty: {item.quantity}
+						<br />
+						Sub Total: {item.total}
+					</Table.Cell>
 					{customerOptions}
 					{orderStatus}
 					{price}
@@ -57,7 +80,7 @@ const OrderTable = (props) => {
 	return (
 		<Table singleLine>
 			<Table.Header>
-				<Table.Row>
+				<Table.Row textAlign='center'>
 					<Table.HeaderCell>Order Date</Table.HeaderCell>
 					<Table.HeaderCell>Order Details</Table.HeaderCell>
 					<Table.HeaderCell>Image</Table.HeaderCell>
