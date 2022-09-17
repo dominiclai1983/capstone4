@@ -214,7 +214,11 @@ const AdminAddProduct = () => {
 							handleChange={handleChange}
 						/>
 					)}
-					<Button as={Link} to='/admin/home' style={{ marginTop: '10px' }}>
+					<Button
+						as={Link}
+						to='/admin/home/product'
+						style={{ marginTop: '10px' }}
+					>
 						Cancel
 					</Button>
 					<Button
