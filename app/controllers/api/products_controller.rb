@@ -1,15 +1,15 @@
 class Api::ProductsController < ApplicationController
   def index
-    #keep this one for the list of product. DO NIT MIX UP THE ROUTE ANYMORE!
+    #keep this one for the list of product. DO NOT MIX UP THE ROUTE ANYMORE!
     if params[:query]
       @products =
         Product
           .where("title LIKE ?", "%" + params[:query] + "%")
           .page(params[:page])
-          .per(6)
+          .per(25)
       render "api/products/index", status: :ok
     else
-      @products = Product.order(created_at: :desc).page(params[:page]).per(6)
+      @products = Product.order(created_at: :desc).page(params[:page]).per(25)
       render "api/products/index", status: :ok
       if !@products
         return render json: { error: "not_found" }, status: :not_found
@@ -32,7 +32,7 @@ class Api::ProductsController < ApplicationController
         .joins(:code)
         .where(code: { desc: params[:category] })
         .page(params[:page])
-        .per(6)
+        .per(25)
     if !@products
       return(render json: { error: "not_found" }, status: :not_found)
     end
@@ -40,17 +40,17 @@ class Api::ProductsController < ApplicationController
   end
 
   def create
-    #if session and is_admin?
-    @product = Product.new(product_params)
+    if session and is_admin?
+      @product = Product.new(product_params)
 
-    if @product.save
-      render "api/products/create", status: :ok
+      if @product.save
+        render "api/products/create", status: :ok
+      else
+        render json: { products: [] }
+      end
     else
       render json: { products: [] }
     end
-    #else
-    #  render json: { products: [] }
-    #end
   end
 
   def edit_by_sku

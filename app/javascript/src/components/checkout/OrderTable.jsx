@@ -2,6 +2,8 @@ import React from 'react';
 import { CheckoutState } from '@src/checkout/checkoutContext';
 import { Table, Image, Header, Icon, Button } from 'semantic-ui-react';
 
+const src = 'https://react.semantic-ui.com/images/avatar/small/matt.jpg';
+
 const OrderTable = () => {
 	const { cart } = CheckoutState();
 
@@ -16,7 +18,7 @@ const OrderTable = () => {
 					{cart.map((product, index) => (
 						<Table.Row key={index}>
 							<Table.Cell>
-								<Image src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
+								<Image src={product.thumb ? product.thumb : src} />
 							</Table.Cell>
 							<Table.Cell>{product.title}</Table.Cell>
 							<Table.Cell>Qty: {product.quantity}</Table.Cell>

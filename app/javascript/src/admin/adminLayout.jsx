@@ -62,10 +62,22 @@ const AdminLayout = () => {
 							</Menu.Item>
 							<Dropdown item text='Product'>
 								<Dropdown.Menu>
-									<Dropdown.Item as={Link} to='/admin/home/product'>
+									<Dropdown.Item
+										as={Link}
+										to='/admin/home/product'
+										name='product'
+										active={activeItem === 'product'}
+										onClick={handleItemClick}
+									>
 										Manage Products
 									</Dropdown.Item>
-									<Dropdown.Item as={Link} to='/admin/addproduct'>
+									<Dropdown.Item
+										as={Link}
+										to='/admin/addproduct'
+										name='addproduct'
+										active={activeItem === 'addproduct'}
+										onClick={handleItemClick}
+									>
 										Add a Product
 									</Dropdown.Item>
 								</Dropdown.Menu>

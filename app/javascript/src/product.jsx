@@ -22,6 +22,7 @@ const Product = () => {
 	const [products, setProducts] = useState([]);
 	const [totalPages, setTotalPages] = useState(null);
 	const [nextPage, setNextPage] = useState(null);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -44,6 +45,24 @@ const Product = () => {
 	const handleItemClick = (e, { name }) => setActiveItem(name);
 
 	const handleDropDownClick = (e, { name }) => setSortingType(name);
+
+	const handleLoadMore = async () => {
+		if (!nextPage) {
+			return;
+		}
+		setLoading(true);
+		try {
+			const result = await axios.get(
+				`/api/products${pathname}/cat?page=${nextPage}`
+			);
+			setProducts([...products, result.data.products]);
+			setTotalPages(result.data.total_pages);
+			setNextPage(result.data.next_page);
+			setLoading(false);
+		} catch (err) {
+			console.error(err);
+		}
+	};
 
 	return (
 		<>
@@ -101,7 +120,13 @@ const Product = () => {
 					</Grid.Row>
 				</Grid>
 			</Container>
-			<ItemDisplay products={products} sortingType={sortingType} />
+			<ItemDisplay
+				products={products}
+				sortingType={sortingType}
+				handleLoadMore={handleLoadMore}
+				nextPage={nextPage}
+				loading={loading}
+			/>
 		</>
 	);
 };

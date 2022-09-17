@@ -1,12 +1,12 @@
 //here is partly of the component for displaying product, the layout of the listing product
-import React, { useState, useEffect } from 'react';
-import { Card, Image, Container } from 'semantic-ui-react';
-import { Link, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Card, Image, Container, Button } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 const src = 'https://react.semantic-ui.com/images/avatar/large/daniel.jpg';
 
 const ItemDisplay = (props) => {
-	const { products, sortingType } = props;
+	const { products, sortingType, handleLoadMore, nextPage, loading } = props;
 
 	const sortingProducts = () => {
 		let sortedProducts = products;
@@ -33,7 +33,7 @@ const ItemDisplay = (props) => {
 					to={'/product/' + product.sku}
 				/>
 				<Card.Content>
-					<Card.Header>{product.title}</Card.Header>
+					<Card.Header textAlign='left'>{product.title}</Card.Header>
 					<Card.Description textAlign='right'>
 						${product.price}
 					</Card.Description>
@@ -43,8 +43,18 @@ const ItemDisplay = (props) => {
 	});
 
 	return (
-		<Container style={{ marginTop: 20 }}>
+		<Container style={{ marginTop: 20 }} textAlign='center'>
 			<Card.Group itemsPerRow={3}>{items}</Card.Group>
+			{nextPage && (
+				<Button
+					loading={loading}
+					size='tiny'
+					color='yellow'
+					onClick={handleLoadMore}
+				>
+					Click For More
+				</Button>
+			)}
 		</Container>
 	);
 };

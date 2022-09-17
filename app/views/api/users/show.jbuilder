@@ -13,6 +13,15 @@ json.orders do
         json.order_details_id order_detail.id
         json.title order_detail.product.title
         json.sku order_detail.product.sku
+        if order_detail.product.attachment.attached?
+          json.thumb url_for(
+                       order_detail.product.attachment.variant(
+                         resize_and_pad: [50, 50]
+                       )
+                     )
+        else
+          json.thumb nil
+        end
         json.price order_detail.price
         json.total order_detail.total
         json.quantity order_detail.quantity

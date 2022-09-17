@@ -14,6 +14,8 @@ import {
 } from 'semantic-ui-react';
 import axios from 'axios';
 
+const src = 'https://react.semantic-ui.com/images/avatar/small/matt.jpg';
+
 const CartTable = () => {
 	const { cart, setCart, currentCartID, loginStatus } = CartState();
 	const [total, setTotal] = useState(0);
@@ -103,13 +105,7 @@ const CartTable = () => {
 							{cart.map((product, index) => (
 								<Table.Row key={index}>
 									<Table.Cell>
-										<Image
-											src={
-												product.thumb
-													? product.thumb
-													: 'https://react.semantic-ui.com/images/avatar/small/matt.jpg'
-											}
-										/>
+										<Image src={product.thumb ? product.thumb : src} />
 									</Table.Cell>
 									<Table.Cell>{product.title}</Table.Cell>
 									<Table.Cell>

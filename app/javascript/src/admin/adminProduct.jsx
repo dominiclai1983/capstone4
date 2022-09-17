@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Container, Header, Input, Dropdown, Divider } from 'semantic-ui-react';
+import ProductTable from '@components/admin/ProductTable';
 
 const AdminProduct = () => {
 	const dropDownOption = [
@@ -81,6 +82,7 @@ const AdminProduct = () => {
 					}}
 				/>
 				<Divider />
+				<ProductTable products={products} />
 			</Container>
 		</>
 	);

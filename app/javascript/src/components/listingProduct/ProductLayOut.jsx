@@ -11,11 +11,12 @@ import { CartState } from '@src/context';
 import ProductIconGroup from '@components/listingProduct/ProductIconGroup';
 import axios from 'axios';
 
+const src = 'https://via.placeholder.com/860x700.png';
+
 const ProductLayOut = (props) => {
-	let { title, price, description, product_id } = props;
+	let { title, price, description, product_id, large_image } = props;
 	const { cart, setCart, currentCartID, setCurrentCartID, loginStatus } =
 		CartState();
-	console.log(`productID ${product_id}`);
 
 	const getCartNumber = async () => {
 		try {
@@ -71,7 +72,7 @@ const ProductLayOut = (props) => {
 		<Grid>
 			<Grid.Row>
 				<Grid.Column width={9}>
-					<Image src='https://via.placeholder.com/860x700.png' />
+					<Image src={large_image ? large_image : src} />
 				</Grid.Column>
 				<Grid.Column width={6} style={{ marginTop: 40 }}>
 					<Header as='h2'>{title}</Header>

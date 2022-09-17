@@ -40,7 +40,7 @@ const CheckoutLayout = () => {
 		fetchData();
 	}, [currentCartID]);
 
-	const src = 'https://via.placeholder.com/1250x90.png';
+	const src = 'https://i.imgur.com/2LrT5Me.png';
 
 	return (
 		<>

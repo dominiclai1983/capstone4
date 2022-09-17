@@ -61,7 +61,7 @@ const CheckoutConfirm = () => {
 				</Header>
 				{amount && (
 					<Container textAlign='left'>
-						<Card style={{ minWidth: '500px' }}>
+						<Card style={{ minWidth: '550px' }}>
 							<Card.Content>
 								<Card.Header>Total Amount: HK$ {amount}</Card.Header>
 							</Card.Content>

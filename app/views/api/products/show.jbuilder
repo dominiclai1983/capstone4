@@ -9,4 +9,11 @@ json.product do
   json.code_id @product.code_id
   json.code @code.code
   json.desc @code.desc
+  if @product.attachment.attached?
+    json.large_image url_for(
+                       @product.attachment.variant(resize_and_pad: [860, 700])
+                     )
+  else
+    json.large_image nil
+  end
 end

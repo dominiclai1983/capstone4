@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get "/admin/home/customer/:username"  => "static_pages#admin"
   get "/admin/home/order"               => "static_pages#admin"
   get "/admin/home/product"             => "static_pages#admin"
+  get "/admin/home/product/:sku"        => "static_pages#admin"
   get "/admin/home/payment"             => "static_pages#admin"
   get "/admin/addproduct"               => "static_pages#admin"
 

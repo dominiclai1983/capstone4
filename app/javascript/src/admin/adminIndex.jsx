@@ -9,6 +9,7 @@ import AdminOrder from './adminOrder';
 import AdminProduct from './adminProduct';
 import AdminPayment from './adminPayment';
 import AdminAddProduct from './adminAddProduct';
+import AdminEditProduct from './adminEditProduct';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const AdminIndex = () => {
@@ -27,6 +28,10 @@ const AdminIndex = () => {
 						<Route path='payment' element={<AdminPayment />} />
 					</Route>
 					<Route path='admin/addproduct' element={<AdminAddProduct />} />
+					<Route
+						path='admin/home/product/:sku'
+						element={<AdminEditProduct />}
+					/>
 				</Routes>
 			</BrowserRouter>
 		</>

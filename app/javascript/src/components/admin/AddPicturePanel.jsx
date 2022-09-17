@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Grid, Form, Image, Button } from 'semantic-ui-react';
 
 const AddPicturePanel = (props) => {
-	const placeholder = 'https://picsum.photos/id/237/750/562';
+	const src = 'https://picsum.photos/id/237/750/562';
 
 	const fileInputRef = useRef();
 
@@ -29,7 +29,7 @@ const AddPicturePanel = (props) => {
 					</Form>
 					*/}
 					<Image
-						src={previewImageOne ? previewImageOne : placeholder}
+						src={previewImageOne ? previewImageOne : src}
 						size='small'
 						centered
 						style={{ marginBottom: '2px' }}

@@ -17,7 +17,7 @@ class Api::OrdersController < ApplicationController
 
   def index
     if session
-      @orders = session.user.orders
+      @orders = session.user.orders.page(params[:page]).per(25)
       render "api/orders/index"
       #if there is query params ?month=[:month]
     elsif (params[:month] && params[:year])
@@ -30,9 +30,10 @@ class Api::OrdersController < ApplicationController
 
       @orders =
         Order.where(order_date: range, status: true, payment_status: true)
+
       render "api/orders/index"
     elsif is_admin? && admin_session && params[:admin_checker]
-      @orders = Order.all(order_date: :desc)
+      @orders = Order.all(order_date: :desc).page(params[:page]).per(25)
       render "api/orders/index"
     else
       render json: { orders: [] }

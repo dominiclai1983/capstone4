@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Header, Input, Dropdown, Divider } from 'semantic-ui-react';
+import {
+	Container,
+	Header,
+	Input,
+	Dropdown,
+	Divider,
+	Menu,
+} from 'semantic-ui-react';
 import axios from 'axios';
 
 const AdminOrder = () => {
@@ -11,10 +18,15 @@ const AdminOrder = () => {
 	];
 
 	const [orders, setOrders] = useState([]);
+	const [totalPages, setTotalPages] = useState(null);
+	const [nextPage, setNextPage] = useState(null);
 	const [dropDownSelection, setDropDownSelection] = useState(
 		dropDownOption[0].value
 	);
 	const [inputField, setInputField] = useState('');
+	const [activeItem, setActiveItem] = useState('allorders');
+
+	const handleItemClick = (e, { name }) => setActiveItem(name);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -29,6 +41,8 @@ const AdminOrder = () => {
 		};
 		fetchData();
 	}, []);
+
+	console.log(orders);
 
 	return (
 		<>
@@ -61,7 +75,29 @@ const AdminOrder = () => {
 						setInputField(e.target.value);
 					}}
 				/>
-				<Divider />
+				<Menu pointing secondary>
+					<Menu.Item
+						name='pending'
+						active={activeItem === 'pending'}
+						onClick={handleItemClick}
+					>
+						Pending
+					</Menu.Item>
+					<Menu.Item
+						name='allorders'
+						active={activeItem === 'allorders'}
+						onClick={handleItemClick}
+					>
+						All Orders
+					</Menu.Item>
+					<Menu.Item
+						name='cancelled'
+						active={activeItem === 'cancelled'}
+						onClick={handleItemClick}
+					>
+						Cancelled
+					</Menu.Item>
+				</Menu>
 			</Container>
 		</>
 	);
