@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Header, Divider } from 'semantic-ui-react';
+import { Header, Divider } from 'semantic-ui-react';
 
 const AdminPayment = () => {
 	return (

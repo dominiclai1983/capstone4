@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import _, { set } from 'lodash';
+import _ from 'lodash';
 import {
 	Grid,
 	Container,
 	Header,
 	Breadcrumb,
 	Dropdown,
-	Card,
-	Image,
 } from 'semantic-ui-react';
 import { Link, useLocation, useOutletContext } from 'react-router-dom';
 import ItemDisplay from '@components/product/ItemDisplay';
@@ -17,8 +15,9 @@ import '@src/css/utils.scss';
 
 const Product = () => {
 	const [activeItem, setActiveItem] = useOutletContext();
-	const [sortingType, setSortingType] = useState('default');
 	const { pathname } = useLocation();
+
+	const [sortingType, setSortingType] = useState('default');
 	const [products, setProducts] = useState([]);
 	const [totalPages, setTotalPages] = useState(null);
 	const [nextPage, setNextPage] = useState(null);

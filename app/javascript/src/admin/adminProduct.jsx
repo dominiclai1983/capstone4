@@ -27,8 +27,6 @@ const AdminProduct = () => {
 		fetchData();
 	}, []);
 
-	console.log(products);
-
 	const handleTitleSearch = async () => {
 		try {
 			const result = await axios.get(`/api/products?query=${inputField}`);

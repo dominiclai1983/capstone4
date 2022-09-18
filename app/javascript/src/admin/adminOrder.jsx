@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-	Container,
-	Header,
-	Input,
-	Dropdown,
-	Divider,
-	Menu,
-} from 'semantic-ui-react';
+import { Container, Header, Input, Dropdown, Menu } from 'semantic-ui-react';
 import OrderTable from '@components/admin/OrderTable';
 import axios from 'axios';
 

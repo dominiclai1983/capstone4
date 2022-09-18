@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-	Container,
-	Header,
-	Input,
-	Dropdown,
-	Divider,
-	Segment,
-} from 'semantic-ui-react';
+import { Container, Header, Input, Dropdown, Divider } from 'semantic-ui-react';
 import CustomerDisplay from '@components/admin/CustomerDisplay';
 import axios from 'axios';
 

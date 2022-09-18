@@ -93,7 +93,7 @@ const AdminAddProduct = () => {
 			const result = await axios.post('/api/products', formData);
 			if (result.data) {
 				console.log(result.data);
-				navigate('../admin/home/product');
+				navigate('/admin/home/product');
 			}
 		} catch (err) {
 			console.error(err);

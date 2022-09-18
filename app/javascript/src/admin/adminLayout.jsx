@@ -9,12 +9,9 @@ const AdminLayout = () => {
 	const navigate = useNavigate();
 
 	const path = pathname.substring(7).replace('home/', '');
-	//7 char = '/admin/
-	console.log(path);
 	const [activeItem, setActiveItem] = useState(path);
 	const [loginStatus, setLoginStatus] = useState(false);
 	const [username, setUsername] = useState('');
-	const [errorMsg, setErrorMsg] = useState('');
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -26,7 +23,7 @@ const AdminLayout = () => {
 					setUsername(result.data.username);
 				}
 			} catch (err) {
-				console.error(err);
+				setLoginStatus(err.response.data.authenticated);
 				navigate('/admin');
 			}
 		};
@@ -121,7 +118,7 @@ const AdminLayout = () => {
 						</Grid.Column>
 						<Grid.Column width={13} textAlign='center'>
 							<LayoutMenu username={username} />
-							<Outlet context={[errorMsg, setErrorMsg]} />
+							<Outlet content={[loginStatus, setLoginStatus]} />
 						</Grid.Column>
 					</Grid.Row>
 				</Grid>
