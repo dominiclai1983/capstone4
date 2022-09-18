@@ -53,7 +53,7 @@ class Api::SessionsController < ApplicationController
     admin_session = Session.find_by(token: token)
 
     if admin_session
-      @admin = admin_session.user
+      @user = admin_session.user
       render "api/sessions/authenticated", status: :ok
     else
       render json: { authenticated: false }, status: :bad_request

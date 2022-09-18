@@ -7,11 +7,13 @@ import {
 	Button,
 	Form,
 } from 'semantic-ui-react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const AdminLogin = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const navigate = useNavigate();
 
 	const handleLogin = async () => {
 		const user = {
@@ -24,7 +26,7 @@ const AdminLogin = () => {
 		try {
 			const result = await axios.post('/api/admins', user);
 			if (result.data.success) {
-				window.location.replace('/admin/home');
+				navigate('/admin/home');
 			}
 		} catch (err) {
 			console.error(err);

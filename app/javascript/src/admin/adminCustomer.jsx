@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Container, Header, Input, Dropdown, Divider } from 'semantic-ui-react';
+import {
+	Container,
+	Header,
+	Input,
+	Dropdown,
+	Divider,
+	Segment,
+} from 'semantic-ui-react';
 import CustomerDisplay from '@components/admin/CustomerDisplay';
 import axios from 'axios';
 
@@ -44,6 +51,14 @@ const AdminCustomer = () => {
 		}
 	};
 
+	const Remainder = () => {
+		return (
+			<Container textAlign='center' style={{ marginTop: '50px' }}>
+				Ecommerce Demo Customer Databank
+			</Container>
+		);
+	};
+
 	return (
 		<>
 			<Header as='h2' textAlign='left'>
@@ -77,7 +92,11 @@ const AdminCustomer = () => {
 				/>
 			</Container>
 			<Divider />
-			{Object.keys(user).length > 0 && <CustomerDisplay user={user} />}
+			{Object.keys(user).length > 0 ? (
+				<CustomerDisplay user={user} />
+			) : (
+				<Remainder />
+			)}
 		</>
 	);
 };
