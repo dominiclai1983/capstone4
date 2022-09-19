@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Button, Form, Icon, Message, Container } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Signup = () => {
+	const navigate = useNavigate();
+
 	const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -22,7 +24,7 @@ const Signup = () => {
 			const result = await axios.post('/api/users', user);
 			console.log(result.data);
 			if (result.data.success) {
-				window.location.replace('/');
+				navigate('/');
 			}
 		} catch (err) {
 			console.error(err);

@@ -7,14 +7,16 @@ import {
 	Segment,
 	Container,
 } from 'semantic-ui-react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = () => {
+	const location = useLocation();
+	const navigate = useNavigate();
+	//could useLocation hook to pass down the state. get it by location.state
+
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const location = useLocation();
-	//could useLocation hook to pass down the state. get it by location.state
 
 	console.log(location.state);
 
