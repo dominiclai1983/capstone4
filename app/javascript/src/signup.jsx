@@ -14,10 +14,12 @@ const Signup = () => {
 
 	const handleSubmit = async () => {
 		const user = {
-			username,
-			email,
-			password,
-			passwordConfirmation,
+			user: {
+				username,
+				email,
+				password,
+				passwordConfirmation,
+			},
 		};
 
 		try {
