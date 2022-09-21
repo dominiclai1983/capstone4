@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CartState } from '@src/context';
 import _ from 'lodash';
-import CartSummary from '@components/cart/cartSummary';
+import CartSummary from '@components/cart/CartSummary';
 import {
 	Button,
 	Table,
