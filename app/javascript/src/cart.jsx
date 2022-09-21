@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import CartTable from '@components/cart/CartTable';
+import CartTable from '@components/cart/cartTable';
 import { CartState } from '@src/context';
 import { Button, Container, Grid, Header } from 'semantic-ui-react';
 import { Link, useOutletContext, useLocation } from 'react-router-dom';
