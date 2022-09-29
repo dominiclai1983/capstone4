@@ -14,7 +14,6 @@ const CheckoutFinal = () => {
 	return (
 		<Container style={{ marginTop: '25px' }}>
 			<Grid>
-				<Header as='h2'>Confirm Your Order Details</Header>
 				<ConfirmGrid />
 			</Grid>
 		</Container>

@@ -32,7 +32,7 @@ const ShippingAddress = () => {
 				</p>
 				<p>
 					{address1}
-					{address2 && <p>{address2}</p>}
+					{address2}
 					{infoDistrict} {region}
 				</p>
 				<p>
