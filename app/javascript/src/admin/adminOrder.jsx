@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Header, Input, Dropdown, Menu } from 'semantic-ui-react';
+import {
+	Container,
+	Header,
+	Input,
+	Dropdown,
+	Menu,
+	Table,
+	Image,
+} from 'semantic-ui-react';
 import OrderTable from '@components/admin/OrderTable';
 import axios from 'axios';
+
+const src = 'https://react.semantic-ui.com/images/avatar/small/matt.jpg';
 
 const AdminOrder = () => {
 	const dropDownOption = [
@@ -11,7 +21,7 @@ const AdminOrder = () => {
 		{ key: 4, text: 'Tracking ID', value: 'tracking' },
 	];
 
-	const [orders, setOrders] = useState([]);
+	const [orders, setOrder] = useState([]);
 	const [totalPages, setTotalPages] = useState(null);
 	const [nextPage, setNextPage] = useState(null);
 	const [dropDownSelection, setDropDownSelection] = useState(
@@ -20,15 +30,66 @@ const AdminOrder = () => {
 	const [inputField, setInputField] = useState('');
 	const [activeItem, setActiveItem] = useState('allorders');
 
-	const handleItemClick = (e, { name }) => setActiveItem(name);
+	//const handleItemClick = (e, { name }) => setActiveItem(name);
+
+	const handlingAllOrder = async () => {
+		try {
+			const result = await axios.get('/api/orders_admin');
+			setOrder(result.data.orders);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const handleOnPending = async () => {
+		try {
+			const result = await axios.get('/api/orders_admin?pending=true');
+			setOrder(result.data.orders);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const handleCancelled = async () => {
+		try {
+			const result = await axios.get('/api/orders_admin?cancelled=true');
+			setOrder(result.data.orders);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const handleSearchOrderID = async () => {
+		try {
+			const result = await axios.get(`/api/orders_admin?orderID=${inputField}`);
+			setOrder(result.data.orders);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const handleSearchSKU = async () => {
+		try {
+			const result = await axios.get(`/api/orders_admin?sku=${inputField}`);
+			setOrder(result.data.orders);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const handleSearchEmail = async () => {
+		try {
+			const result = await axios.get(`/api/orders_admin?email=${inputField}`);
+			setOrder(result.data.orders);
+		} catch (err) {
+			console.error(err);
+		}
+	};
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const result = await axios.get('/api/orders?admin_checker=true');
-				if (result.data) {
-					setOrders(result.data.orders);
-				}
+				handlingAllOrder();
 			} catch (err) {
 				console.error(err);
 			}
@@ -36,7 +97,21 @@ const AdminOrder = () => {
 		fetchData();
 	}, []);
 
-	console.log(orders);
+	const handleOnClick = async () => {
+		try {
+			if (inputField) {
+				if (dropDownSelection === 'id') {
+					handleSearchOrderID();
+				} else if (dropDownSelection === 'sku') {
+					handleSearchSKU();
+				} else if (dropDownSelection === 'email') {
+					handleSearchEmail();
+				}
+			}
+		} catch (err) {
+			console.error(err);
+		}
+	};
 
 	return (
 		<>
@@ -60,7 +135,7 @@ const AdminOrder = () => {
 					action={{
 						content: 'Submit',
 						onClick: () => {
-							console.log('eeee');
+							handleOnClick();
 						},
 					}}
 					placeholder='Search...'
@@ -73,21 +148,30 @@ const AdminOrder = () => {
 					<Menu.Item
 						name='pending'
 						active={activeItem === 'pending'}
-						onClick={handleItemClick}
+						onClick={(_, data) => {
+							handleOnPending();
+							setActiveItem(data.name);
+						}}
 					>
 						Pending
 					</Menu.Item>
 					<Menu.Item
 						name='allorders'
 						active={activeItem === 'allorders'}
-						onClick={handleItemClick}
+						onClick={(_, data) => {
+							handlingAllOrder();
+							setActiveItem(data.name);
+						}}
 					>
 						All Orders
 					</Menu.Item>
 					<Menu.Item
 						name='cancelled'
 						active={activeItem === 'cancelled'}
-						onClick={handleItemClick}
+						onClick={(_, data) => {
+							handleCancelled();
+							setActiveItem(data.name);
+						}}
 					>
 						Cancelled
 					</Menu.Item>

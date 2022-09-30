@@ -35,9 +35,7 @@ const AdminCustomer = () => {
 					}
 				}
 			} else {
-				const result = await axios.get(`/api/users`);
-				if (result.data) {
-				}
+				return 0;
 			}
 		} catch (err) {
 			console.error(err);

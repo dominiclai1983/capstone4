@@ -32,11 +32,50 @@ class Api::OrdersController < ApplicationController
         Order.where(order_date: range, status: true, payment_status: true)
 
       render "api/orders/index"
-    elsif is_admin? && admin_session && params[:admin_checker]
-      @orders = Order.all(order_date: :desc).page(params[:page]).per(25)
+    elsif params[:admin_checker]
+      @orders = Order.all.order(order_date: :desc).page(params[:page]).per(25)
       render "api/orders/index"
     else
       render json: { orders: [] }
+    end
+  end
+
+  def admin_index
+    if !admin_session
+      return render json: { error: "user not logged in" }, status: :unauthorized
+    elsif params[:pending]
+      @orders =
+        Order
+          .where(tracking_number: nil)
+          .order(order_date: :desc)
+          .page(params[:page])
+          .per(25)
+      render "api/orders/index"
+    elsif params[:cancelled]
+      @orders =
+        Order
+          .where(status: false)
+          .order(order_date: :desc)
+          .page(params[:page])
+          .per(25)
+      render "api/orders/index"
+    elsif params[:orderID]
+      @orders = Order.where(id: params[:orderID]).page(params[:page]).per(25)
+      render "api/orders/index"
+    elsif params[:sku]
+      @orders =
+        Order
+          .joins(:products)
+          .where(products: { sku: params[:sku] })
+          .page(params[:page])
+          .per(25)
+      render "api/orders/index"
+    elsif params[:email]
+      @orders = Order.where(email: params[:email]).page(params[:page]).per(25)
+      render "api/orders/index"
+    else
+      @orders = Order.all.order(order_date: :desc).page(params[:page]).per(25)
+      render "api/orders/index"
     end
   end
 

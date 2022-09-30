@@ -18,10 +18,6 @@ class Api::UsersController < ApplicationController
       @user = User.find_by(username: params[:username])
       render "api/users/show", status: :ok
       return render json: { error: "not_found" }, status: :not_found if !@user
-    else
-      @users = User.order(created_at: :desc)
-      return render json: { error: "not_found" }, status: :not_found if !@users
-      render "api/users/index", status: :ok
     end
   end
 

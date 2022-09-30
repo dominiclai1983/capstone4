@@ -68,6 +68,8 @@ Rails.application.routes.draw do
     post "/orders/tracking/:id"     => "orders#report_tracking_number_by_order_id"
     #get "/orders_month"             => "orders#get_order_by_month"
 
+    get "/orders_admin"             => "orders#admin_index"
+
     #product api
     get "/products"                 => "products#index"
     get "/products/:sku"            => "products#show"
