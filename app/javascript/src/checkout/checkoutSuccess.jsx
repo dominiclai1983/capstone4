@@ -4,8 +4,10 @@ import { useBeforeunload } from 'react-beforeunload';
 import { useLocation, useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 //useBeforeunload() is a hook to handle onbeforeunload event
-/*fire an api call to change dispatch_confirm to true when the page is close 
-and prevent the revisit of the page*/
+/* 
+fire an api call to change dispatch_confirm to true when the page is close 
+and prevent the revisit of the page
+*/
 const CheckoutSuccess = () => {
 	const { pathname } = useLocation();
 	const [activeItem, setActiveItem] = useOutletContext();

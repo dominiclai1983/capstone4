@@ -1,4 +1,5 @@
 class Api::ProductCodesController < ApplicationController
+  #this has been deprecated. keep the file to ensure the app would run first!
   def create
     if session and is_admin?
       @product_code = ProductCode.new(product_code_params)

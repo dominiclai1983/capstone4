@@ -57,7 +57,6 @@ const Cart = () => {
 						)}
 					</Grid.Column>
 				</Grid.Row>
-
 				<CartTable />
 			</Grid>
 		</Container>

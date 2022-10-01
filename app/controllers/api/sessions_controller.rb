@@ -1,4 +1,5 @@
 class Api::SessionsController < ApplicationController
+  #below methods are for user login
   def create
     @user = User.find_by(email: params[:user][:email])
 
@@ -33,6 +34,7 @@ class Api::SessionsController < ApplicationController
     render json: { success: true }, status: :ok if session and session.destroy
   end
 
+  #below methods are for the admin section
   def admin
     @admin = User.find_by(email: params[:user][:email])
 

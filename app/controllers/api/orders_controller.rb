@@ -114,10 +114,6 @@ class Api::OrdersController < ApplicationController
   def report_tracking_number_by_order_id
     if session and is_admin?
       @order = Order.find(params[:id])
-      #status = @order.status
-      #payment_status = @order.payment_status
-
-      #if !status and
 
       now = DateTime.current
 

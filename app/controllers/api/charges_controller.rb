@@ -2,6 +2,8 @@ class Api::ChargesController < ApplicationController
   skip_before_action :verify_authenticity_token,
                      only: %i[mark_complete mark_complete_intent]
 
+  #this controller consisted both checkout session and payment intent from stripe
+
   def create
     token = cookies.signed[:ecommerce_session_token]
     session = Session.find_by(token: token)
@@ -201,7 +203,7 @@ class Api::ChargesController < ApplicationController
               total: item.total
             }
           )
-        #change the product quantity  
+        #change the product quantity
         product = Product.find_by(id: item.product_id)
         new_reserved = (product.reserved.to_i + item.quantity.to_i)
         #ruby treats + is concatenation if not specific the variable is interger

@@ -12,13 +12,11 @@ import axios from 'axios';
 
 const Login = () => {
 	const location = useLocation();
-	const navigate = useNavigate();
+	//const navigate = useNavigate();
 	//could useLocation hook to pass down the state. get it by location.state
 
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-
-	console.log(location.state);
 
 	const handleLogin = async () => {
 		const user = {
@@ -47,6 +45,7 @@ const Login = () => {
 			const result = await axios.get('/api/conversion');
 			if (result.data) {
 				console.log(result.data);
+				//keep above console.log
 			}
 		} catch (err) {
 			console.error(err);

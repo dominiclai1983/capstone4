@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment, Container, Table } from 'semantic-ui-react';
+import { Segment, Container } from 'semantic-ui-react';
 
 const CustomerDisplay = (props) => {
 	let { user } = props;

@@ -39,6 +39,7 @@ const AdminProduct = () => {
 	const handleSKUSearch = async () => {
 		try {
 			const result = await axios.get(`/api/products?sku=${inputField}`);
+			setProducts(result.data.products);
 		} catch (err) {
 			console.error(err);
 		}

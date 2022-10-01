@@ -29,7 +29,7 @@ class Api::UsersController < ApplicationController
       render json: { success: false }, status: :bad_request
     end
   end
-  #TODO: test the edit_password method
+
   def edit_password
     if session
       @user = session.user

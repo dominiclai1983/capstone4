@@ -83,7 +83,6 @@ function Layout() {
 		}
 	};
 
-	//remember the prop component has to be capital
 	const LoginComponent = () => {
 		return (
 			<>

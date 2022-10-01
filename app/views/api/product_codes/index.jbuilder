@@ -1,3 +1,4 @@
+#this has been deprecated. keep the code to ensure the app running first
 json.product_codes do
   json.array! @product_codes do |product_code|
     json.id product_code.id

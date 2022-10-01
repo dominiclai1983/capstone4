@@ -1,4 +1,5 @@
 class Api::CodesController < ApplicationController
+  #this controller is about the product code
   def create
     if session and is_admin?
       @code = ProductCode.new(code_params)

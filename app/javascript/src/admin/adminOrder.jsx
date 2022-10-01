@@ -3,8 +3,6 @@ import { Container, Header, Input, Dropdown, Menu } from 'semantic-ui-react';
 import OrderTable from '@components/admin/OrderTable';
 import axios from 'axios';
 
-const src = 'https://react.semantic-ui.com/images/avatar/small/matt.jpg';
-
 const AdminOrder = () => {
 	const dropDownOption = [
 		{ key: 1, text: 'Order ID', value: 'id' },

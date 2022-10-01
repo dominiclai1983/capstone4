@@ -38,8 +38,6 @@ const Product = () => {
 		fetchData();
 	}, [pathname]);
 
-	console.log(products);
-
 	//refer layout.jsx for useOutletContext() hook
 	const handleItemClick = (e, { name }) => setActiveItem(name);
 

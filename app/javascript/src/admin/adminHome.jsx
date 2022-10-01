@@ -96,12 +96,6 @@ const AdminHome = () => {
 
 	return (
 		<>
-			{/*
-			<Container
-				textAlign='center'
-				style={{ marginTop: '15px', width: '1000px' }}
-			>
-				*/}
 			<Header as='h2' textAlign='left'>
 				Dashboard
 			</Header>
