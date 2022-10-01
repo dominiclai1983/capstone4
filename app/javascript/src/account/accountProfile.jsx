@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { set } from 'lodash';
 import React, { useState, useEffect } from 'react';
 import {
 	Header,
@@ -68,6 +67,10 @@ const AccountProfile = () => {
 			}
 		} catch (err) {
 			console.error(err);
+			setSystemMessage('The old password is incorrect!');
+			setPositive(false);
+			setNegative(true);
+			setDisplayMessage(true);
 		}
 	};
 
@@ -79,14 +82,16 @@ const AccountProfile = () => {
 				<Grid columns='one' textAlign='left' celled>
 					<Grid.Row>
 						<Grid.Column width={12}>
-							User Name: <br />${username}
+							User Name: <br />
+							{username}
 						</Grid.Column>
 						<Grid.Column width={4}></Grid.Column>
 					</Grid.Row>
 
 					<Grid.Row>
 						<Grid.Column width={12}>
-							Email: <br />${email}
+							Email: <br />
+							{email}
 						</Grid.Column>
 						<Grid.Column width={4}></Grid.Column>
 					</Grid.Row>
@@ -159,6 +164,9 @@ const AccountProfile = () => {
 							onClick={() => {
 								setDisplayEdit(!displayEdit);
 								setDisplayMessage(false);
+								setPassword('');
+								setNewPassword('');
+								setNewPasswordConfirm('');
 							}}
 						>
 							Cancel
