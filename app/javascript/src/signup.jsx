@@ -11,6 +11,8 @@ const Signup = () => {
 	const [password, setPassword] = useState('');
 	const [passwordConfirmation, setPasswordConfirmation] = useState('');
 	const [disableTAndC, setDisableTAndC] = useState(true);
+	const [displayMessage, setDisplayMessage] = useState(false);
+	const [systemMessage, setSystemMessage] = useState('');
 
 	const handleSubmit = async () => {
 		const user = {
@@ -22,6 +24,14 @@ const Signup = () => {
 			},
 		};
 
+		setDisplayMessage(false);
+
+		if (password !== passwordConfirmation) {
+			setSystemMessage('The Password Does Not Match With Confirm Password!');
+			setDisplayMessage(true);
+			return;
+		}
+
 		try {
 			const result = await axios.post('/api/users', user);
 			console.log(result.data);
@@ -30,6 +40,8 @@ const Signup = () => {
 			}
 		} catch (err) {
 			console.error(err);
+			setSystemMessage('The Username / Email Has Been Registered!');
+			setDisplayMessage(true);
 		}
 	};
 
@@ -41,6 +53,7 @@ const Signup = () => {
 					header='Welcome to our site!'
 					content='Fill out the form below to sign-up for a new account'
 				/>
+				{displayMessage && <Message negative>{systemMessage}</Message>}
 				<Form
 					className='attached fluid segment'
 					onSubmit={(e) => {
@@ -93,7 +106,16 @@ const Signup = () => {
 							setDisableTAndC(!disableTAndC);
 						}}
 					/>
-					<Button color='yellow' disabled={disableTAndC}>
+					<Button
+						color='yellow'
+						disabled={
+							!disableTAndC ||
+							!username ||
+							!email ||
+							!password ||
+							!passwordConfirmation
+						}
+					>
 						Submit
 					</Button>
 				</Form>

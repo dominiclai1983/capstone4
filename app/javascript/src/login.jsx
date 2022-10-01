@@ -6,17 +6,19 @@ import {
 	Grid,
 	Segment,
 	Container,
+	Message,
 } from 'semantic-ui-react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = () => {
 	const location = useLocation();
-	//const navigate = useNavigate();
 	//could useLocation hook to pass down the state. get it by location.state
 
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [displayMessage, setDisplayMessage] = useState(false);
+	const [systemMessage, setSystemMessage] = useState('');
 
 	const handleLogin = async () => {
 		const user = {
@@ -25,6 +27,8 @@ const Login = () => {
 				password,
 			},
 		};
+
+		setDisplayMessage(false);
 
 		try {
 			const result = await axios.post('/api/sessions', user);
@@ -36,6 +40,8 @@ const Login = () => {
 			}
 		} catch (err) {
 			console.error(err);
+			setSystemMessage('The Password Is Incorrect!');
+			setDisplayMessage(true);
 		}
 	};
 
@@ -85,12 +91,19 @@ const Login = () => {
 					</Grid.Column>
 
 					<Grid.Column verticalAlign='middle'>
-						<Button content='Sign up' icon='signup' size='big' />
+						<Button
+							content='Sign up'
+							icon='signup'
+							size='big'
+							as={Link}
+							to='/signup'
+						/>
 					</Grid.Column>
 				</Grid>
 
 				<Divider vertical>Or</Divider>
 			</Segment>
+			{displayMessage && <Message negative>{systemMessage}</Message>}
 		</Container>
 	);
 };
