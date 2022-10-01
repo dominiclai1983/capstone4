@@ -57,7 +57,7 @@ const AccountProfile = () => {
 			const result = await axios.put('/api/users', sendNewPassword);
 			if (result.data.success) {
 				setDisplayEdit(!displayEdit);
-				setDisplayMessage(!displayMessage);
+				setDisplayMessage(true);
 				setPositive(true);
 				setNegative(false);
 				setSystemMessage('The New Password Has Been Set!');
@@ -95,14 +95,13 @@ const AccountProfile = () => {
 						</Grid.Column>
 						<Grid.Column width={4}></Grid.Column>
 					</Grid.Row>
-
-					<Grid.Row>
-						<Grid.Column width={12}>
-							Password: <br />
-							•••••••
-						</Grid.Column>
-						<Grid.Column textAlign='center' width={4}>
-							{displayEdit ? null : (
+					{displayEdit ? null : (
+						<Grid.Row>
+							<Grid.Column width={12}>
+								Password: <br />
+								•••••••
+							</Grid.Column>
+							<Grid.Column textAlign='center' width={4}>
 								<Button
 									float='right'
 									onClick={() => {
@@ -112,9 +111,9 @@ const AccountProfile = () => {
 								>
 									Edit
 								</Button>
-							)}
-						</Grid.Column>
-					</Grid.Row>
+							</Grid.Column>
+						</Grid.Row>
+					)}
 				</Grid>
 			</Container>
 			{displayEdit && (
@@ -171,7 +170,12 @@ const AccountProfile = () => {
 						>
 							Cancel
 						</Button>
-						<Button type='submit' floated='right' color='yellow'>
+						<Button
+							type='submit'
+							floated='right'
+							color='yellow'
+							disabled={!password || !newPassword || !newPasswordConfirm}
+						>
 							Submit
 						</Button>
 					</Form>

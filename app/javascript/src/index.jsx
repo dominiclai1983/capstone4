@@ -9,6 +9,7 @@ import Product from './product';
 import ListingProduct from './listingProduct';
 import Cart from './cart';
 import AccountHome from './account/accountHome';
+import AccountOrder from './account/accountOrder';
 import AccountProfile from './account/accountProfile';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -26,6 +27,7 @@ const Index = () => (
 						<Route path='product/:sku' element={<ListingProduct />} />
 						<Route path='cart' element={<Cart />} />
 						<Route path='account' element={<AccountHome />} />
+						<Route path='account/order' element={<AccountOrder />} />
 						<Route path='account/profile' element={<AccountProfile />} />
 					</Route>
 				</Routes>

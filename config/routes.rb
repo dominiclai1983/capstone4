@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get "/checkout/success"     => "static_pages#checkout"
 
   get "/account"                        => "static_pages#index"
+  get "/account/order"                  => "static_pages#index"
   get "/account/profile"                => "static_pages#index"
 
   get "/admin"                          => "static_pages#admin"

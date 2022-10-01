@@ -10,7 +10,7 @@ const AccountHome = () => {
 					Your Account
 				</Header>
 				<Card.Group centered>
-					<Card>
+					<Card as={Link} to='/account/order'>
 						<Card.Content>
 							<Card.Header>
 								<Icon name='box' />
