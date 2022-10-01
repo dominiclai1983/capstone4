@@ -87,7 +87,6 @@ function Layout() {
 	const LoginComponent = () => {
 		return (
 			<>
-				00{' '}
 				<Menu.Item
 					as={Link}
 					to='/signup'

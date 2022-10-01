@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get "/checkout/success"     => "static_pages#checkout"
 
   get "/account"                        => "static_pages#index"
+  get "/account/profile"                => "static_pages#index"
 
   get "/admin"                          => "static_pages#admin"
   get "/admin/home"                     => "static_pages#admin"
@@ -66,7 +67,7 @@ Rails.application.routes.draw do
     get "/orders/:id"               => "orders#get_order_by_order_id"
     post "/orders/:id"              => "orders#edit_order_by_order_id"
     post "/orders/tracking/:id"     => "orders#report_tracking_number_by_order_id"
-    #get "/orders_month"             => "orders#get_order_by_month"
+    get "/orders_graph"             => "orders#graph"
 
     get "/orders_admin"             => "orders#admin_index"
 
@@ -103,6 +104,7 @@ Rails.application.routes.draw do
     #user api
     post "/remove_current_cart"     => "users#remove_current_cart"
     get "/users"                    => "users#index"
+    put "/users"                    => "users#edit_password"
 
   end
 end

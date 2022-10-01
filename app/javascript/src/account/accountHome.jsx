@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Header, Icon, Card } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 const AccountHome = () => {
 	return (
@@ -31,7 +32,7 @@ const AccountHome = () => {
 				</Card.Group>
 
 				<Card.Group centered>
-					<Card>
+					<Card as={Link} to='/account/profile'>
 						<Card.Content>
 							<Card.Header>
 								<Icon name='setting' />

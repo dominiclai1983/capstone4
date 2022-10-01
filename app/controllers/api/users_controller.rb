@@ -35,8 +35,9 @@ class Api::UsersController < ApplicationController
       @user = session.user
 
       if @user and @user.authenticate(params[:user][:password])
-        @user.password = BCrypt::Password.create(params[:user][:new_password])
-        render "api/users/password"
+        @user.password = params[:user][:new_password]
+        @user.password_confirmation = params[:user][:new_password]
+        render "api/users/password" if @user.save
       else
         render json: { success: false }, status: :bad_request
       end
@@ -70,7 +71,9 @@ class Api::UsersController < ApplicationController
       :email,
       :password,
       :username,
-      :password_confirmation
+      :password_confirmation,
+      :new_password,
+      :new_password_confirmation
     )
   end
 

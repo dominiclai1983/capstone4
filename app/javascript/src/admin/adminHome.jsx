@@ -26,7 +26,7 @@ const AdminHome = () => {
 		let newDailyArray = [];
 		let newDailyTotalArray = [];
 		await axios
-			.get(`/api/orders?month=${month}&year=${year}`)
+			.get(`/api/orders_graph?month=${month}&year=${year}`)
 			.then((result) => {
 				if (result.data.orders) {
 					console.log(result.data.orders);

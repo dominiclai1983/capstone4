@@ -79,6 +79,23 @@ class Api::OrdersController < ApplicationController
     end
   end
 
+  def graph
+    if !(params[:month] && params[:year])
+      return render json: { error: "no time range" }, status: :unauthorized
+    end
+
+    month = params[:month].to_i
+    year = params[:year].to_i
+    day = Time.days_in_month(month, year)
+
+    date = DateTime.new(year, month, 1)
+    range = (date)..(date + day.days)
+
+    @orders = Order.where(order_date: range, status: true, payment_status: true)
+
+    render "api/orders/graph"
+  end
+
   def edit_order_by_order_id
     if session and is_admin?
       @order = Order.find_by(id: params[:id])
