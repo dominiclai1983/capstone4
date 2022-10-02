@@ -1,15 +1,13 @@
 import React from 'react';
 import { Grid, Image } from 'semantic-ui-react';
 
-import '@src/css/utils.scss';
-
 const imageOne = 'https://i.imgur.com/m0EKScR.jpg';
 const imageTwo = 'https://i.imgur.com/AA4ADNu.jpg';
 
 const FrontPageGrid = () => {
 	return (
 		<Grid columns={3} divided>
-			<Grid.Row className='mt-4'>
+			<Grid.Row style={{ marginTop: '16px' }}>
 				<Grid.Column>
 					<Image src={imageOne} />
 				</Grid.Column>

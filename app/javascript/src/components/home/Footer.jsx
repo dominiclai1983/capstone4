@@ -1,8 +1,6 @@
 import React from 'react';
 import { Grid, Header, Icon } from 'semantic-ui-react';
 
-import '@src/css/utils.scss';
-
 //TODO: change the inline style later on
 const Footer = () => {
 	return (

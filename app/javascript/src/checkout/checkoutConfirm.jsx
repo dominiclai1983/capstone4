@@ -6,7 +6,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import { safeCredentials, handleErrors } from '@components/utils/fetchHelper';
 import StripeCheckoutForm from '@components/checkout/StripeCheckoutForm';
 import { useLocation, useOutletContext } from 'react-router-dom';
-import '@src/css/checkoutConfirm.scss';
+import './checkoutConfirm.scss';
 
 const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
 

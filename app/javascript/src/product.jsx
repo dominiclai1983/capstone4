@@ -11,8 +11,6 @@ import { Link, useLocation, useOutletContext } from 'react-router-dom';
 import ItemDisplay from '@components/product/ItemDisplay';
 import axios from 'axios';
 
-import '@src/css/utils.scss';
-
 const Product = () => {
 	const [activeItem, setActiveItem] = useOutletContext();
 	const { pathname } = useLocation();
