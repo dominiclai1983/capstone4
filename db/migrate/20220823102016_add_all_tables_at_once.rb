@@ -33,6 +33,21 @@ class AddAllTablesAtOnce < ActiveRecord::Migration[6.1]
       t.timestamps
     end
 
+    create_table :addresses do |t|
+      t.string :first_name
+      t.string :last_name
+      t.string :billing_email
+      t.string :phone_number
+      t.string :address_1
+      t.string :address_2
+      t.string :district
+      t.string :region
+      t.boolean :is_billing
+      t.boolean :remove, default: false
+      t.belongs_to :user, index: true, foreign_key: true
+      t.timestamps
+    end
+
     create_table :orders do |t|
       t.datetime :order_date
       t.datetime :shipping_date
@@ -97,21 +112,6 @@ class AddAllTablesAtOnce < ActiveRecord::Migration[6.1]
 
       t.belongs_to :guest_cart, index: true, foreign_key: true
       t.belongs_to :product, index: true, foreign_key: true
-    end
-
-    create_table :addresses do |t|
-      t.string :first_name
-      t.string :last_name
-      t.string :billing_email
-      t.string :phone_number
-      t.string :address_1
-      t.string :address_2
-      t.string :district
-      t.string :region
-      t.boolean :is_billing
-      t.boolean :remove, default: false
-      t.belongs_to :user, index: true, foreign_key: true
-      t.timestamps
     end
   end
 end
