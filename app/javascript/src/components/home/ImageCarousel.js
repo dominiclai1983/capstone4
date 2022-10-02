@@ -18,7 +18,7 @@ const ImageCarousel = () => (
 				<Image src='https://i.imgur.com/vmLPLzt.jpg' />
 			</Slide>
 			<Slide tag='a' index={2}>
-				<Image src='https://via.placeholder.com/918x425.png' />
+				<Image src='https://i.imgur.com/vmLPLzt.jpg' />
 			</Slide>
 		</Slider>
 
