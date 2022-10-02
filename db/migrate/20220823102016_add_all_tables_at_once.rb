@@ -48,6 +48,21 @@ class AddAllTablesAtOnce < ActiveRecord::Migration[6.1]
       t.timestamps
     end
 
+    create_table :carts do |t|
+      t.boolean :remove, default: false
+      t.belongs_to :user, index: true, foreign_key: true
+      t.timestamps
+    end
+
+    create_table :charges do |t|
+      t.string :checkout_session_id
+      t.string :currency
+      t.decimal :amount
+      t.boolean :complete, default: false
+      t.belongs_to :cart, index: true, foreign_key: true
+      t.timestamps
+    end
+
     create_table :orders do |t|
       t.datetime :order_date
       t.datetime :shipping_date
@@ -70,21 +85,6 @@ class AddAllTablesAtOnce < ActiveRecord::Migration[6.1]
       t.boolean :remove, default: true
       t.belongs_to :order, index: true, foreign_key: true
       t.belongs_to :product, index: true, foreign_key: true
-      t.timestamps
-    end
-
-    create_table :charges do |t|
-      t.string :checkout_session_id
-      t.string :currency
-      t.decimal :amount
-      t.boolean :complete, default: false
-      t.belongs_to :cart, index: true, foreign_key: true
-      t.timestamps
-    end
-
-    create_table :carts do |t|
-      t.boolean :remove, default: false
-      t.belongs_to :user, index: true, foreign_key: true
       t.timestamps
     end
 
