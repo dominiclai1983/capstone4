@@ -8,17 +8,11 @@ const ImageCarousel = () => (
 	<CarouselProvider
 		naturalSlideWidth={2.16}
 		naturalSlideHeight={1}
-		totalSlides={3}
+		totalSlides={1}
 	>
 		<Slider>
 			<Slide tag='a' index={0}>
 				<Image src='https://i.imgur.com/9mfqxL9.jpg' />
-			</Slide>
-			<Slide tag='a' index={1}>
-				<Image src='https://i.imgur.com/vmLPLzt.jpg' />
-			</Slide>
-			<Slide tag='a' index={2}>
-				<Image src='https://i.imgur.com/vmLPLzt.jpg' />
 			</Slide>
 		</Slider>
 
