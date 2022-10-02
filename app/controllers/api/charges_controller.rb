@@ -139,7 +139,8 @@ class Api::ChargesController < ApplicationController
   end
 
   def mark_complete_intent
-    endpoint_secret = ENV["STRIPE_MARK_COMPLETE_WEBHOOK_SIGNING_SECRET"]
+    endpoint_secret =
+      ENV["STRIPE_MARK_COMPLETE_WEBHOOK_PAYMENTINTENT_SIGNING_SECRET"]
     payload = request.body.read
     event = nil
 
