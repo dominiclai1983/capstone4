@@ -49,8 +49,6 @@ const NewAddress = (props) => {
 		is_billing: false,
 	};
 
-	console.log(address);
-
 	const dropDownOption = _.times(info.length, (i) => ({
 		key: i,
 		value: info[i].isoCode,
@@ -60,12 +58,10 @@ const NewAddress = (props) => {
 
 	const handleRadioChange = (e, { value }) => {
 		setValue(value);
-		console.log(value);
 	};
 
 	const handleDropDownChange = (e, { value }) => {
 		setDistrict(value);
-		console.log(district);
 	};
 
 	const handleSubmit = async () => {
@@ -73,7 +69,6 @@ const NewAddress = (props) => {
 			const result = await axios.post('/api/addresses', address);
 			if (result.data) {
 				setShippingAddress(result.data.address);
-				console.log(result.data.address);
 				navigate('../final');
 			}
 		} catch (err) {

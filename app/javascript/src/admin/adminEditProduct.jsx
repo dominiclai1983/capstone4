@@ -83,16 +83,12 @@ const AdminEditProduct = () => {
 		try {
 			const result = await axios.put('/api/products', formData);
 			if (result.data) {
-				console.log(result.data);
 				navigate('../admin/home/product');
 			}
 		} catch (err) {
 			console.error(err);
 		}
 	};
-
-	console.log(product);
-	console.log(sku);
 
 	return (
 		<>

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import {
 	Header,
@@ -8,6 +7,7 @@ import {
 	Form,
 	Message,
 } from 'semantic-ui-react';
+import axios from 'axios';
 
 const AccountProfile = () => {
 	const [username, setUsername] = useState('');

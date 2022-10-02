@@ -68,8 +68,6 @@ function Layout() {
 		fetchData();
 	}, [currentCartID]);
 
-	console.log(cart);
-
 	const handleItemClick = (e, { name }) => setActiveItem(name);
 
 	const handleLogOut = async () => {

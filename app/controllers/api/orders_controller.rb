@@ -36,7 +36,7 @@ class Api::OrdersController < ApplicationController
       @orders = Order.all.order(order_date: :desc).page(params[:page]).per(25)
       render "api/orders/index"
     else
-      render json: { orders: [] }
+      render json: { success: false }, status: :bad_request
     end
   end
 

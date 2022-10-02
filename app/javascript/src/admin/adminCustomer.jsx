@@ -22,14 +22,12 @@ const AdminCustomer = () => {
 				if (dropDownSelection === 'email') {
 					const result = await axios.get(`/api/users?email=${inputField}`);
 					if (result.data) {
-						console.log(result.data);
 						setUser(result.data.user);
 						setOrders(result.data.orders);
 					}
 				} else {
 					const result = await axios.get(`/api/users?username=${inputField}`);
 					if (result.data) {
-						console.log(result.data);
 						setUser(result.data.user);
 						setOrders(result.data.orders);
 					}

@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Header, Icon, Card } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const AccountHome = () => {
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const result = await axios.get('/api/authenticated');
+			} catch (err) {
+				console.error(err);
+				navigate('/login');
+			}
+		};
+		fetchData();
+	}, []);
+
 	return (
 		<>
 			<Container style={{ marginTop: 60 }}>

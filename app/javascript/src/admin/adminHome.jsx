@@ -54,11 +54,7 @@ const AdminHome = () => {
 				);
 				setTotalOrder(result.data.orders.length);
 			});
-
-		console.log();
 	};
-
-	console.log;
 
 	useEffect(() => {
 		const fetchData = async () => {

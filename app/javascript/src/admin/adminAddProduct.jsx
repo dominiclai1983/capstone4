@@ -92,16 +92,12 @@ const AdminAddProduct = () => {
 		try {
 			const result = await axios.post('/api/products', formData);
 			if (result.data) {
-				console.log(result.data);
 				navigate('/admin/home/product');
 			}
 		} catch (err) {
 			console.error(err);
 		}
 	};
-
-	console.log(codes);
-	console.log(product);
 
 	return (
 		<>
