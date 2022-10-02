@@ -109,7 +109,6 @@ class AddAllTablesAtOnce < ActiveRecord::Migration[6.1]
       t.integer :quantity
       t.boolean :remove, default: false
       t.timestamps
-
       t.belongs_to :guest_cart, index: true, foreign_key: true
       t.belongs_to :product, index: true, foreign_key: true
     end
