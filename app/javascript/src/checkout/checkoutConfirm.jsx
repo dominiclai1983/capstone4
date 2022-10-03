@@ -12,7 +12,8 @@ const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
 
 const CheckoutConfirm = () => {
 	const { pathname } = useLocation();
-	const [activeItem, setActiveItem] = useOutletContext();
+	const [activeItem, setActiveItem, loginStatus, setLoginStatus] =
+		useOutletContext();
 	const path = pathname === '/checkout' ? 'home' : pathname.substring(10);
 	const [clientSecret, setClientSecret] = useState('');
 	const [amountInCent, setAmountInCent] = useState(null);
@@ -24,24 +25,28 @@ const CheckoutConfirm = () => {
 	useEffect(() => {
 		setActiveItem(path);
 		// Create PaymentIntent as soon as the page loads
-		fetch(
-			'/api/charges_intent',
-			safeCredentials({
-				method: 'POST',
-				body: JSON.stringify({
-					metadata: {
-						cart_id: currentCartID,
-						address_id: shippingAddress.id,
-						shipping_fee: shippingFee,
-					},
-				}),
-			})
-		)
-			.then(handleErrors)
-			.then((data) => {
-				setClientSecret(data.client_secret);
-				setAmountInCent(data.amount);
-			});
+		if (loginStatus) {
+			fetch(
+				'/api/charges_intent',
+				safeCredentials({
+					method: 'POST',
+					body: JSON.stringify({
+						metadata: {
+							cart_id: currentCartID,
+							address_id: shippingAddress.id,
+							shipping_fee: shippingFee,
+						},
+					}),
+				})
+			)
+				.then(handleErrors)
+				.then((data) => {
+					setClientSecret(data.client_secret);
+					setAmountInCent(data.amount);
+				});
+		} else {
+			window.location.replace('/login');
+		}
 	}, []);
 
 	const appearance = {

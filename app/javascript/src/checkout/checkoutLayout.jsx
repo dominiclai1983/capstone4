@@ -99,7 +99,9 @@ const CheckoutLayout = () => {
 							</Step>
 						</Step.Group>
 					</Container>
-					<Outlet context={[activeItem, setActiveItem]} />
+					<Outlet
+						context={[activeItem, setActiveItem, loginStatus, setLoginStatus]}
+					/>
 				</>
 			)}
 		</>

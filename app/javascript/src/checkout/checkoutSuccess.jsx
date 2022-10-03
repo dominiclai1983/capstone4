@@ -10,7 +10,8 @@ and prevent the revisit of the page
 */
 const CheckoutSuccess = () => {
 	const { pathname } = useLocation();
-	const [activeItem, setActiveItem] = useOutletContext();
+	const [activeItem, setActiveItem, loginStatus, setLoginStatus] =
+		useOutletContext();
 	const path = pathname === '/checkout' ? 'home' : pathname.substring(10);
 	const clientSecret = new URLSearchParams(window.location.search).get(
 		'payment_intent_client_secret'
@@ -21,11 +22,15 @@ const CheckoutSuccess = () => {
 		setActiveItem(path);
 		const fetchData = async () => {
 			try {
-				const result = await axios.get(
-					`/api/charges_intent?checkout_session_id=${clientSecret}`
-				);
-				if (!result.data.order.dispatch_confirm) {
-					setOrderDetail(result.data.order);
+				if (loginStatus) {
+					const result = await axios.get(
+						`/api/charges_intent?checkout_session_id=${clientSecret}`
+					);
+					if (!result.data.order.dispatch_confirm) {
+						setOrderDetail(result.data.order);
+					} else {
+						window.location.replace('/');
+					}
 				}
 			} catch (err) {
 				console.error(err);

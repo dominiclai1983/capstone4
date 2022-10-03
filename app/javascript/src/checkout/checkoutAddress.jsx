@@ -2,26 +2,36 @@ import React, { useState, useEffect } from 'react';
 import { CheckoutState } from './checkoutContext';
 import { Segment, Grid, Container, Header } from 'semantic-ui-react';
 import NewAddress from '@components/checkout/NewAddress';
+import { useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 
 const CheckoutAddress = () => {
 	const { setShippingAddress, setShowAddressForm } = CheckoutState();
+	const [activeItem, setActiveItem, loginStatus, setLoginStatus] =
+		useOutletContext();
 	const [addresses, setAddresses] = useState([]);
 	const [raised, setRaised] = useState(null);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const result = await axios.get('api/addresses');
-				if (result.data) {
-					setAddresses(result.data.addresses);
+				if (loginStatus) {
+					const result = await axios.get('api/addresses');
+					if (result.data) {
+						setAddresses(result.data.addresses);
+					}
+				} else {
+					window.location.replace('/login');
 				}
 			} catch (err) {
+				window.location.replace('/login');
 				console.error(err);
 			}
 		};
 		fetchData();
 	}, []);
+
+	console.log(loginStatus);
 
 	const AddressCart = (props) => {
 		let { address, index } = props;

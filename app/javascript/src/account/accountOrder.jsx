@@ -31,7 +31,8 @@ const AccountOrder = () => {
 				<Header as='h2' textAlign='center'>
 					Your Orders
 				</Header>
-				{orders.length > 0 ? <OrderTable orders={orders} /> : <NoOrder />}
+				{orders.length > 0 ? <OrderTable orders={orders} /> : null}
+				{orders.length == 0 ? null : <NoOrder />}
 			</Container>
 		</>
 	);
