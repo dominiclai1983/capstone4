@@ -22,16 +22,10 @@ const CheckoutSuccess = () => {
 		setActiveItem(path);
 		const fetchData = async () => {
 			try {
-				if (loginStatus) {
-					const result = await axios.get(
-						`/api/charges_intent?checkout_session_id=${clientSecret}`
-					);
-					if (!result.data.order.dispatch_confirm) {
-						setOrderDetail(result.data.order);
-					} else {
-						window.location.replace('/');
-					}
-				}
+				const result = await axios.get(
+					`/api/charges_intent?checkout_session_id=${clientSecret}`
+				);
+				setOrderDetail(result.data.order);
 			} catch (err) {
 				console.error(err);
 			}

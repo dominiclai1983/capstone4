@@ -6,7 +6,7 @@ import { useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 
 const CheckoutAddress = () => {
-	const { setShippingAddress, setShowAddressForm } = CheckoutState();
+	const { setShippingAddress, setShowAddressForm, cart } = CheckoutState();
 	const [activeItem, setActiveItem, loginStatus, setLoginStatus] =
 		useOutletContext();
 	const [addresses, setAddresses] = useState([]);
@@ -30,8 +30,6 @@ const CheckoutAddress = () => {
 		};
 		fetchData();
 	}, []);
-
-	console.log(loginStatus);
 
 	const AddressCart = (props) => {
 		let { address, index } = props;

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { CheckoutState } from './checkoutContext';
 import { Container, Icon, Image, Step } from 'semantic-ui-react';
-import { useLocation, Outlet, useNavigate } from 'react-router-dom';
+import { useLocation, Outlet } from 'react-router-dom';
 import axios from 'axios';
 
 const CheckoutLayout = () => {
 	const { pathname } = useLocation();
-	const navigate = useNavigate();
 	const { setCart, currentCartID, setCurrentCartID } = CheckoutState();
 	const path = pathname === '/checkout' ? 'home' : pathname.substring(10);
 	//10 char = '/checkout/'
