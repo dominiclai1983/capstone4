@@ -45,3 +45,4 @@ yarn-debug.log*
 .todo
 .todos
 .taskpaper
+/config/env.yml
