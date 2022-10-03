@@ -24,7 +24,7 @@ const CheckoutSuccess = () => {
 		};
 		try {
 			const result = await axios.post('/api/remove_current_cart', order_id);
-			console.log(result);
+			console.log(result.data);
 		} catch (err) {
 			console.error(err);
 		}

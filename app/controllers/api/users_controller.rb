@@ -55,7 +55,7 @@ class Api::UsersController < ApplicationController
       @user = session.user
       if @user && @user.update_attribute(:current_cart, nil) &&
            order.update_attribute(:dispatch_confirm, true)
-        puts "{ cart_removal: true, dispatch_confirm: true }"
+        render "api/users/remove", status: :created
       else
         puts "{ cart_removal: false }"
       end
