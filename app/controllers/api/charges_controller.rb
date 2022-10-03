@@ -56,7 +56,6 @@ class Api::ChargesController < ApplicationController
 
   def mark_complete
     # You can find your endpoint's secret in your webhook settings
-
     endpoint_secret = ENV["STRIPE_MARK_COMPLETE_WEBHOOK_SIGNING_SECRET"]
     payload = request.body.read
     event = nil

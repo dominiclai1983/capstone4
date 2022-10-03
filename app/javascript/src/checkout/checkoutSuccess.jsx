@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Container, Header, Icon, Button } from 'semantic-ui-react';
-import { useBeforeunload } from 'react-beforeunload';
+//import { useBeforeunload } from 'react-beforeunload';
 import { useLocation, useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 //useBeforeunload() is a hook to handle onbeforeunload event
@@ -18,21 +18,6 @@ const CheckoutSuccess = () => {
 	);
 	const [orderDetail, setOrderDetail] = useState({});
 
-	useEffect(() => {
-		setActiveItem(path);
-		const fetchData = async () => {
-			try {
-				const result = await axios.get(
-					`/api/charges_intent?checkout_session_id=${clientSecret}`
-				);
-				setOrderDetail(result.data.order);
-			} catch (err) {
-				console.error(err);
-			}
-		};
-		fetchData();
-	}, []);
-
 	const handleRemoveCurrentCart = async () => {
 		const order_id = {
 			order_id: orderDetail.id,
@@ -45,9 +30,39 @@ const CheckoutSuccess = () => {
 		}
 	};
 
+	useEffect(() => {
+		setActiveItem(path);
+		const fetchData = async () => {
+			try {
+				const result = await axios.get(
+					`/api/charges_intent?checkout_session_id=${clientSecret}`
+				);
+				if (result.data.order) {
+					setOrderDetail(result.data.order);
+				}
+			} catch (err) {
+				console.error(err);
+			}
+		};
+		fetchData();
+	}, []);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				handleRemoveCurrentCart();
+			} catch (err) {
+				console.error(err);
+			}
+		};
+		fetchData();
+	}, [orderDetail]);
+
+	/*
 	useBeforeunload(async (e) => {
 		handleRemoveCurrentCart();
 	});
+	*/
 
 	return (
 		<>
