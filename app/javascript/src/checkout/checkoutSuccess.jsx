@@ -39,6 +39,7 @@ const CheckoutSuccess = () => {
 				);
 				if (result.data.order) {
 					setOrderDetail(result.data.order);
+					handleRemoveCurrentCart();
 				}
 			} catch (err) {
 				console.error(err);
@@ -46,23 +47,6 @@ const CheckoutSuccess = () => {
 		};
 		fetchData();
 	}, []);
-
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				handleRemoveCurrentCart();
-			} catch (err) {
-				console.error(err);
-			}
-		};
-		fetchData();
-	}, [orderDetail]);
-
-	/*
-	useBeforeunload(async (e) => {
-		handleRemoveCurrentCart();
-	});
-	*/
 
 	return (
 		<>
