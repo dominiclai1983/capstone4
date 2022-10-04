@@ -40,7 +40,7 @@ class Api::ProductsController < ApplicationController
   end
 
   def create
-    if session and is_admin?
+    if admin_session and is_admin?
       @product = Product.new(product_params)
 
       if @product.save
@@ -54,7 +54,7 @@ class Api::ProductsController < ApplicationController
   end
 
   def edit_by_sku
-    if session and is_admin?
+    if admin_session and is_admin?
       @product = Product.find_by(sku: params[:sku])
 
       if @product and @product.update(product_params)
