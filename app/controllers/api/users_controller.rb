@@ -53,8 +53,7 @@ class Api::UsersController < ApplicationController
 
     if session
       @user = session.user
-      if @user && @user.update_attribute(:current_cart, nil) &&
-           order.update_attribute(:dispatch_confirm, true)
+      if @user && order.update_attribute(:dispatch_confirm, true)
         render "api/users/remove", status: :created
       else
         puts "{ cart_removal: false }"

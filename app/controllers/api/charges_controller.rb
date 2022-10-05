@@ -211,7 +211,10 @@ class Api::ChargesController < ApplicationController
         product.update_attribute(:reserved, new_reserved)
         new_available = product.quantity - new_reserved
         product.update_attribute(:available, new_available)
+
+        @order.user.update_attribute(:current_cart, nil)
       end
+
       render json: { order_creation: "success" }
     else
       render json: { error: "cannot create order" }, status: :bad_request
