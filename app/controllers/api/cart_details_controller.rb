@@ -94,7 +94,7 @@ class Api::CartDetailsController < ApplicationController
             )
         end
       end
-      cookies.delete :guest_cart
+      cookies.signed[:guest_cart] = { value: nil, expires: 30.days }
       GuestCart.find(guest_cart_id).update_attribute(:remove, true)
       render "api/cart_details/remove", status: :ok
     else

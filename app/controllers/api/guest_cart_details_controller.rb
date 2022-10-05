@@ -35,8 +35,9 @@ class Api::GuestCartDetailsController < ApplicationController
 
   def get_guest_cart_details_by_cart_id
     id = cookies.signed[:guest_cart]
-
-    if id
+    #ensure the guest_cart is still active
+    #guest_cart = GuestCart.find(id)
+    if !id
       @guest_cart_details =
         GuestCartDetail.where(guest_cart_id: id, remove: false)
       render "api/guest_cart_details/index", status: :ok
