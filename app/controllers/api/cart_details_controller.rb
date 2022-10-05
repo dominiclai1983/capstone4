@@ -93,9 +93,10 @@ class Api::CartDetailsController < ApplicationController
               }
             )
         end
-        cookies.delete :guest_cart
       end
-      render json: { cart_conversion: true }, status: :ok
+      cookies.delete :guest_cart
+      GuestCart.find(guest_cart_id).update_attribute(:remove, true)
+      render "api/cart_details/remove", status: :ok
     else
       render json: { error: "could not create cart" }, status: :bad_request
     end
