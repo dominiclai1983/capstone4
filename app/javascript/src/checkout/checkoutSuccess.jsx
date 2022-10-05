@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Container, Header, Icon, Button } from 'semantic-ui-react';
-//import { useBeforeunload } from 'react-beforeunload';
+import { useBeforeunload } from 'react-beforeunload';
 import { useLocation, useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 //useBeforeunload() is a hook to handle onbeforeunload event
@@ -19,11 +19,10 @@ const CheckoutSuccess = () => {
 	const [orderDetail, setOrderDetail] = useState({});
 
 	const handleRemoveCurrentCart = async () => {
-		const order_id = {
-			order_id: orderDetail.id,
-		};
 		try {
-			const result = await axios.post('/api/remove_current_cart', order_id);
+			const result = await axios.post(
+				`/api/remove_current_cart?order_id=${orderDetail.id}`
+			);
 			console.log(result.data);
 		} catch (err) {
 			console.error(err);
@@ -39,7 +38,6 @@ const CheckoutSuccess = () => {
 				);
 				if (result.data.order) {
 					setOrderDetail(result.data.order);
-					handleRemoveCurrentCart();
 				}
 			} catch (err) {
 				console.error(err);
@@ -47,6 +45,10 @@ const CheckoutSuccess = () => {
 		};
 		fetchData();
 	}, []);
+
+	useBeforeunload(async () => {
+		handleRemoveCurrentCart();
+	});
 
 	return (
 		<>
