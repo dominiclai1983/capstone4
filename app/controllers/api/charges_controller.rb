@@ -169,11 +169,13 @@ class Api::ChargesController < ApplicationController
 
     if event["type"] == "payment_intent.succeeded"
       payment_intent = event.data.object
-      puts payment_intent
+      #puts payment_intent
       metadata = payment_intent["metadata"]
 
       charge = Charge.find_by(checkout_session_id: payment_intent.client_secret)
+      #ensure the payment is completed
       charge.update_attribute(:complete, true)
+      #inactive the cart
       charge.cart.update_attribute(:remove, true)
 
       #create an order
@@ -211,7 +213,7 @@ class Api::ChargesController < ApplicationController
         product.update_attribute(:reserved, new_reserved)
         new_available = product.quantity - new_reserved
         product.update_attribute(:available, new_available)
-
+        #remove the user's current cart
         @order.user.update_attribute(:current_cart, nil)
       end
 
