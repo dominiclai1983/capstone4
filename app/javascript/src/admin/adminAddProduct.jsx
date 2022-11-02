@@ -31,6 +31,9 @@ const AdminAddProduct = () => {
 	const [imageOne, setImageOne] = useState(null);
 	const [previewImageOne, setPreviewImageOne] = useState(null);
 
+	const [displayMessage, setDisplayMessage] = useState(false);
+	const [systemMessage, setSystemMessage] = useState('');
+
 	const dropDownOption = _.times(codes.length, (i) => ({
 		key: i,
 		value: codes[i].id,

@@ -38,6 +38,9 @@ const Login = () => {
 					? window.location.replace('/checkout')
 					: window.location.replace('/');
 			}
+			//if prev path is cart, then redirect to checkout
+			//prev path is getting by location.state. it is passed down from cart.jsx through <Link> state property"
+			//<Link to={'/login'} state={{ prevPath: location.pathname }}>
 		} catch (err) {
 			console.error(err);
 			setSystemMessage('The Password Is Incorrect!');

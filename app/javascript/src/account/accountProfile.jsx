@@ -16,6 +16,7 @@ const AccountProfile = () => {
 	const [newPassword, setNewPassword] = useState('');
 	const [newPasswordConfirm, setNewPasswordConfirm] = useState('');
 	const [displayEdit, setDisplayEdit] = useState(false);
+
 	const [displayMessage, setDisplayMessage] = useState(false);
 	const [systemMessage, setSystemMessage] = useState('');
 	const [positive, setPositive] = useState(false);
