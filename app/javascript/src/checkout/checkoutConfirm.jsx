@@ -11,6 +11,7 @@ import './checkoutConfirm.scss';
 const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
 
 const CheckoutConfirm = () => {
+	//pls do not change the code for this page anymore.
 	const { pathname } = useLocation();
 	const [activeItem, setActiveItem, loginStatus, setLoginStatus] =
 		useOutletContext();
